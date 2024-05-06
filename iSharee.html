@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iSharee</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-left">
+            <button class="close-menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+            <div class="app-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-bar-chart-2">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                </svg>
+                <span>Recruiter</span>
+            </div>
+            <ul class="nav-list">
+                <li class="nav-list-item active">
+                    <a class="nav-list-link" href="#" onclick="showDashboard()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-columns">
+                            <path
+                                d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showFiles()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-briefcase">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                        </svg>
+                        Files
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showVideoFiles()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-file">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                            <polyline points="13 2 13 9 20 9" />
+                        </svg>
+                        Videos
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showAudioFiles()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-users">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        Audio
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showPhotos()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-pie-chart">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                            <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                        </svg>
+                        Photos
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showUploadFiles()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-pie-chart">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                            <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                        </svg>
+                        Upload Files
+                    </a>
+                </li>
+                <li class="nav-list-item">
+                    <a class="nav-list-link" href="#" onclick="showPhotos()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-pie-chart">
+                            <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+                            <path d="M22 12A10 10 0 0 0 12 2v10z" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ################################################################################################> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="app-main">
+            <div class="content" id="dashboard">
+
+                <div class="h-1">
+                    <h1>Applications Dashboard</h1>
+                </div>
+                <div class="main-header-line">
+                    <div class="action-buttons">
+                        <button class="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chart-row three">
+                    <div class="chart-container-wrapper">
+                        <div class="chart-container">
+                            <div class="chart-info-wrapper"></div>
+                            <div class="chart-svg">
+
+
+                                <div id="sessions"></div>
+                                <div id="tableName"></div>
+
+
+
+
+
+
+                                1</div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="chart-container-wrapper">
+                        <div class="chart-container">
+                            <div class="chart-info-wrapper">2</div>
+                            <div class="chart-svg"></div>
+                        </div>
+                    </div>
+                    <div class="chart-container-wrapper">
+                        <div class="chart-container">
+                            <div class="chart-info-wrapper">3</div>
+                            <div class="chart-svg"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-row two">
+                    <div class="chart-container-wrapper big">
+                        <div class="chart-container">
+                            <div class="chart-container-header">
+                                <h1 class="section-header">Quick Access</h1>
+                            </div>
+                            <div class="line-chart">
+                                <section class="content-section">
+                                    <div class="access-links">
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showPhotos()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-image">
+                                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                                    <polyline points="21 15 16 10 5 21" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text" onclick="showPhotos()">Images</span>
+                                        </div>
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showAudioFiles()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-music">
+                                                    <path d="M9 18V5l12-2v13" />
+                                                    <circle cx="6" cy="18" r="3" />
+                                                    <circle cx="18" cy="16" r="3" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text">Music</span>
+                                        </div>
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showVideoFiles()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="currentColor" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-play">
+                                                    <polygon points="5 3 19 12 5 21 5 3" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text">Video</span>
+                                        </div>
+
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showDocs()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-align-left">
+                                                    <line x1="17" y1="10" x2="3" y2="10" />
+                                                    <line x1="21" y1="6" x2="3" y2="6" />
+                                                    <line x1="21" y1="14" x2="3" y2="14" />
+                                                    <line x1="17" y1="18" x2="3" y2="18" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text">Docs</span>
+                                        </div>
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showFiles()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-layers">
+                                                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                                                    <polyline points="2 17 12 22 22 17" />
+                                                    <polyline points="2 12 12 17 22 12" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text">Files</span>
+                                        </div>
+                                        <div class="access-link-wrapper">
+                                            <div class="access-icon" onclick="showDownloads()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-arrow-down-circle">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <polyline points="8 12 12 16 16 12" />
+                                                    <line x1="12" y1="8" x2="12" y2="16" />
+                                                </svg>
+                                            </div>
+                                            <span class="access-text">Download</span>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div class="chart-data-details">
+                                <div class="chart-details-header"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container-wrapper small">
+                        <div class="chart-container">
+                            <div class="chart-container-header">
+                                <h2>Acquisitions</h2>
+                                <span href="#">This month</span>
+                            </div>
+
+                            <div class="acquisitions-bar">5</div>
+
+                            <div class="progress-bar-info"></div>
+                        </div>
+
+                        <div class="chart-container applicants">
+                            <div class="chart-container-header">
+                                <h2>New Applicants</h2>
+                                <span>Today</span>
+                            </div>
+                            6
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content" id="files" style="display: none">
+                <div class="h-1">
+                    <h1>Files</h1>
+                    <div class="cl-bn">
+                        <button class="bn-t12" onclick="closeFilesSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="main-header-line">
+                    <div class="action-buttons">
+                        <button class="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="fileList"></div>
+            </div>
+
+            <div class="content" id="videos" style="display: none">
+
+                <div class="h-1">
+                    <h2>Video Files</h2>
+                    <div class="cl-bn">
+
+                        <button class="bn-t12" onclick="closeVideosSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="main-header-line">
+                    <div class="content-action-buttons">
+                        <button class="open-right-area-2" id="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button-2" id="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="videofileList"></div>
+            </div>
+
+            <div class="content" id="audios" style="display: none">
+
+                <div class="h-1">
+                    <h2>Audio Files</h2>
+                    <div class="cl-bn">
+
+                        <button class="bn-t12" onclick="closeAudiosSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="main-header-line">
+                    <div class="content-action-buttons">
+                        <button class="open-right-area-3" id="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button-3" id="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="audiofileList"></div>
+            </div>
+
+            <div class="content" id="photos" style="display: none">
+
+                <div class="h-1">
+                    <h2>Photos</h2>
+                    <div class="cl-bn">
+
+                        <button class="bn-t12" onclick="closePhotosSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="main-header-line">
+                    <div class="content-action-buttons">
+                        <button class="open-right-area-4" id="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button-4" id="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="photosfileList"></div>
+            </div>
+
+            <div class="content" id="upload" style="display: none">
+
+                <div class="h-1">
+                    <h2>Upload Files</h2>
+                    <div class="cl-bn">
+
+                        <button class="bn-t12" onclick="closeUploadsSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="main-header-line">
+                    <div class="content-action-buttons">
+                        <button class="open-right-area-5" id="open-right-area">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-activity">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </button>
+                        <button class="menu-button-5" id="menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <line x1="3" y1="18" x2="21" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="content" id="uploadContainer">
+                    <input type="file" id="fileInput" multiple onchange="displaySelectedFiles()" />
+                    <button onclick="uploadFile()">Upload</button>
+                    <div id="selectedFiles"></div> <!-- Display selected files here -->
+                </div>
+
+                <div id="uploadMessage" style="display: block"></div>
+                <div id="progressBarContainer" style="display: block">
+                    <div id="progressBar"></div>
+                </div>
+
+
+                <div class="content" id="download" style="display: none">
+                    <div class="h-1">
+                        <h2>Downloads</h2>
+                        <div class="cl-bn">
+                            <button class="bn-t12" onclick="closeDownloadsSection()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="main-header-line">
+                        <div class="content-action-buttons">
+                            <button class="open-right-area-6" id="open-right-area">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-activity">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>
+                            </button>
+                            <button class="menu-button-6" id="menu-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-menu">
+                                    <line x1="3" y1="12" x2="21" y2="12" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <line x1="3" y1="18" x2="21" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Settings content goes here -->
+                </div>
+
+                <div class="content" id="settings" style="display: none">
+                    <div class="h-1">
+                        <h2>Settings</h2>
+                        <div class="cl-bn">
+                            <button class="bn-t12" onclick="closeSettingsSection()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="main-header-line">
+                        <div class="content-action-buttons">
+                            <button class="open-right-area-6" id="open-right-area">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-activity">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>
+                            </button>
+                            <button class="menu-button-6" id="menu-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-menu">
+                                    <line x1="3" y1="12" x2="21" y2="12" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <line x1="3" y1="18" x2="21" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Settings content goes here -->
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="app-right">
+            <button class="close-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-x">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+            <div class="profile-box">
+                <div class="profile-photo-wrapper">
+                    <img src="https://www.dropbox.com/s/pg3z9q555fn0g0qh8fqt8/leaf.png?dl=0
+                " alt="profile">
+                </div>
+                <p class="profile-text">George Michael Pussl</p>
+                <p class="profile-subtext">Owner</p>
+                <hr>
+            </div>
+            <div class="app-right-content">
+                <div class="app-right-section">
+                    <div class="app-right-section-header">
+                        <h2>Messages</h2>
+                        <span class="notification-active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-message-square">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="message-line">
+                        <img src="" alt="profile">
+                        <div class="message-text-wrapper">
+                            <p class="message-text"></p>
+                            <p class="message-subtext"></p>
+                        </div>
+                    </div>
+                    <div class="message-line">
+                        <img src="" alt="profile">
+                        <div class="message-text-wrapper">
+                            <p class="message-text"></p>
+                            <p class="message-subtext"></p>
+                        </div>
+                    </div>
+                    <div class="message-line">
+                        <img src="" alt="profile">
+                        <div class="message-text-wrapper">
+                            <p class="message-text"></p>
+                            <p class="message-subtext"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-right-section">
+                    <div class="app-right-section-header">
+                        <h2>Activity</h2>
+                        <span class="notification-active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-bell">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-alert-circle">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+
+
+
+                            <div id="recentlyAddedFiles"></div>
+
+                            <p class="activity-text"> <strong></strong></p>
+                            <a class="activity-link" href="#"></a>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon applicant">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file-plus">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="12" y1="18" x2="12" y2="12" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"><strong></strong><strong></strong></p>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x-circle">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="15" y1="9" x2="9" y2="15" />
+                                <line x1="9" y1="9" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"> <strong></strong>
+                                <strong></strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon applicant">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file-plus">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="12" y1="18" x2="12" y2="12" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"><strong></strong> <strong></strong></p>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon applicant">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file-plus">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="12" y1="18" x2="12" y2="12" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"><strong></strong><strong></strong></p>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-x-circle">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="15" y1="9" x2="9" y2="15" />
+                                <line x1="9" y1="9" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"> <strong></strong>
+                                <strong></strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="activity-line">
+                        <span class="activity-icon draft">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-file-minus">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                        <div class="activity-text-wrapper">
+                            <p class="activity-text"><strong></strong></p>
+                            <a href="#" class="activity-link">Complete Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="contextMenu" class="context-menu">
+        <ul>
+            <li><a href="#" id="downloadOption">Download</a></li>
+            <li><a href="#" id="shareOption">Share</a></li>
+            <li><a href="#" id="deleteOption">Delete</a></li>
+            <!-- Add more options as needed -->
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+
+    <script>
+            const token = localStorage.getItem("token");
+            fetch("https://test-fmju.onrender.com/files", {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                    })
+
+        // fetch("https://test-fmju.onrender.com/files")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Parse response as JSON
+            })
+            .then((data) => {
+                try {
+                    const fileList = document.getElementById("fileList");
+                    const photosFileList = document.getElementById("photosfileList");
+                    const videoFileList = document.getElementById("videofileList");
+                    const audioFileList = document.getElementById("audiofileList");
+    
+                    data.files.forEach((file) => {
+                        const cardContainer = document.createElement("div");
+                        cardContainer.className = "card-container";
+                        cardContainer.dataset.fileId = file.id;
+                        cardContainer.dataset.fileName = file.filename;
+    
+                        const card = document.createElement("div");
+                        card.className = "card";
+    
+                        const fileExtension = file.filename.split(".").pop().toLowerCase();
+                        if (["jpg", "jpeg", "png"].includes(fileExtension)) {
+                            const image = document.createElement("img");
+                            image.src = `https://test-fmju.onrender.com/files/${file.id}`;
+                            image.alt = file.filename;
+                            card.appendChild(image);
+                        } else {
+                            const downloadLink = `<a href="https://test-fmju.onrender.com/files/${file.id}" download>${file.filename}</a>`;
+                            card.innerHTML = downloadLink;
+                        }
+    
+                        // Append card to the card container
+                        cardContainer.appendChild(card);
+    
+                        // Create a div to contain the filename and selection checkbox
+                        const fileInfoContainer = document.createElement("div");
+    
+                        // Create a checkbox for file selection
+                        const checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        checkbox.className = "file-checkbox";
+                        checkbox.dataset.fileId = file.id;
+                        checkbox.dataset.fileName = file.filename;
+                        fileInfoContainer.appendChild(checkbox);
+    
+                        // Add the filename as text inside a <p> element
+                        const fileNameText = document.createElement("p");
+                        fileNameText.textContent = truncateFileName(file.filename);
+                        fileNameText.title = file.filename; // Show full filename on hover
+                        fileNameText.id = "card-content-name"; // Add id attribute
+                        fileInfoContainer.appendChild(fileNameText);
+    
+                        // Append the file info container to the card container
+                        cardContainer.appendChild(fileInfoContainer);
+    
+                        // Append card container to the appropriate list
+                        if (["mp4", "avi", "mov"].includes(fileExtension)) {
+                            videoFileList.appendChild(cardContainer);
+                        } else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
+                            audioFileList.appendChild(cardContainer);
+                        } else if (["jpg", "jpeg", "png"].includes(fileExtension)) {
+                            photosFileList.appendChild(cardContainer);
+                        } else {
+                            fileList.appendChild(cardContainer);
+                        }
+    
+                        // Add event listener to show context menu on right-click
+                        cardContainer.addEventListener("contextmenu", function (event) {
+                            event.preventDefault();
+                            showContextMenu(event.clientX, event.clientY, file.id, file.filename);
+                        });
+    
+                        // Add event listener to toggle selected state on card double click
+                        card.addEventListener("dblclick", function(event) {
+                            toggleSelectState(card);
+                        });
+    
+                        // Function to toggle selected state
+                        function toggleSelectState(card) {
+                            card.classList.toggle("selected");
+                            const checkbox = cardContainer.querySelector(".file-checkbox");
+                            checkbox.checked = !checkbox.checked; // Manually toggle checkbox state
+                        }
+                    });
+    
+                    // Function to show context menu
+                    function showContextMenu(x, y, fileId, fileName) {
+                        const contextMenu = document.getElementById("contextMenu");
+                        contextMenu.style.top = `${y}px`;
+                        contextMenu.style.left = `${x}px`;
+                        contextMenu.style.display = "block";
+    
+                        // Pass fileId and fileName to the context menu
+                        contextMenu.dataset.fileId = fileId;
+                        contextMenu.dataset.fileName = fileName;
+                    }
+    
+                    // Hide context menu when clicking outside
+                    document.addEventListener("click", function (event) {
+                        const contextMenu = document.getElementById("contextMenu");
+                        if (!contextMenu.contains(event.target)) {
+                            contextMenu.style.display = "none";
+                        }
+                    });
+    
+                    // Add event listeners for context menu options
+                    document.getElementById("downloadOption").addEventListener("click", function () {
+                        const selectedFiles = document.querySelectorAll(".card.selected");
+                        selectedFiles.forEach(card => {
+                            const fileId = card.parentNode.dataset.fileId;
+                            window.location.href = `https://test-fmju.onrender.com/files/${fileId}`;
+                        });
+                    });
+    
+                    document.getElementById("deleteOption").addEventListener("click", function () {
+                        const selectedFiles = document.querySelectorAll(".card.selected");
+                        selectedFiles.forEach(card => {
+                            const fileId = card.parentNode.dataset.fileId;
+                            const fileName = card.parentNode.dataset.fileName;
+                            deleteFile(fileId, fileName);
+                        });
+                    });
+    
+                    // Function to delete items
+                    function deleteFile(fileId, fileName) {
+                        const confirmed = confirm(`Are you sure you want to delete "${fileName}"?`);
+                        if (confirmed) {
+                            fetch(`https://test-fmju.onrender.com/delete/${fileId}`, {
+                                method: "DELETE"
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(`Failed to delete file: ${response.status}`);
+                                    }
+                                    // Remove the deleted file from the DOM
+                                    document.querySelector(`[data-file-id="${fileId}"]`).remove();
+                                    console.log(`File "${fileName}" deleted successfully.`);
+                                })
+                                .catch(error => {
+                                    console.error("Error deleting file:", error);
+                                });
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error parsing JSON response:", error);
+                }
+            })
+            .catch((error) => console.error("Error fetching files:", error));
+    
+        // Function to truncate file name
+        function truncateFileName(fileName) {
+            const maxLength = 15; // Adjust the maximum length as needed
+            if (fileName.length <= maxLength) {
+                return fileName;
+            } else {
+                return fileName.substr(0, maxLength) + '...';
+            }
+        }
+    
+        // Function to fetch and display recently added files
+        fetch("https://test-fmju.onrender.com/recently_added_files")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Parse response as JSON
+            })
+            .then((data) => {
+                try {
+                    const recentlyAddedFilesContainer = document.getElementById("recentlyAddedFiles");
+                    recentlyAddedFilesContainer.innerHTML = ''; // Clear previous content
+    
+                    data.files.forEach((file) => {
+                        const fileItem = document.createElement("div");
+                        fileItem.textContent = file.filename;
+                        recentlyAddedFilesContainer.appendChild(fileItem);
+                    });
+                } catch (error) {
+                    console.error("Error parsing JSON response:", error);
+                }
+            })
+            .catch((error) => console.error("Error fetching recently added files:", error));
+    
+        // Function to display success message
+        function displaySuccessMessage(message) {
+            const uploadMessage = document.getElementById("uploadMessage");
+            uploadMessage.textContent = message;
+            uploadMessage.className = "success";
+            uploadMessage.style.display = "block";
+    
+            // Hide the success message after 5 seconds
+            setTimeout(function () {
+                uploadMessage.style.display = "none";
+            }, 5000); // 5000 milliseconds = 5 seconds
+        }
+    
+        // Function to display error message
+        function displayErrorMessage(message) {
+            const uploadMessage = document.getElementById("uploadMessage");
+            uploadMessage.textContent = message;
+            uploadMessage.className = "error";
+            uploadMessage.style.display = "block";
+        }
+    
+        function uploadFile() {
+            const fileInput = document.getElementById("fileInput");
+            const files = fileInput.files;
+    
+            if (files.length === 0) {
+                console.error("No files selected.");
+                return;
+            }
+    
+            const formData = new FormData();
+    
+            for (let i = 0; i < files.length; i++) {
+                formData.append("file", files[i]);
+            }
+    
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://test-fmju.onrender.com/upload", true);
+    
+            xhr.upload.onprogress = function (event) {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    const progressBar = document.getElementById("progressBar");
+                    progressBar.style.width = percentComplete + "%";
+                }
+            };
+    
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // File(s) uploaded successfully
+                    displaySuccessMessage("File(s) uploaded successfully");
+    
+                    // Hide the progress bar after 5 seconds
+                    setTimeout(function () {
+                        document.getElementById("progressBarContainer").style.display = "none";
+                    }, 5000);
+    
+                    // Add the recently uploaded files to the recentlyUploadedfileList div
+                    const recentlyUploadedfileList = document.getElementById("recentlyUploadedfileList");
+                    for (let i = 0; i < files.length; i++) {
+                        const fileItem = document.createElement("div");
+                        fileItem.textContent = files[i].name; // You can customize this to display more information about the file
+                        recentlyUploadedfileList.appendChild(fileItem);
+                    }
+    
+                    // Show the recently uploaded files section
+                    document.getElementById("recentlyuploadedfiles").style.display = "block";
+                } else {
+                    // Error uploading file(s)
+                    displayErrorMessage("Error uploading file(s)");
+                }
+            };
+    
+            xhr.onerror = function () {
+                // Error uploading file
+                displayErrorMessage("Error uploading file");
+            };
+    
+            xhr.send(formData);
+        }
+    
+        // function to remove added files from the selected list
+        function displaySelectedFiles() {
+            const fileInput = document.getElementById("fileInput");
+            const selectedFiles = fileInput.files;
+            const selectedFilesContainer = document.getElementById("selectedFiles");
+            selectedFilesContainer.innerHTML = ""; // Clear previous selections
+    
+            if (selectedFiles.length === 0) {
+                selectedFilesContainer.textContent = "No files selected.";
+            } else {
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const fileName = selectedFiles[i].name;
+                    const fileItem = document.createElement("div");
+                    fileItem.classList.add("file-item");
+    
+                    // Create a checkbox for file selection
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.className = "file-checkbox";
+                    checkbox.dataset.fileId = selectedFiles[i].id; // Assuming the file id is available
+                    checkbox.dataset.fileName = fileName;
+    
+                    // Add the filename as text inside a <p> element
+                    const fileNameText = document.createElement("p");
+                    fileNameText.textContent = fileName;
+                    fileNameText.id = "card-content-name"; // Add id attribute
+    
+                    // Create a button to remove the selected file
+                    const removeButton = document.createElement("button");
+                    removeButton.textContent = "Remove";
+                    removeButton.classList.add("remove-button");
+    
+                    removeButton.onclick = function() {
+                        const indexToRemove = Array.from(selectedFiles).findIndex(file => file.name === fileName);
+                        if (indexToRemove > -1) {
+                            const newFiles = Array.from(selectedFiles);
+                            newFiles.splice(indexToRemove, 1);
+                            const newFileList = new DataTransfer();
+                            newFiles.forEach(file => newFileList.items.add(file));
+                            fileInput.files = newFileList.files;
+                            displaySelectedFiles();
+                        }
+                    };
+    
+                    // Append the checkbox, filename, and remove button to the file item
+                    fileItem.appendChild(checkbox);
+                    fileItem.appendChild(fileNameText);
+                    fileItem.appendChild(removeButton);
+    
+                    // Append the file item to the selected files container
+                    selectedFilesContainer.appendChild(fileItem);
+                }
+            }
+        }
+
+
+        // Function to update session data in the HTML
+        function updateSessionData(session) {
+            const sessionId = document.getElementById("sessions");
+            sessionId.innerHTML = `
+                <h2>Session Information:</h2>
+                <p>User ID: ${session.user_id}</p>
+                <p>Username: ${session.username}</p>
+                <p>Email: ${session.email}</p>
+                <p>Files Table: ${session.files_table}</p>
+            `;
+        }
+
+    </script>
+</body>
+
+</html>
