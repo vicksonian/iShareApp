@@ -170,7 +170,8 @@
 
 
 
-                                1</div>
+                                1
+                            </div>
 
 
 
@@ -790,9 +791,6 @@
         </div>
     </div>
 
-
-
-
     <div id="contextMenu" class="context-menu">
         <ul>
             <li><a href="#" id="downloadOption">Download</a></li>
@@ -803,374 +801,81 @@
     </div>
 
 
+    <div id="shareDialog" class="modal">
+        <div class="modal-content">
+            <div class="close-con">
+                <h3>Enter recipient's username or email:</h3>
+                <span class="close">&times;</span>
+            </div>
+
+
+            <div class="modal-input">
+                <input type="text" id="recipientInput" placeholder="Recipient's username or email">
+            </div>
+            <div class="modal-btn">
+                <button id="shareButton">Share</button>
+                <span id="messageHolder">User Not Available</span>
+            </div>
+            
+        </div>
+    </div>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div id="customDialog" class="dialog">
+        <div class="dialog-content">
+            <p id="dialogMessage"></p>
+            <button id="confirmButton">Confirm</button>
+            <button id="cancelButton">Cancel</button>
+        </div>
+    </div>
 
 
     <script src="script.js"></script>
+    <script src="upload.js"></script>
+    <script src="fileFunctions.js"></script>
+    <!-- <script src="deletefunction.js"></script> -->
 
     <script>
-            const token = localStorage.getItem("token");
-            fetch("https://test-fmju.onrender.com/files", {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                    })
 
-        // fetch("https://test-fmju.onrender.com/files")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // Parse response as JSON
-            })
-            .then((data) => {
-                try {
-                    const fileList = document.getElementById("fileList");
-                    const photosFileList = document.getElementById("photosfileList");
-                    const videoFileList = document.getElementById("videofileList");
-                    const audioFileList = document.getElementById("audiofileList");
-    
-                    data.files.forEach((file) => {
-                        const cardContainer = document.createElement("div");
-                        cardContainer.className = "card-container";
-                        cardContainer.dataset.fileId = file.id;
-                        cardContainer.dataset.fileName = file.filename;
-    
-                        const card = document.createElement("div");
-                        card.className = "card";
-    
-                        const fileExtension = file.filename.split(".").pop().toLowerCase();
-                        if (["jpg", "jpeg", "png"].includes(fileExtension)) {
-                            const image = document.createElement("img");
-                            image.src = `https://test-fmju.onrender.com/files/${file.id}`;
-                            image.alt = file.filename;
-                            card.appendChild(image);
-                        } else {
-                            const downloadLink = `<a href="https://test-fmju.onrender.com/files/${file.id}" download>${file.filename}</a>`;
-                            card.innerHTML = downloadLink;
-                        }
-    
-                        // Append card to the card container
-                        cardContainer.appendChild(card);
-    
-                        // Create a div to contain the filename and selection checkbox
-                        const fileInfoContainer = document.createElement("div");
-    
-                        // Create a checkbox for file selection
-                        const checkbox = document.createElement("input");
-                        checkbox.type = "checkbox";
-                        checkbox.className = "file-checkbox";
-                        checkbox.dataset.fileId = file.id;
-                        checkbox.dataset.fileName = file.filename;
-                        fileInfoContainer.appendChild(checkbox);
-    
-                        // Add the filename as text inside a <p> element
-                        const fileNameText = document.createElement("p");
-                        fileNameText.textContent = truncateFileName(file.filename);
-                        fileNameText.title = file.filename; // Show full filename on hover
-                        fileNameText.id = "card-content-name"; // Add id attribute
-                        fileInfoContainer.appendChild(fileNameText);
-    
-                        // Append the file info container to the card container
-                        cardContainer.appendChild(fileInfoContainer);
-    
-                        // Append card container to the appropriate list
-                        if (["mp4", "avi", "mov"].includes(fileExtension)) {
-                            videoFileList.appendChild(cardContainer);
-                        } else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
-                            audioFileList.appendChild(cardContainer);
-                        } else if (["jpg", "jpeg", "png"].includes(fileExtension)) {
-                            photosFileList.appendChild(cardContainer);
-                        } else {
-                            fileList.appendChild(cardContainer);
-                        }
-    
-                        // Add event listener to show context menu on right-click
-                        cardContainer.addEventListener("contextmenu", function (event) {
-                            event.preventDefault();
-                            showContextMenu(event.clientX, event.clientY, file.id, file.filename);
-                        });
-    
-                        // Add event listener to toggle selected state on card double click
-                        card.addEventListener("dblclick", function(event) {
-                            toggleSelectState(card);
-                        });
-    
-                        // Function to toggle selected state
-                        function toggleSelectState(card) {
-                            card.classList.toggle("selected");
-                            const checkbox = cardContainer.querySelector(".file-checkbox");
-                            checkbox.checked = !checkbox.checked; // Manually toggle checkbox state
-                        }
-                    });
-    
-                    // Function to show context menu
-                    function showContextMenu(x, y, fileId, fileName) {
-                        const contextMenu = document.getElementById("contextMenu");
-                        contextMenu.style.top = `${y}px`;
-                        contextMenu.style.left = `${x}px`;
-                        contextMenu.style.display = "block";
-    
-                        // Pass fileId and fileName to the context menu
-                        contextMenu.dataset.fileId = fileId;
-                        contextMenu.dataset.fileName = fileName;
-                    }
-    
-                    // Hide context menu when clicking outside
-                    document.addEventListener("click", function (event) {
-                        const contextMenu = document.getElementById("contextMenu");
-                        if (!contextMenu.contains(event.target)) {
-                            contextMenu.style.display = "none";
-                        }
-                    });
-    
-                    // Add event listeners for context menu options
-                    document.getElementById("downloadOption").addEventListener("click", function () {
-                        const selectedFiles = document.querySelectorAll(".card.selected");
-                        selectedFiles.forEach(card => {
-                            const fileId = card.parentNode.dataset.fileId;
-                            window.location.href = `https://test-fmju.onrender.com/files/${fileId}`;
-                        });
-                    });
-    
-                    document.getElementById("deleteOption").addEventListener("click", function () {
-                        const selectedFiles = document.querySelectorAll(".card.selected");
-                        selectedFiles.forEach(card => {
-                            const fileId = card.parentNode.dataset.fileId;
-                            const fileName = card.parentNode.dataset.fileName;
-                            deleteFile(fileId, fileName);
-                        });
-                    });
-    
-                    // Function to delete items
-                    function deleteFile(fileId, fileName) {
-                        const confirmed = confirm(`Are you sure you want to delete "${fileName}"?`);
-                        if (confirmed) {
-                            fetch(`https://test-fmju.onrender.com/delete/${fileId}`, {
-                                method: "DELETE"
-                            })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(`Failed to delete file: ${response.status}`);
-                                    }
-                                    // Remove the deleted file from the DOM
-                                    document.querySelector(`[data-file-id="${fileId}"]`).remove();
-                                    console.log(`File "${fileName}" deleted successfully.`);
-                                })
-                                .catch(error => {
-                                    console.error("Error deleting file:", error);
-                                });
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error parsing JSON response:", error);
-                }
-            })
-            .catch((error) => console.error("Error fetching files:", error));
-    
-        // Function to truncate file name
-        function truncateFileName(fileName) {
-            const maxLength = 15; // Adjust the maximum length as needed
-            if (fileName.length <= maxLength) {
-                return fileName;
-            } else {
-                return fileName.substr(0, maxLength) + '...';
-            }
-        }
-    
-        // Function to fetch and display recently added files
-        fetch("https://test-fmju.onrender.com/recently_added_files")
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // Parse response as JSON
-            })
-            .then((data) => {
-                try {
-                    const recentlyAddedFilesContainer = document.getElementById("recentlyAddedFiles");
-                    recentlyAddedFilesContainer.innerHTML = ''; // Clear previous content
-    
-                    data.files.forEach((file) => {
-                        const fileItem = document.createElement("div");
-                        fileItem.textContent = file.filename;
-                        recentlyAddedFilesContainer.appendChild(fileItem);
-                    });
-                } catch (error) {
-                    console.error("Error parsing JSON response:", error);
-                }
-            })
-            .catch((error) => console.error("Error fetching recently added files:", error));
-    
+        // // Function to fetch and display recently added files
+        // fetch("http://192.168.74.8:5000/recently_added_files")
+        //     .then((response) => {
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! Status: ${response.status}`);
+        //         }
+        //         return response.json(); // Parse response as JSON
+        //     })
+        //     .then((data) => {
+        //         try {
+        //             const recentlyAddedFilesContainer = document.getElementById("recentlyAddedFiles");
+        //             recentlyAddedFilesContainer.innerHTML = ''; // Clear previous content
+
+        //             data.files.forEach((file) => {
+        //                 const fileItem = document.createElement("div");
+        //                 fileItem.textContent = file.filename;
+        //                 recentlyAddedFilesContainer.appendChild(fileItem);
+        //             });
+        //         } catch (error) {
+        //             console.error("Error parsing JSON response:", error);
+        //         }
+        //     })
+        //     .catch((error) => console.error("Error fetching recently added files:", error));
+
+
         // Function to display success message
         function displaySuccessMessage(message) {
             const uploadMessage = document.getElementById("uploadMessage");
             uploadMessage.textContent = message;
             uploadMessage.className = "success";
             uploadMessage.style.display = "block";
-    
+
             // Hide the success message after 5 seconds
             setTimeout(function () {
                 uploadMessage.style.display = "none";
             }, 5000); // 5000 milliseconds = 5 seconds
         }
-    
-        // Function to display error message
-        function displayErrorMessage(message) {
-            const uploadMessage = document.getElementById("uploadMessage");
-            uploadMessage.textContent = message;
-            uploadMessage.className = "error";
-            uploadMessage.style.display = "block";
-        }
-    
-        function uploadFile() {
-            const fileInput = document.getElementById("fileInput");
-            const files = fileInput.files;
-    
-            if (files.length === 0) {
-                console.error("No files selected.");
-                return;
-            }
-    
-            const formData = new FormData();
-    
-            for (let i = 0; i < files.length; i++) {
-                formData.append("file", files[i]);
-            }
-    
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://test-fmju.onrender.com/upload", true);
-    
-            xhr.upload.onprogress = function (event) {
-                if (event.lengthComputable) {
-                    const percentComplete = (event.loaded / event.total) * 100;
-                    const progressBar = document.getElementById("progressBar");
-                    progressBar.style.width = percentComplete + "%";
-                }
-            };
-    
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    // File(s) uploaded successfully
-                    displaySuccessMessage("File(s) uploaded successfully");
-    
-                    // Hide the progress bar after 5 seconds
-                    setTimeout(function () {
-                        document.getElementById("progressBarContainer").style.display = "none";
-                    }, 5000);
-    
-                    // Add the recently uploaded files to the recentlyUploadedfileList div
-                    const recentlyUploadedfileList = document.getElementById("recentlyUploadedfileList");
-                    for (let i = 0; i < files.length; i++) {
-                        const fileItem = document.createElement("div");
-                        fileItem.textContent = files[i].name; // You can customize this to display more information about the file
-                        recentlyUploadedfileList.appendChild(fileItem);
-                    }
-    
-                    // Show the recently uploaded files section
-                    document.getElementById("recentlyuploadedfiles").style.display = "block";
-                } else {
-                    // Error uploading file(s)
-                    displayErrorMessage("Error uploading file(s)");
-                }
-            };
-    
-            xhr.onerror = function () {
-                // Error uploading file
-                displayErrorMessage("Error uploading file");
-            };
-    
-            xhr.send(formData);
-        }
-    
-        // function to remove added files from the selected list
-        function displaySelectedFiles() {
-            const fileInput = document.getElementById("fileInput");
-            const selectedFiles = fileInput.files;
-            const selectedFilesContainer = document.getElementById("selectedFiles");
-            selectedFilesContainer.innerHTML = ""; // Clear previous selections
-    
-            if (selectedFiles.length === 0) {
-                selectedFilesContainer.textContent = "No files selected.";
-            } else {
-                for (let i = 0; i < selectedFiles.length; i++) {
-                    const fileName = selectedFiles[i].name;
-                    const fileItem = document.createElement("div");
-                    fileItem.classList.add("file-item");
-    
-                    // Create a checkbox for file selection
-                    const checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.className = "file-checkbox";
-                    checkbox.dataset.fileId = selectedFiles[i].id; // Assuming the file id is available
-                    checkbox.dataset.fileName = fileName;
-    
-                    // Add the filename as text inside a <p> element
-                    const fileNameText = document.createElement("p");
-                    fileNameText.textContent = fileName;
-                    fileNameText.id = "card-content-name"; // Add id attribute
-    
-                    // Create a button to remove the selected file
-                    const removeButton = document.createElement("button");
-                    removeButton.textContent = "Remove";
-                    removeButton.classList.add("remove-button");
-    
-                    removeButton.onclick = function() {
-                        const indexToRemove = Array.from(selectedFiles).findIndex(file => file.name === fileName);
-                        if (indexToRemove > -1) {
-                            const newFiles = Array.from(selectedFiles);
-                            newFiles.splice(indexToRemove, 1);
-                            const newFileList = new DataTransfer();
-                            newFiles.forEach(file => newFileList.items.add(file));
-                            fileInput.files = newFileList.files;
-                            displaySelectedFiles();
-                        }
-                    };
-    
-                    // Append the checkbox, filename, and remove button to the file item
-                    fileItem.appendChild(checkbox);
-                    fileItem.appendChild(fileNameText);
-                    fileItem.appendChild(removeButton);
-    
-                    // Append the file item to the selected files container
-                    selectedFilesContainer.appendChild(fileItem);
-                }
-            }
-        }
-
 
         // Function to update session data in the HTML
         function updateSessionData(session) {

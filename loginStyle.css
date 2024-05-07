@@ -1,10 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
+*{
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -19,6 +17,24 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #05113A;
   height: 100dvh;
+}
+
+/* .login-form-container-l1{
+  position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background-color: #010b2a;
+} */
+h1{
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 20px;
 }
 
 .login {
@@ -124,7 +140,7 @@ span{
     letter-spacing: 1px
 }
 
-#bt-23{
+#bt-22,#bt-23{
   width: 100%;
   padding: 9px 14px;
   color: #ffffff;
@@ -133,7 +149,7 @@ span{
   transition: .5s ease;
 }
 
-#bt-23:hover{
+#bt-22:hover, #bt-23:hover{
   background-color: #7d8cbe;
   color: #ffffff;
   transition: 1s ease;
@@ -159,3 +175,16 @@ span{
   font-weight: 500;
   letter-spacing: 1px;
 }
+
+.error-message{
+  display: block;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
