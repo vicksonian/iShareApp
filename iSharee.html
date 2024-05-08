@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>iSharee</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>
@@ -27,7 +29,7 @@
                     <line x1="12" y1="20" x2="12" y2="4" />
                     <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
-                <span>Recruiter</span>
+                <span>iShare </span>
             </div>
             <ul class="nav-list">
                 <li class="nav-list-item active">
@@ -620,11 +622,21 @@
                 </svg>
             </button>
             <div class="profile-box">
+                <div class="profile-box-wrapper">
                 <div class="profile-photo-wrapper">
-                    <img src="https://www.dropbox.com/s/pg3z9q555fn0g0qh8fqt8/leaf.png?dl=0
-                " alt="profile">
+                    
+                    <div class="profilepic">
+
+                        <img src=" images/share icon_3582759.png" alt="profile">
+                    </div>
+
                 </div>
-                <p id="profiletext" class="profile-text">{{ username }}</p>
+                <div class="bt12">
+                    <i class="material-icons">add</i>
+                </div>
+            </div>
+
+                <p id="profiletext" class="profile-text"></p>
                 <p class="profile-subtext">Owner</p>
                 <hr>
             </div>
@@ -816,7 +828,7 @@
                 <button id="shareButton">Share</button>
                 <span id="messageHolder">User Not Available</span>
             </div>
-            
+
         </div>
     </div>
 
@@ -890,6 +902,22 @@
         }
 
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve username from localStorage
+            const username = localStorage.getItem("username");
+
+            // Update the content of the <p> tag with the retrieved username
+            document.getElementById("profiletext").innerText = username;
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            feather.replace();
+        });
+    </script>
+    
 </body>
 
 </html>

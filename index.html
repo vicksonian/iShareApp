@@ -130,46 +130,50 @@
     });
 
 
-    // Function to handle login form submission
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const formData = new FormData(this);
-      const requestData = {
-        username_or_email: formData.get("loginUsername"),
-        password: formData.get("loginPassword"),
-      };
+// Function to handle login form submission
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const formData = new FormData(this);
+  const requestData = {
+    username_or_email: formData.get("loginUsername"),
+    password: formData.get("loginPassword"),
+  };
 
-      // fetch("https://ishare-i8td.onrender.com/login", {
-      fetch("https://ishare-i8td.onrender.com/login", {
-        method: "POST",
-        body: JSON.stringify(requestData),
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); // Remove this line to avoid parsing as JSON
-      })
-      .then((data) => {
-        console.log("Login response data:\n", data);
-        // Verify if token is stored in local storage
-        const token = data.token; // Access token directly from data
-        
-        console.log("\nToken stored in local storage:\n", token);
-        
-        localStorage.setItem("token", token); // Store token in localStorage
+  // fetch("https://ishare-i8td.onrender.com/login", {
+  fetch("https://ishare-i8td.onrender.com/login", {
+    method: "POST",
+    body: JSON.stringify(requestData),
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Login response data:\n", data);
+    // Verify if token is stored in local storage
+    const token = data.token; // Access token directly from data
+    const username = data.username; // Access username directly from data
 
-        displayMessage("success", "Login successful!");
-        window.location.href = "iSharee.html";
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-        displayMessage("error", "Login failed. Please check your username/email and password.");
-      });
-    });
+    console.log("\nToken stored in local storage:\n", token);
+    console.log("\nUsername obtained from login response:\n", username);
+
+    localStorage.setItem("token", token); // Store token in localStorage
+    localStorage.setItem("username", username); // Store username in localStorage
+
+    displayMessage("success", "Login successful!");
+    window.location.href = "iSharee.html"; // Redirect to the next page
+  })
+  .catch((error) => {
+    console.error("Error logging in:", error);
+    displayMessage("error", "Login failed. Please check your username/email and password.");
+  });
+});
+
 
     // Function to display success or error message
     function displayMessage(type, message) {
