@@ -79,7 +79,7 @@ function closeDocsSection() {
     document.getElementById("dashboard").style.display = "block";
 }
 function closeUploadsSection() {
-    document.getElementById("docs").style.display = "none";
+    document.getElementById("upload").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
 }
 

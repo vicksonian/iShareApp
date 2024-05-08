@@ -40,14 +40,17 @@
 
 *************************** */
 body {
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  font-family: "Poppins", sans-serif;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: hidden; /* Disable vertical scroll */
   background-color: #050e2d;
-  color: #fff;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+
+html{
+  height: 100%;
+  overflow-x: hidden;
 }
 
 h1,
@@ -58,6 +61,8 @@ h5 {
   color: #fff;
   font-family: "Poppins", sans-serif;
 }
+
+
 
 hr{
   width: 150px;
@@ -84,7 +89,7 @@ hr{
   height: 100%;
   display: flex;
   position: relative;
-  max-width: 1680px;
+  /* max-width: 1680px; */
 }
 
 .app-left {
@@ -116,7 +121,7 @@ hr{
   width: 320px;
   background-color: var(--app-bg-dark);
   height: 100%;
-  padding: 64px 0 0 0;
+  /* padding: 64px 0 0 0; */
   display: flex;
   flex-direction: column;
   position: relative;
@@ -131,6 +136,8 @@ hr{
   background-image: var(--app-bg-before);
   z-index: 1;
 }
+
+
 .app-right.show {
   right: 0;
   opacity: 1;
@@ -196,12 +203,23 @@ button {
   stroke: var(--app-logo);
 }
 
+.nav-list-link a{
+  text-decoration: none;
+  transition: .5s ease;
+}
+
+.nav-list-item a:hover  {
+  color: red;
+  transition: 1s ease;
+}
+
 .nav-list-link {
   font-weight: 300;
   font-size: 14px;
   line-height: 24px;
   padding: 8px 24px;
   color: var(--nav-link);
+  /* color: #02ffbb; */
   display: flex;
   align-items: center;
   position: relative;
@@ -220,7 +238,18 @@ button {
   border-radius: 2px;
   opacity: 0;
   height: 0;
+  transition: .5s ease;
 }
+
+/* .nav-list li .active{
+  color: var(--nav-link-active);
+  background-color: var(--app-logo);
+  transition: .5s ease;
+  height: 100%;
+
+} */
+
+
 
 #fileList, #audiofileList, #videofileList, #photosfileList {
     display: grid;
@@ -228,18 +257,7 @@ button {
     gap: 20px;
   }
 
-  /* .card {
-    position: relative;
-    background-color: #ffffff00;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px;
-    height: 120px;
-    justify-content: center;
-    align-items: center;
-  }  */
+
 
   .card {
     position: relative;
@@ -822,16 +840,23 @@ button {
 
 .close-menu {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 22px;
+  right: 5px;
   display: none;
   align-items: center;
   justify-content: center;
   border: none;
-  background-color: transparent;
+  background-color: rgba(255, 0, 0, 0);
+  width: 40px;
   padding: 0;
   color: var(--main-color);
   cursor: pointer;
+  transition: .5s ease;
+}
+
+.close-menu:hover{
+  color: rgb(255, 0, 0);
+  transition: .5s ease;
 }
 
 .access-links {
@@ -976,7 +1001,9 @@ button {
   .app-right .close-right {
     position: absolute;
     top: 16px;
-    right: 16px;
+    right: -36px;
+    background-color: #02ffbb;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
