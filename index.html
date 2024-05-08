@@ -77,6 +77,10 @@
         <button id="bt-23" type="submit" class="btn-34">
           Submit
         </button>
+
+      </div>
+      <div class="message-container" id="messagecontainer">
+        <!-- Empty div to display messages -->
       </div>
     </form>
   </div>
@@ -95,61 +99,61 @@
           `;
     }
   
-            // Registration form submission
-            document.getElementById("registrationForm").addEventListener("submit", function(event) {
-                event.preventDefault();
-                
-                const formData = new FormData(this);
-                
-                // fetch("https://ishare-i8td.onrender.com/register", {
-                fetch("https://ishare-i8td.onrender.com/register", {
-                    method: "POST",
-                    body: JSON.stringify(Object.fromEntries(formData.entries())),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    alert("Registration successful!");
-                })
-                .catch(error => {
-                    console.error("Error registering:", error);
-                    alert("Registration failed. Please try again.");
-                });
-            });
+    // Registration form submission
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      // fetch("https://ishare-i8td.onrender.com/register", {
+      fetch("https://ishare-i8td.onrender.com/register", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        displayMessage("success", "Registration successful!");
+      })
+      .catch(error => {
+        console.error("Error registering:", error);
+        displayMessage("error", "Registration failed. Please try again.");
+      });
+    });
 
 
-// Function to handle login form submission
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-    const requestData = {
+    // Function to handle login form submission
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const requestData = {
         username_or_email: formData.get("loginUsername"),
         password: formData.get("loginPassword"),
-    };
+      };
 
-    // fetch("https://ishare-i8td.onrender.com/login", {
-    fetch("https://ishare-i8td.onrender.com/login", {
+      // fetch("https://ishare-i8td.onrender.com/login", {
+      fetch("https://ishare-i8td.onrender.com/login", {
         method: "POST",
         body: JSON.stringify(requestData),
         headers: {
-            "Content-Type": "application/json"
+          "Content-Type": "application/json"
         },
-    })
-    .then((response) => {
+      })
+      .then((response) => {
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json(); // Remove this line to avoid parsing as JSON
-    })
-    .then((data) => {
+      })
+      .then((data) => {
         console.log("Login response data:\n", data);
         // Verify if token is stored in local storage
         const token = data.token; // Access token directly from data
@@ -158,28 +162,21 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         
         localStorage.setItem("token", token); // Store token in localStorage
 
-        alert("Login successful!");
+        displayMessage("success", "Login successful!");
         window.location.href = "iSharee.html";
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error logging in:", error);
-        displayErrorMessage("Login failed. Please check your username/email and password.");
+        displayMessage("error", "Login failed. Please check your username/email and password.");
+      });
     });
-});
 
-
-
-    // Function to display error message for 5 seconds
-    function displayErrorMessage(message) {
-      const errorMessage = document.getElementById("error-message");
-      errorMessage.textContent = message;
-      errorMessage.style.display = "block";
-
-      setTimeout(function() {
-        errorMessage.style.display = "none";
-      }, 5000); // Hide the error message after 5 seconds
+    // Function to display success or error message
+    function displayMessage(type, message) {
+      const messageContainer = document.getElementById("messagecontainer");
+      messageContainer.innerHTML = `<div class="${type}">${message}</div>`;
     }
-  
+
     // Password strength indicator
     let alphabet = /[a-zA-Z]/, //letter a to z and A to Z
       numbers = /[0-9]/, //numbers 0 to 9
