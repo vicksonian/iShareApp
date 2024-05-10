@@ -174,9 +174,6 @@ function showSettings() {
 }
 
 
-
-
-
 function uploadFile() {
     // Your file upload logic here...
     // Once the upload is successful, you can display the success message
@@ -189,3 +186,10 @@ function uploadFile() {
 }
 
 
+const logoutButton = document.getElementById('logout-btn');
+
+logoutButton.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    
+    window.location.href = '/';
+});

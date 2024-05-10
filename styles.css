@@ -1,0 +1,222 @@
+
+body{
+    color: #fff;
+}
+
+
+
+
+
+/* Styles for image container */
+.image {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: 100%; /* Ensure the image fits within the container */
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow: hidden; /* Hide overflowing parts of the image */
+}
+
+/* Styles for image elements inside image containers */
+.image img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Make the image fill the container */
+    object-fit: cover; /* Ensure the image covers the container */
+}
+
+.video-container-box {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    gap: 10px; /* Adjust the gap as needed */
+    justify-items: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    border: 1px solid #ccc; /* Add border for better visualization */
+    padding: 10px; /* Add padding for spacing */
+}
+
+.video-container-box video {
+    max-width: 100%; /* Ensure the video fits within its container */
+    max-height: 100%; /* Ensure the video fits within its container */
+}
+
+.video-container-box div {
+    text-align: center; /* Center the text */
+}
+
+
+/* Styles for video container */
+.video {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: 100%; /* Ensure the video fits within the container */
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow: hidden; /* Hide overflowing parts of the video */
+}
+
+/* Styles for video elements inside video containers */
+.video video {
+    max-block-size: 100%; /* Make the video fill the container */
+    height: 100%; /* Make the video fill the container */
+    object-fit: cover; /* Ensure the video covers the container */
+}
+
+/* Styles for audio container */
+.audio {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Styles for generic file container */
+.file {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Styles for file icon */
+.file i {
+    font-size: 24px; /* Adjust the icon size as needed */
+    margin-right: 5px;
+}
+
+/* Styles for file name */
+.file div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Styles for containers holding multiple elements */
+#photosfileList, #videofileList, #audiofileList, #otherFilesList {
+    margin-top: 20px; /* Add some space between different containers */
+}
+
+
+
+
+
+
+
+
+
+/* Main Rules */
+:root{
+  --white-c: #fff;
+  --black-c: #000;
+  --body-background-c: #FD7AC0;
+  --wrapper-background-c: #D4F1F4;
+  --wrapper-shadow-c: rgba(0, 0, 0, 0.219);
+  --buttons-background-c: rgba(255, 255, 255, 0.219);
+  --buttons-active-background-c: rgba(135, 207, 235, 0.493);
+}
+
+
+
+
+/* Wrapper */
+.wrapper{
+  width: 600px;
+  height: 300px;
+  position: relative;
+  background-color: var(--wrapper-background-c);
+  box-shadow: 0 0 80px var(--wrapper-shadow-c);
+}
+
+/* Images Area */
+.images-area{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+.images-area img{
+  width: 100%;
+  transition: 0.3s cubic-bezier(.79,.03,0,.99);
+}
+
+/* Buttons Area  */
+.buttons-area{
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.buttons-area > div{
+  color: var(--white-c);
+  background-color: var(--buttons-background-c);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+/* Buttons | Previous And Next */
+.buttons-area > div:first-child{
+  border-radius: 0 5px 5px 0;
+  margin-left: -100px;
+}
+.buttons-area > div:last-child{
+  border-radius: 5px 0 0 5px;
+  margin-right: -100px;
+}
+/* Show The Buttons */
+.wrapper:hover .buttons-area > div:first-child{
+  margin-left: 0;
+}
+.wrapper:hover .buttons-area > div:last-child{
+  margin-right: 0;
+}
+.buttons-area div:hover:not(div.disabled){
+  background-color: var(--buttons-active-background-c);
+}
+.buttons-area div:not(div.disabled):active{
+  opacity: 0.7;
+}
+/* Disabled Button */
+.buttons-area > div.disabled{
+  cursor: no-drop;
+  opacity: 0.3;
+}
+.buttons-area div i{
+  font-size: 70px;
+}
+
+/* Pagination Area */
+.pagination-area{
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* Pagination Spans */
+.pagination-area span{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--white-c);
+  margin-right: 5px;
+  transform: scale(0.5);
+  transition: 0.3s ease-in-out;
+  opacity: 0.4;
+}
+/* Current Active Span */
+.pagination-area span.active{
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* End Wrapper */

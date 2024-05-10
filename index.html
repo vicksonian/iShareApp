@@ -1,273 +1,329 @@
+<!-- @format -->
+
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>iSharee</title>
+		<link rel="stylesheet" href="loginStyle.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iSharee</title>
-  <link rel="stylesheet" href="loginStyle.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
-</head>
+	<body>
+		<div class="login">
+			<form method="post" id="loginForm">
+				<h1>Login</h1>
 
-<body>
-  <div class="login">
+				<div class="login-form-container-l1">
+					<div class="input-box">
+						<input
+							type="text"
+							name="loginUsername"
+							placeholder="Username"
+							id="loginUsername"
+							required="required"
+							autocomplete="username" />
+					</div>
+					<div class="input-box">
+						<div class="input-box-2">
+							<input
+								type="password"
+								name="loginPassword"
+								id="passwordLogin"
+								placeholder="Password"
+								required="required"
+								autocomplete="current-password" />
+							<img
+								src="images/hide-password.png"
+								id="togglePassLogin"
+								onclick="togglePasswordVisibility('passwordLogin', 'togglePassLogin')"
+								alt="" />
+						</div>
+						<div class="input-box-2" id="pdr-21">
+							<span class="psw">Forgot <a href="#">password?</a></span>
+							<span class="ccd"
+								><a href="#" onclick="toggleForms('signup')"
+									>Create Account</a
+								></span
+							>
+						</div>
+					</div>
+					<div class="input-box">
+						<button id="bt-22" type="submit" class="btn-34">Let me in.</button>
+						<div
+							id="error-message"
+							class="error-message"
+							style="display: none"></div>
+					</div>
+				</div>
+			</form>
 
-    <form method="post" id="loginForm">
-      <h1>Login</h1>
+			<form method="post" id="registrationForm" style="display: none">
+				<h1>Registration</h1>
 
+				<div class="input-box">
+					<input
+						type="text"
+						name="username"
+						placeholder="Username"
+						required="required"
+						autocomplete="username" />
+				</div>
+				<div class="input-box">
+					<input
+						type="email"
+						name="email"
+						id="email"
+						placeholder="email"
+						required="required"
+						autocomplete="email" />
+				</div>
+				<div class="input-box">
+					<div class="input-box-2">
+						<input
+							spellcheck="false"
+							type="password"
+							name="password"
+							id="password"
+							placeholder="Password"
+							required="required"
+							autocomplete="current-password" />
 
-      <div class="login-form-container-l1">
-        <div class="input-box">
-          
-          <input type="text" name="loginUsername" placeholder="Username" id="loginUsername" required="required" autocomplete="username" />
+						<img
+							src="images/hide-password.png"
+							id="togglePassSignup"
+							onclick="togglePasswordVisibility('password', 'togglePassSignup')"
+							alt="gd" />
+					</div>
+					<div class="input-box-2" id="pdr-21">
+						<span class="ccd"
+							><a href="#" onclick="toggleForms('login')"
+								>Have an Account</a
+							></span
+						>
+						<div class="indicator">
+							<div class="icon-text">
+								<i class="fas fa-exclamation-circle error_icon"></i>
+								<h6 class="text"></h6>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="input-box">
+					<button id="bt-23" type="submit" class="btn-34">Submit</button>
+				</div>
+				<div class="message-container" id="messagecontainer">
+					<!-- Empty div to display messages -->
+				</div>
+			</form>
+		</div>
 
-        </div>
-        <div class="input-box">
-          <div class="input-box-2">
-            <input type="password" name="loginPassword" id="passwordLogin" placeholder="Password" required="required" autocomplete="current-password" />
-            <img src="images/hide-password.png" id="togglePassLogin" onclick="togglePasswordVisibility('passwordLogin', 'togglePassLogin')" alt="" />
-          </div>
-          <div class="input-box-2" id="pdr-21">
-            <span class="psw">Forgot <a href="#">password?</a></span>
-            <span class="ccd"><a href="#" onclick="toggleForms('signup')">Create Account</a></span>
-          </div>
-        </div>
-        <div class="input-box">
-          <button id="bt-22" type="submit" class="btn-34">
-            Let me in.
-          </button>
-          <div id="error-message" class="error-message" style="display: none;"></div>
-        </div>
-      </div>
-    </form>
+		<script>
+			// Function to update session data in the HTML
+			function updateSessionData(response) {
+				const session = response.session; // Extract session object from response
+				const sessionId = document.getElementById("sessions");
+				sessionId.innerHTML = `
+			              <h2>Session Information:</h2>
+			              <p>User ID: ${session.user_id}</p>
+			              <p>Username: ${session.username}</p>
+			              <p>Email: ${session.email}</p>
+			              <p>Files Table: ${session.files_table}</p>
+			          `;
+			}
 
-    <form method="post" id="registrationForm" style="display: none;">
-      <h1>Registration</h1>
+			// Registration form submission
+			document
+				.getElementById("registrationForm")
+				.addEventListener("submit", function (event) {
+					event.preventDefault();
 
+					const formData = new FormData(this);
 
-      <div class="input-box">
+					fetch("https://ishare-i8td.onrender.com/register", {
+					//fetch("http://192.168.74.8:5000/register", {
+						method: "POST",
+						body: JSON.stringify(Object.fromEntries(formData.entries())),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					})
+						.then((response) => {
+							if (!response.ok) {
+								throw new Error(`HTTP error! Status: ${response.status}`);
+							}
+							return response.json();
+						})
+						.then((data) => {
+							console.log(data);
+							if (data.error) {
+								if (data.error === "Username already exists") {
+									displayMessage("error", "Username already exists");
+								} else if (data.error === "Email already exists") {
+									displayMessage("error", "Email already exists");
+								} else {
+									displayMessage("error", data.error); // Handle other types of errors
+								}
+							} else {
+								displayMessage("success", "Registration successful!");
+							}
+						})
+						.catch((error) => {
+							console.error("Error registering:", error);
+							displayMessage("error", "Registration failed. Please try again.");
+						});
+				});
 
-        
-        <input type="text" name="username" placeholder="Username" required="required" autocomplete="username" />
+			// Function to handle login form submission
+			document
+				.getElementById("loginForm")
+				.addEventListener("submit", function (event) {
+					event.preventDefault();
+					const formData = new FormData(this);
+					const requestData = {
+						username_or_email: formData.get("loginUsername"),
+						password: formData.get("loginPassword"),
+					};
 
+					//fetch("http://192.168.74.8:5000/login", {
+					fetch("https://ishare-i8td.onrender.com/login", {
+						method: "POST",
+						body: JSON.stringify(requestData),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					})
+						.then((response) => {
+							if (!response.ok) {
+								throw new Error(`HTTP error! Status: ${response.status}`);
+							}
+							return response.json(); // Parse response as JSON
+						})
+						.then((data) => {
+							console.log("Login response data:", data);
+							localStorage.setItem("token", data.token); // Store token in localStorage
+							localStorage.setItem("username", data.username); // Store username in localStorage
+							displayMessage("success", "Login successful!");
+							window.location.href = "iSharee.html"; // Redirect to dashboard.html
+						})
+						.catch((error) => {
+							console.error("Error logging in:", error);
+							displayMessage(
+								"error",
+								"Login failed. Please check your username/email and password."
+							);
+						});
+				});
 
-      </div>
-      <div class="input-box">
-        <input type="email" name="email" id="email" placeholder="email" required="required" autocomplete="email" />
-      </div>
-      <div class="input-box">
-        <div class="input-box-2">
+			// Function to display success or error message
+			function displayMessage(type, message) {
+				const messageContainer = document.getElementById("messagecontainer");
+				let colorClass;
 
+				// Determine color class based on message type
+				if (type === "success") {
+					colorClass = "success-message"; // Define a CSS class for success messages
+				} else if (type === "error") {
+					colorClass = "error-message"; // Define a CSS class for error messages
+				} else {
+					colorClass = ""; // Use default color class if type is neither "success" nor "error"
+				}
 
-          <input spellcheck="false" type="password" name="password" id="password" placeholder="Password" required="required" autocomplete="current-password" />
+				// Use the determined color class to style the message
+				messageContainer.innerHTML = `<div class="${colorClass}">${message}</div>`;
+			}
 
-          <img src="images/hide-password.png" id="togglePassSignup" onclick="togglePasswordVisibility('password', 'togglePassSignup')" alt="gd" />
-        </div>
-        <div class="input-box-2" id="pdr-21">
-          <span class="ccd"><a href="#" onclick="toggleForms('login')">Have an Account</a></span>
-          <div class="indicator">
-            <div class="icon-text">
-              <i class="fas fa-exclamation-circle error_icon"></i>
-              <h6 class="text"></h6>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="input-box">
-        <button id="bt-23" type="submit" class="btn-34">
-          Submit
-        </button>
+			// Password strength indicator
+			let alphabet = /[a-zA-Z]/, //letter a to z and A to Z
+				numbers = /[0-9]/, //numbers 0 to 9
+				scharacters = /[!,@,#,$,%,^,&,*,?,_,(,),-,+,=,~]/; //special characters
 
-      </div>
-      <div class="message-container" id="messagecontainer">
-        <!-- Empty div to display messages -->
-      </div>
-    </form>
-  </div>
+			let input = document.getElementById("password"); // Target the password input in the signup form
+			let indicator = document.querySelector(".indicator");
+			let text = document.querySelector(".text");
+			let showHide = document.getElementById("togglePassSignup");
+			let iconText = document.querySelector(".icon-text");
 
-  <script>
-    // Function to update session data in the HTML
-    function updateSessionData(response) {
-      const session = response.session; // Extract session object from response
-      const sessionId = document.getElementById("sessions");
-      sessionId.innerHTML = `
-              <h2>Session Information:</h2>
-              <p>User ID: ${session.user_id}</p>
-              <p>Username: ${session.username}</p>
-              <p>Email: ${session.email}</p>
-              <p>Files Table: ${session.files_table}</p>
-          `;
-    }
-  
-    // Registration form submission
-    document.getElementById("registrationForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      
-      const formData = new FormData(this);
-      
-      // fetch("https://ishare-i8td.onrender.com/register", {
-      fetch("https://ishare-i8td.onrender.com/register", {
-        method: "POST",
-        body: JSON.stringify(Object.fromEntries(formData.entries())),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        displayMessage("success", "Registration successful!");
-      })
-      .catch(error => {
-        console.error("Error registering:", error);
-        displayMessage("error", "Registration failed. Please try again.");
-      });
-    });
+			input.addEventListener("keyup", () => {
+				indicator.classList.add("active");
 
+				let val = input.value;
+				if (
+					val.match(alphabet) ||
+					val.match(numbers) ||
+					val.match(scharacters)
+				) {
+					text.textContent = "Weak Password \u{1F614}";
+					input.style.borderColor = "#FF6333";
+					showHide.style.color = "#FF6333";
+					iconText.style.color = "#FF6333";
+				}
+				if (val.match(alphabet) && val.match(numbers) && val.length >= 6) {
+					text.textContent = "Medium Password";
+					input.style.borderColor = "#cc8500";
+					showHide.style.color = "#cc8500";
+					iconText.style.color = "#cc8500";
+				}
+				if (
+					val.match(alphabet) &&
+					val.match(numbers) &&
+					val.match(scharacters) &&
+					val.length >= 8
+				) {
+					text.textContent = "Password is strong";
+					input.style.borderColor = "#22C32A";
+					showHide.style.color = "#22C32A";
+					iconText.style.color = "#22C32A";
+				}
 
-// Function to handle login form submission
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-  const formData = new FormData(this);
-  const requestData = {
-    username_or_email: formData.get("loginUsername"),
-    password: formData.get("loginPassword"),
-  };
+				if (val == "") {
+					indicator.classList.remove("active");
+					input.style.borderColor = "#A6A6A6";
+					showHide.style.color = "#A6A6A6";
+					iconText.style.color = "#A6A6A6";
+				}
+			});
 
-  // fetch("https://ishare-i8td.onrender.com/login", {
-  fetch("https://ishare-i8td.onrender.com/login", {
-    method: "POST",
-    body: JSON.stringify(requestData),
-    headers: {
-      "Content-Type": "application/json"
-    },
-  })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log("Login response data:\n", data);
-    // Verify if token is stored in local storage
-    const token = data.token; // Access token directly from data
-    const username = data.username; // Access username directly from data
+			// Function to toggle password visibility
+			function togglePasswordVisibility(inputId, toggleButtonId) {
+				var passwordInput = document.getElementById(inputId);
+				var toggleButton = document.getElementById(toggleButtonId);
+				if (passwordInput.type === "password") {
+					passwordInput.type = "text";
+					toggleButton.src = "images/show-password.png";
+				} else {
+					passwordInput.type = "password";
+					toggleButton.src = "images/hide-password.png";
+				}
+			}
 
-    console.log("\nToken stored in local storage:\n", token);
-    console.log("\nUsername obtained from login response:\n", username);
+			// Function to toggle between login and signup forms
+			function toggleForms(formToShow) {
+				if (formToShow === "signup") {
+					document.getElementById("loginForm").style.display = "none";
+					document.getElementById("registrationForm").style.display = "block";
+					sessionStorage.setItem("currentForm", "signup");
+				} else if (formToShow === "login") {
+					document.getElementById("registrationForm").style.display = "none";
+					document.getElementById("loginForm").style.display = "block";
+					sessionStorage.setItem("currentForm", "login");
+				}
+			}
 
-    localStorage.setItem("token", token); // Store token in localStorage
-    localStorage.setItem("username", username); // Store username in localStorage
-
-    displayMessage("success", "Login successful!");
-    window.location.href = "iSharee.html"; // Redirect to the next page
-  })
-  .catch((error) => {
-    console.error("Error logging in:", error);
-    displayMessage("error", "Login failed. Please check your username/email and password.");
-  });
-});
-
-
-    // Function to display success or error message
-    function displayMessage(type, message) {
-      const messageContainer = document.getElementById("messagecontainer");
-      messageContainer.innerHTML = `<div class="${type}">${message}</div>`;
-    }
-
-    // Password strength indicator
-    let alphabet = /[a-zA-Z]/, //letter a to z and A to Z
-      numbers = /[0-9]/, //numbers 0 to 9
-      scharacters = /[!,@,#,$,%,^,&,*,?,_,(,),-,+,=,~]/; //special characters
-  
-    let input = document.getElementById("password"); // Target the password input in the signup form
-    let indicator = document.querySelector(".indicator");
-    let text = document.querySelector(".text");
-    let showHide = document.getElementById("togglePassSignup");
-    let iconText = document.querySelector(".icon-text");
-  
-    input.addEventListener("keyup", () => {
-      indicator.classList.add("active");
-  
-      let val = input.value;
-      if (val.match(alphabet) || val.match(numbers) || val.match(scharacters)) {
-        text.textContent = "Weak Password \u{1F614}";
-        input.style.borderColor = "#FF6333";
-        showHide.style.color = "#FF6333";
-        iconText.style.color = "#FF6333";
-      }
-      if (val.match(alphabet) && val.match(numbers) && val.length >= 6) {
-        text.textContent = "Medium Password";
-        input.style.borderColor = "#cc8500";
-        showHide.style.color = "#cc8500";
-        iconText.style.color = "#cc8500";
-      }
-      if (val.match(alphabet) && val.match(numbers) && val.match(scharacters) && val.length >= 8) {
-        text.textContent = "Password is strong";
-        input.style.borderColor = "#22C32A";
-        showHide.style.color = "#22C32A";
-        iconText.style.color = "#22C32A";
-      }
-  
-      if (val == "") {
-        indicator.classList.remove("active");
-        input.style.borderColor = "#A6A6A6";
-        showHide.style.color = "#A6A6A6";
-        iconText.style.color = "#A6A6A6";
-      }
-    });
-  
-    // Function to toggle password visibility
-    function togglePasswordVisibility(inputId, toggleButtonId) {
-      var passwordInput = document.getElementById(inputId);
-      var toggleButton = document.getElementById(toggleButtonId);
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        toggleButton.src = "images/show-password.png";
-      } else {
-        passwordInput.type = "password";
-        toggleButton.src = "images/hide-password.png";
-      }
-    }
-  
-    // Function to toggle between login and signup forms
-    function toggleForms(formToShow) {
-      if (formToShow === 'signup') {
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('registrationForm').style.display = 'block';
-        sessionStorage.setItem('currentForm', 'signup');
-      } else if (formToShow === 'login') {
-        document.getElementById('registrationForm').style.display = 'none';
-        document.getElementById('loginForm').style.display = 'block';
-        sessionStorage.setItem('currentForm', 'login');
-      }
-    }
-  
-    // Function to check the current form state and show the appropriate form
-    function showCurrentForm() {
-      const currentForm = sessionStorage.getItem('currentForm');
-      if (currentForm === 'signup') {
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('registrationForm').style.display = 'block';
-      } else {
-        document.getElementById('registrationForm').style.display = 'none';
-        document.getElementById('loginForm').style.display = 'block';
-      }
-    }
-  
-    // Check the current form state when the page loads
-    window.onload = function() {
-      showCurrentForm();
-    };
-  </script>
-  
-
-</body>
-
+			// Function to check the current form state and show the appropriate form
+			function showCurrentForm() {
+				const currentForm = sessionStorage.getItem("currentForm");
+				if (currentForm === "signup") {
+					document.getElementById("loginForm").style.display = "none";
+					document.getElementById("registrationForm").style.display = "block";
+				} else {
+					document.getElementById("registrationForm").style.display = "none";
+					document.getElementById("loginForm").style.display = "block";
+				}
+			}
+		</script>
+	</body>
 </html>
