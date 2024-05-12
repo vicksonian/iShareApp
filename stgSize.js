@@ -28,7 +28,7 @@ function formatBytes(bytes) {
 
 // Function to fetch and display table sizes
 function displayTableSizes() {
-	//fetch("http://192.168.74.8:5000/table_sizes", {
+	// fetch("http://192.168.74.8:5000/table_sizes", {
 	fetch("https://ishare-i8td.onrender.com/table_sizes", {
 		method: "GET",
 		headers: {

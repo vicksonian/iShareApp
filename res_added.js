@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 	const res_token = localStorage.getItem("token");
 	// Function to fetch and display recently added files
-	//fetch("http://192.168.74.8:5000/recently_added_files", {
+	// fetch("http://192.168.74.8:5000/recently_added_files", {
 	fetch("https://ishare-i8td.onrender.com/recently_added_files", {
 		method: "GET",
 		headers: {

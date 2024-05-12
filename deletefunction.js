@@ -7,6 +7,7 @@ function deleteFile(fileId, fileName) {
   const confirmed = confirm(`Are you sure you want to delete "${fileName}"?`);
   if (confirmed) {
     fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+    // fetch(`http://192.168.74.8:5000/delete/${fileId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${dellocalStorageToken}`,

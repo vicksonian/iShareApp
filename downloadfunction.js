@@ -9,8 +9,8 @@ document
 			try {
 				const token = localStorage.getItem("token"); // Retrieve token from localStorage
 				const response = await fetch(
-					//`http://192.168.74.8:5000/download/${fileId}`,
-					`https://ishare-i8td.onrender.com/download/${fileId}`,
+					`http://192.168.74.8:5000/download/${fileId}`,
+					// `https://ishare-i8td.onrender.com/download/${fileId}`,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`, // Include token in Authorization header

@@ -1,222 +1,444 @@
+/** @format */
 
-body{
-    color: #fff;
+body {
+	color: #fff;
 }
 
+.image-container-box {
+	max-width: 250px;
+	display: grid;
+	justify-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
+}
 
+.image-container-box:hover {
+	transform: scale(1.25);
+	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
+}
 
-
-
-/* Styles for image container */
 .image {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
-    max-width: 100%; /* Ensure the image fits within the container */
-    max-height: 200px; /* Adjust the maximum height as needed */
-    overflow: hidden; /* Hide overflowing parts of the image */
+	margin: 10px;
+	display: inline-block;
+	max-width: 250px;
+	max-height: 250px;
+	overflow: hidden;
 }
 
-/* Styles for image elements inside image containers */
 .image img {
-    width: 100%; /* Make the image fill the container */
-    height: 100%; /* Make the image fill the container */
-    object-fit: cover; /* Ensure the image covers the container */
+	width: 100%;
+	height: 100px;
+	object-fit: cover;
+}
+
+.file-name {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 14px;
+	color: #333;
+}
+
+.file-name:hover {
+	color: #02ffbb;
+	text-decoration: none;
+	cursor: pointer;
+	width: 100%;
 }
 
 .video-container-box {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto;
-    gap: 10px; /* Adjust the gap as needed */
-    justify-items: center; /* Center the items horizontally */
-    align-items: center; /* Center the items vertically */
-    border: 1px solid #ccc; /* Add border for better visualization */
-    padding: 10px; /* Add padding for spacing */
+	padding: 10px;
+	max-width: 250px;
+	justify-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
+}
+
+.video-container-box:hover {
+	transform: scale(1.25);
+	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
 }
 
 .video-container-box video {
-    max-width: 100%; /* Ensure the video fits within its container */
-    max-height: 100%; /* Ensure the video fits within its container */
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .video-container-box div {
-    text-align: center; /* Center the text */
+	text-align: center;
 }
-
 
 /* Styles for video container */
 .video {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
-    max-width: 100%; /* Ensure the video fits within the container */
-    max-height: 200px; /* Adjust the maximum height as needed */
-    overflow: hidden; /* Hide overflowing parts of the video */
+	/* margin: 10px; */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	display: inline-block;
+	max-width: 100%;
+	max-height: 200px;
+	overflow: hidden;
 }
 
 /* Styles for video elements inside video containers */
 .video video {
-    max-block-size: 100%; /* Make the video fill the container */
-    height: 100%; /* Make the video fill the container */
-    object-fit: cover; /* Ensure the video covers the container */
+	max-block-size: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
-/* Styles for audio container */
-.audio {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
+.video-container-box video::-webkit-media-controls-enclosure {
+	display: none;
+	color: red;
+	background-color: red;
 }
 
-/* Styles for generic file container */
-.file {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
+.audio-container-box {
+	padding: 10px;
+	max-width: 250px;
+	justify-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
 }
 
-/* Styles for file icon */
-.file i {
-    font-size: 24px; /* Adjust the icon size as needed */
-    margin-right: 5px;
+.audio-container-box:hover {
+	transform: scale(1.25);
+	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
 }
 
-/* Styles for file name */
-.file div {
-    display: inline-block;
-    vertical-align: middle;
+.audio-container-box audio {
+	width: 100%;
+	background-color: #010415;
 }
 
-/* Styles for containers holding multiple elements */
-#photosfileList, #videofileList, #audiofileList, #otherFilesList {
-    margin-top: 20px; /* Add some space between different containers */
+.audio-container-box audio::-webkit-media-controls-panel {
+	background-color: #9585e5;
+	color: #333;
+	border-radius: 5px;
 }
 
+#docfileList {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 20px;
+}
 
+.doc-wrapper-container {
+	max-width: 220px;
+	justify-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
+}
 
+@media screen and (max-width: 360px) {
+	#docfileList {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
 
+	.doc-container-box {
+		padding: 10px;
+		max-width: 220px;
+		justify-items: center;
+		background: #010415;
+		border-radius: 5px;
+		transition: 1s ease;
+		min-width: 200px;
+	}
+}
 
+.doc-container-box {
+	padding: 10px;
+	justify-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
+}
 
+.doc-container-box:hover {
+	transform: scale(1.25);
+	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
+}
 
+/* File icons */
+.doc-container-box i {
+	font-size: 25px;
+	padding-right: 10px;
+	color: #007bff;
+	text-align: left;
+	align-items: center;
+	float: left;
+}
 
+.doc-container-box .file-name {
+	text-decoration: none;
+	cursor: pointer;
+	text-align: left;
+	align-items: center;
+}
+
+.files-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-gap: 20px;
+}
+
+#otherFilesList {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 10px;
+}
+
+.files-container-box {
+	max-width: 250px;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	justify-items: center;
+	align-items: center;
+	background: #010415;
+	border-radius: 5px;
+	transition: 1s ease;
+}
+
+.files-container-box:hover {
+	transform: scale(1.25);
+	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
+}
+
+.files-container-box i {
+	float: left;
+	font-size: 32px;
+	margin: 10px;
+	display: inline;
+	justify-content: center;
+	align-items: center;
+}
+
+.files-container-box .file-name {
+	text-decoration: none;
+	cursor: pointer;
+	text-align: left;
+	align-items: center;
+	font-size: 12px;
+	width: 100%;
+	height: 100%;
+	display: flexbox;
+	justify-content: space-around;
+}
+
+.files-container-box-contents {
+	display: flex;
+	align-items: center;
+}
+
+.far.fa-file-pdf {
+	color: red;
+}
+
+.far.fa-file-word {
+	color: blue;
+}
+
+.far.fa-file-excel {
+	color: green;
+}
+
+#videofileList,
+#audiofileList,
+#otherFilesList {
+	margin-top: 20px;
+}
+
+#search-form {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: all 1s;
+	width: 40px;
+	height: 40px;
+	background: rgb(11, 3, 76);
+	box-sizing: border-box;
+	border-radius: 25px;
+	border: 4px solid rgb(63, 135, 219);
+	padding: 5px;
+}
+
+#i41 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 32.5px;
+	line-height: 20px;
+	outline: 0;
+	border: 0;
+	display: none;
+	font-size: 1em;
+	border-radius: 20px;
+	padding: 0 20px;
+}
+
+.fa {
+	box-sizing: border-box;
+	padding: 5px;
+	width: 32.5px;
+	height: 32.5px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 50%;
+	color: #ffffff;
+	text-align: center;
+	font-size: 1.2em;
+	transition: all 1s;
+}
+
+#search-form:hover,
+#search-form:valid {
+	width: 200px;
+	cursor: pointer;
+}
+
+#search-form:hover #i41,
+f#search-form:valid #i41 {
+	display: block;
+}
+
+#search-form:hover .fa,
+#search-form:valid .fa {
+	background: #13161675;
+	color: rgb(255, 0, 0);
+}
+
+a {
+	display: none;
+	position: absolute;
+	top: 70px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	width: 100%;
+}
+
+#search-form:valid a {
+	display: block;
+}
 
 /* Main Rules */
-:root{
-  --white-c: #fff;
-  --black-c: #000;
-  --body-background-c: #FD7AC0;
-  --wrapper-background-c: #D4F1F4;
-  --wrapper-shadow-c: rgba(0, 0, 0, 0.219);
-  --buttons-background-c: rgba(255, 255, 255, 0.219);
-  --buttons-active-background-c: rgba(135, 207, 235, 0.493);
+:root {
+	--white-c: #fff;
+	--black-c: #000;
+	--body-background-c: #fd7ac0;
+	--wrapper-background-c: #d4f1f4;
+	--wrapper-shadow-c: rgba(0, 0, 0, 0.219);
+	--buttons-background-c: rgba(255, 255, 255, 0.219);
+	--buttons-active-background-c: rgba(135, 207, 235, 0.493);
 }
 
-
-
-
 /* Wrapper */
-.wrapper{
-  width: 600px;
-  height: 300px;
-  position: relative;
-  background-color: var(--wrapper-background-c);
-  box-shadow: 0 0 80px var(--wrapper-shadow-c);
+.wrapper {
+	width: 600px;
+	height: 300px;
+	position: relative;
+	background-color: var(--wrapper-background-c);
+	box-shadow: 0 0 80px var(--wrapper-shadow-c);
 }
 
 /* Images Area */
-.images-area{
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  overflow: hidden;
+.images-area {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+	overflow: hidden;
 }
-.images-area img{
-  width: 100%;
-  transition: 0.3s cubic-bezier(.79,.03,0,.99);
+.images-area img {
+	width: 100%;
+	transition: 0.3s cubic-bezier(0.79, 0.03, 0, 0.99);
 }
 
 /* Buttons Area  */
-.buttons-area{
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  overflow: hidden;
+.buttons-area {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	display: flex;
+	justify-content: space-between;
+	overflow: hidden;
 }
-.buttons-area > div{
-  color: var(--white-c);
-  background-color: var(--buttons-background-c);
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+.buttons-area > div {
+	color: var(--white-c);
+	background-color: var(--buttons-background-c);
+	cursor: pointer;
+	transition: 0.3s ease-in-out;
 }
 /* Buttons | Previous And Next */
-.buttons-area > div:first-child{
-  border-radius: 0 5px 5px 0;
-  margin-left: -100px;
+.buttons-area > div:first-child {
+	border-radius: 0 5px 5px 0;
+	margin-left: -100px;
 }
-.buttons-area > div:last-child{
-  border-radius: 5px 0 0 5px;
-  margin-right: -100px;
+.buttons-area > div:last-child {
+	border-radius: 5px 0 0 5px;
+	margin-right: -100px;
 }
 /* Show The Buttons */
-.wrapper:hover .buttons-area > div:first-child{
-  margin-left: 0;
+.wrapper:hover .buttons-area > div:first-child {
+	margin-left: 0;
 }
-.wrapper:hover .buttons-area > div:last-child{
-  margin-right: 0;
+.wrapper:hover .buttons-area > div:last-child {
+	margin-right: 0;
 }
-.buttons-area div:hover:not(div.disabled){
-  background-color: var(--buttons-active-background-c);
+.buttons-area div:hover:not(div.disabled) {
+	background-color: var(--buttons-active-background-c);
 }
-.buttons-area div:not(div.disabled):active{
-  opacity: 0.7;
+.buttons-area div:not(div.disabled):active {
+	opacity: 0.7;
 }
 /* Disabled Button */
-.buttons-area > div.disabled{
-  cursor: no-drop;
-  opacity: 0.3;
+.buttons-area > div.disabled {
+	cursor: no-drop;
+	opacity: 0.3;
 }
-.buttons-area div i{
-  font-size: 70px;
+.buttons-area div i {
+	font-size: 70px;
 }
 
 /* Pagination Area */
-.pagination-area{
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+.pagination-area {
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
 }
 /* Pagination Spans */
-.pagination-area span{
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--white-c);
-  margin-right: 5px;
-  transform: scale(0.5);
-  transition: 0.3s ease-in-out;
-  opacity: 0.4;
+.pagination-area span {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: var(--white-c);
+	margin-right: 5px;
+	transform: scale(0.5);
+	transition: 0.3s ease-in-out;
+	opacity: 0.4;
 }
 /* Current Active Span */
-.pagination-area span.active{
-  transform: scale(1);
-  opacity: 1;
+.pagination-area span.active {
+	transform: scale(1);
+	opacity: 1;
 }
 
 /* End Wrapper */

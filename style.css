@@ -143,6 +143,10 @@ hr {
 	display: none;
 }
 
+#close_right {
+	width: 120px;
+}
+
 .app-right-content {
 	flex: 1;
 	height: 100%;
@@ -357,8 +361,8 @@ a:hover {
 }
 
 button {
-	width: 120px;
-	padding: 10px 20px;
+	width: 40px;
+	height: 40px;
 	background-color: #007bff;
 	color: #fff;
 	border: none;
@@ -367,6 +371,7 @@ button {
 	font-size: 16px;
 	font-weight: 600;
 	color: #ffffff;
+	text-align: left;
 }
 
 button:hover {
@@ -803,10 +808,12 @@ button:active {
 	justify-content: center;
 	align-items: center;
 	padding: 0;
-	background-color: var(--app-bg-dark);
+	background-color: rgba(45, 83, 149, 0.483);
 	border: none;
 	color: var(--main-color);
 	border-radius: 4px;
+	display: flex;
+	text-align: left;
 }
 
 .bn-t12:hover {
@@ -1223,4 +1230,8 @@ button:active {
 
 .error-message {
 	color: red;
+}
+
+#videos, #audios, #photos, #files, #documents, #settings, #upload, #download{
+	display: none;
 }
