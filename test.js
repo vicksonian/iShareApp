@@ -180,20 +180,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				imageContainerBox.appendChild(imageDiv);
 				photosContainer.appendChild(imageContainerBox);
-				// Add context menu event listener
-				imageContainerBox.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Download logic here
-					downloadFile(file);
-				});
-
-				// Add context menu event listener
-				imageContainerBox.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Position the context menu
-					contextMenu.style.top = `${event.clientY}px`;
-					contextMenu.style.left = `${event.clientX}px`;
-				});
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
 				videoContainerDiv.className = "video-container-box";
@@ -216,20 +202,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				videoFileList.appendChild(videoContainerDiv);
 
-				// Add context menu event listener
-				videoContainerDiv.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Download logic here
-					downloadFile(file);
-				});
-
-				// Add context menu event listener
-				videoContainerDiv.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Position the context menu
-					contextMenu.style.top = `${event.clientY}px`;
-					contextMenu.style.left = `${event.clientX}px`;
-				});
 			} else if (["mp3", "wav"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
 				audioContainerDiv.className = "audio-container-box";
@@ -251,21 +223,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				audioContainerDiv.appendChild(fileNameDiv);
 
 				audioFileList.appendChild(audioContainerDiv);
-
-				// Add context menu event listener
-				audioContainerDiv.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Download logic here
-					downloadFile(file);
-				});
-
-				// Add context menu event listener
-				audioContainerDiv.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Position the context menu
-					contextMenu.style.top = `${event.clientY}px`;
-					contextMenu.style.left = `${event.clientX}px`;
-				});
 			} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
 				// Create a wrapper container div
 				const docWrapperContainer = document.createElement("div");
@@ -313,12 +270,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Append the wrapper container div to the document file list
 				docFileList.appendChild(docWrapperContainer);
 
-				// Add context menu event listener
-				docWrapperContainer.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Download logic here
-					downloadFile(file);
-				});
 			} else {
 				const fileContainerDiv = document.createElement("div");
 				fileContainerDiv.className = "files-container-box";
@@ -370,13 +321,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				contentsDiv.appendChild(iconDiv);
 				contentsDiv.appendChild(fileNameDiv);
 
-				// Add context menu event listener
-				fileContainerDiv.addEventListener("contextmenu", (event) => {
-					event.preventDefault(); // Prevent default browser context menu
-					// Download logic here
-					downloadFile(file);
-				});
-
 				// Append the contents div to the file container div
 				fileContainerDiv.appendChild(contentsDiv);
 
@@ -398,114 +342,3 @@ function truncateFileName(fileName, maxLength) {
 		return fileName;
 	}
 }
-
-async function downloadFile(fileId) {
-	try {
-		const token = localStorage.getItem("token"); // Retrieve token from localStorage
-		const response = await fetch(
-			// `http://192.168.74.8:5000/download/${fileId}`,
-			`https://ishare-i8td.onrender.com/download/${fileId}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			}
-		);
-		if (!response.ok) {
-			throw new Error(`Failed to download file ${fileId}`);
-		}
-		const blob = await response.blob();
-		const url = window.URL.createObjectURL(blob);
-		const a = document.createElement("a");
-		a.href = url;
-		a.download =
-			response.headers.get("Content-Disposition") || `file_${fileId}.bin`;
-		document.body.appendChild(a);
-		a.click();
-		window.URL.revokeObjectURL(url);
-		a.remove();
-	} catch (error) {
-		console.error(error);
-		// Handle error: display message to user, log, etc.
-	}
-}
-
-// Create the context menu container
-const contextMenu = document.createElement("div");
-contextMenu.className = "context-menu";
-
-// Create buttons for download, delete, and share
-const downloadButton = document.createElement("button");
-downloadButton.textContent = "Download";
-downloadButton.addEventListener("click", () => {
-	// Implement download logic here
-});
-
-const deleteButton = document.createElement("button");
-deleteButton.textContent = "Delete";
-deleteButton.addEventListener("click", () => {
-	// Implement delete logic here
-});
-
-const shareButton = document.createElement("button");
-shareButton.textContent = "Share";
-shareButton.addEventListener("click", () => {
-	// Implement share logic here
-});
-
-// Append buttons to the context menu
-contextMenu.appendChild(downloadButton);
-contextMenu.appendChild(deleteButton);
-contextMenu.appendChild(shareButton);
-
-// Append the context menu to the document body
-document.body.appendChild(contextMenu);
-
-// Modify your event listener to display the context menu
-imageContainerBox.addEventListener("contextmenu", (event) => {
-	event.preventDefault(); // Prevent default browser context menu
-	// Position the context menu
-	contextMenu.style.top = `${event.clientY}px`;
-	contextMenu.style.left = `${event.clientX}px`;
-});
-
-// Hide the context menu when clicking outside of it
-document.addEventListener("click", () => {
-	contextMenu.style.display = "none";
-});
-
-function deleteFile(fileId, fileName) {
-	const dellocalStorageToken = localStorage.getItem("token");
-	console.log("Retrieved token Upload:", dellocalStorageToken);
-
-	const confirmed = confirm(`Are you sure you want to delete "${fileName}"?`);
-	if (confirmed) {
-		fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
-			// fetch(`http://192.168.74.8:5000/delete/${fileId}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${dellocalStorageToken}`,
-			},
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`Failed to delete file: ${response.status}`);
-				}
-
-				document.querySelector(`[data-file-id="${fileId}"]`).remove();
-				console.log(`File "${fileName}" deleted successfully.`);
-			})
-			.catch((error) => {
-				console.error("Error deleting file:", error);
-			});
-	}
-}
-
-document.getElementById("deleteOption").addEventListener("click", function () {
-	const selectedFiles = document.querySelectorAll(".card.selected");
-	selectedFiles.forEach((card) => {
-		const fileId = card.parentNode.dataset.fileId;
-		const fileName = card.parentNode.dataset.fileName;
-		deleteFile(fileId, fileName);
-	});
-});
