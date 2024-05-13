@@ -395,7 +395,7 @@ function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
 		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
 	} else {
-		return fileName; // Return original name if it's not longer than maxLength
+		return fileName;
 	}
 }
 
@@ -430,7 +430,6 @@ async function downloadFile(fileId) {
 	}
 }
 
-
 // Create the context menu container
 const contextMenu = document.createElement("div");
 contextMenu.className = "context-menu";
@@ -439,19 +438,19 @@ contextMenu.className = "context-menu";
 const downloadButton = document.createElement("button");
 downloadButton.textContent = "Download";
 downloadButton.addEventListener("click", () => {
-    // Implement download logic here
+	// Implement download logic here
 });
 
 const deleteButton = document.createElement("button");
 deleteButton.textContent = "Delete";
 deleteButton.addEventListener("click", () => {
-    // Implement delete logic here
+	// Implement delete logic here
 });
 
 const shareButton = document.createElement("button");
 shareButton.textContent = "Share";
 shareButton.addEventListener("click", () => {
-    // Implement share logic here
+	// Implement share logic here
 });
 
 // Append buttons to the context menu
@@ -464,15 +463,15 @@ document.body.appendChild(contextMenu);
 
 // Modify your event listener to display the context menu
 imageContainerBox.addEventListener("contextmenu", (event) => {
-    event.preventDefault(); // Prevent default browser context menu
-    // Position the context menu
-    contextMenu.style.top = `${event.clientY}px`;
-    contextMenu.style.left = `${event.clientX}px`;
+	event.preventDefault(); // Prevent default browser context menu
+	// Position the context menu
+	contextMenu.style.top = `${event.clientY}px`;
+	contextMenu.style.left = `${event.clientX}px`;
 });
 
 // Hide the context menu when clicking outside of it
 document.addEventListener("click", () => {
-    contextMenu.style.display = "none";
+	contextMenu.style.display = "none";
 });
 
 function deleteFile(fileId, fileName) {
@@ -492,7 +491,7 @@ function deleteFile(fileId, fileName) {
 				if (!response.ok) {
 					throw new Error(`Failed to delete file: ${response.status}`);
 				}
-				// Remove the deleted file from the DOM
+
 				document.querySelector(`[data-file-id="${fileId}"]`).remove();
 				console.log(`File "${fileName}" deleted successfully.`);
 			})
@@ -510,8 +509,3 @@ document.getElementById("deleteOption").addEventListener("click", function () {
 		deleteFile(fileId, fileName);
 	});
 });
-
-// Function to share a file
-function shareFile(file) {
-	// Share logic here
-}
