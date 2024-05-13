@@ -45,9 +45,9 @@ const videosearch = () => {
 	}
 };
 // Function to handle audio file search
-const audeosearch = () => {
+const audiosearch = () => {
 	const searchbox = document.getElementById("audiosearchBar").value.toUpperCase();
-	const audioContainerDiv = document.querySelectorAll(".video-container-box");
+	const audioContainerDiv = document.querySelectorAll(".audio-container-box");
 
 	for (let i = 0; i < audioContainerDiv.length; i++) {
 		const file_name = audioContainerDiv[i].getElementsByTagName("h2")[0];
@@ -66,7 +66,7 @@ const audeosearch = () => {
 // Function to handle doc file search
 const docsearch = () => {
 	const searchbox = document.getElementById("docsearchBar").value.toUpperCase();
-	const docContainerDiv = document.querySelectorAll(".video-container-box");
+	const docContainerDiv = document.querySelectorAll(".doc-wrapper-container");
 
 	for (let i = 0; i < docContainerDiv.length; i++) {
 		const file_name = docContainerDiv[i].getElementsByTagName("h2")[0];
@@ -85,7 +85,7 @@ const docsearch = () => {
 // Function to handle file search
 const filesearch = () => {
 	const searchbox = document.getElementById("filessearchBar").value.toUpperCase();
-	const fileContainerDiv = document.querySelectorAll(".video-container-box");
+	const fileContainerDiv = document.querySelectorAll(".files-container-box");
 
 	for (let i = 0; i < fileContainerDiv.length; i++) {
 		const file_name = fileContainerDiv[i].getElementsByTagName("h2")[0];
@@ -104,6 +104,10 @@ const filesearch = () => {
 
 // Add event listener to the search bar input
 document.getElementById("searchBar").addEventListener("input", search);
+document.getElementById("videosearchBar").addEventListener("input", videosearch);
+document.getElementById("audiosearchBar").addEventListener("input", audiosearch);
+document.getElementById("filessearchBar").addEventListener("input", filesearch);
+document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
 fetch("https://ishare-i8td.onrender.com/files", {
 	// Fetch files from the Flask backend
