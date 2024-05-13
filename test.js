@@ -24,10 +24,11 @@ const search = () => {
 	}
 };
 
-
 // Function to handle video file search
 const videosearch = () => {
-	const searchbox = document.getElementById("videosearchBar").value.toUpperCase();
+	const searchbox = document
+		.getElementById("videosearchBar")
+		.value.toUpperCase();
 	const videoContainerDiv = document.querySelectorAll(".video-container-box");
 
 	for (let i = 0; i < videoContainerDiv.length; i++) {
@@ -46,7 +47,9 @@ const videosearch = () => {
 };
 // Function to handle audio file search
 const audiosearch = () => {
-	const searchbox = document.getElementById("audiosearchBar").value.toUpperCase();
+	const searchbox = document
+		.getElementById("audiosearchBar")
+		.value.toUpperCase();
 	const audioContainerDiv = document.querySelectorAll(".audio-container-box");
 
 	for (let i = 0; i < audioContainerDiv.length; i++) {
@@ -84,7 +87,9 @@ const docsearch = () => {
 };
 // Function to handle file search
 const filesearch = () => {
-	const searchbox = document.getElementById("filessearchBar").value.toUpperCase();
+	const searchbox = document
+		.getElementById("filessearchBar")
+		.value.toUpperCase();
 	const fileContainerDiv = document.querySelectorAll(".files-container-box");
 
 	for (let i = 0; i < fileContainerDiv.length; i++) {
@@ -104,8 +109,12 @@ const filesearch = () => {
 
 // Add event listener to the search bar input
 document.getElementById("searchBar").addEventListener("input", search);
-document.getElementById("videosearchBar").addEventListener("input", videosearch);
-document.getElementById("audiosearchBar").addEventListener("input", audiosearch);
+document
+	.getElementById("videosearchBar")
+	.addEventListener("input", videosearch);
+document
+	.getElementById("audiosearchBar")
+	.addEventListener("input", audiosearch);
 document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
@@ -390,19 +399,44 @@ function truncateFileName(fileName, maxLength) {
 	}
 }
 
-// Function to download a file
-function downloadFile(file) {
-	// Create a temporary anchor element
-	const link = document.createElement("a");
-	link.href = `data:${file.content_type};base64,${file.content}`;
-	link.download = file.filename;
-	// Append the anchor to the body
-	document.body.appendChild(link);
-	// Trigger a click event on the anchor
-	link.click();
-	// Remove the anchor from the body
-	document.body.removeChild(link);
+async function downloadFile(fileId) {
+	try {
+		const token = localStorage.getItem("token"); // Retrieve token from localStorage
+		const response = await fetch(
+			`http://192.168.74.8:5000/download/${fileId}`,
+			// `https://ishare-i8td.onrender.com/download/${fileId}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`, // Include token in Authorization header
+				},
+			}
+		);
+		if (!response.ok) {
+			throw new Error(`Failed to download file ${fileId}`);
+		}
+		const blob = await response.blob();
+		const url = window.URL.createObjectURL(blob);
+		const a = document.createElement("a");
+		a.href = url;
+		a.download =
+			response.headers.get("Content-Disposition") || `file_${fileId}.bin`;
+		document.body.appendChild(a);
+		a.click();
+		window.URL.revokeObjectURL(url);
+		a.remove();
+	} catch (error) {
+		console.error(error);
+		// Handle error: display message to user, log, etc.
+	}
 }
+
+// Modify your event listener to pass the fileId to the downloadFile function
+imageContainerBox.addEventListener("contextmenu", (event) => {
+	event.preventDefault(); // Prevent default browser context menu
+	const fileId = file.id; // Assuming you have access to file id here
+	downloadFile(fileId);
+});
+
 
 // Create the context menu container
 const contextMenu = document.createElement("div");
@@ -480,4 +514,3 @@ document.getElementById("deleteOption").addEventListener("click", function () {
 function shareFile(file) {
 	// Share logic here
 }
-
