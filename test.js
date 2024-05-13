@@ -403,8 +403,8 @@ async function downloadFile(fileId) {
 	try {
 		const token = localStorage.getItem("token"); // Retrieve token from localStorage
 		const response = await fetch(
-			`http://192.168.74.8:5000/download/${fileId}`,
-			// `https://ishare-i8td.onrender.com/download/${fileId}`,
+			// `http://192.168.74.8:5000/download/${fileId}`,
+			`https://ishare-i8td.onrender.com/download/${fileId}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -446,19 +446,19 @@ contextMenu.className = "context-menu";
 const downloadButton = document.createElement("button");
 downloadButton.textContent = "Download";
 downloadButton.addEventListener("click", () => {
-	downloadFile(file);
+    // Implement download logic here
 });
 
 const deleteButton = document.createElement("button");
 deleteButton.textContent = "Delete";
 deleteButton.addEventListener("click", () => {
-	deleteFile(file);
+    // Implement delete logic here
 });
 
 const shareButton = document.createElement("button");
 shareButton.textContent = "Share";
 shareButton.addEventListener("click", () => {
-	shareFile(file);
+    // Implement share logic here
 });
 
 // Append buttons to the context menu
@@ -469,9 +469,17 @@ contextMenu.appendChild(shareButton);
 // Append the context menu to the document body
 document.body.appendChild(contextMenu);
 
+// Modify your event listener to display the context menu
+imageContainerBox.addEventListener("contextmenu", (event) => {
+    event.preventDefault(); // Prevent default browser context menu
+    // Position the context menu
+    contextMenu.style.top = `${event.clientY}px`;
+    contextMenu.style.left = `${event.clientX}px`;
+});
+
 // Hide the context menu when clicking outside of it
 document.addEventListener("click", () => {
-	contextMenu.style.display = "none";
+    contextMenu.style.display = "none";
 });
 
 function deleteFile(fileId, fileName) {
