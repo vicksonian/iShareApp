@@ -1,0 +1,22 @@
+// Define search as a global function
+const search = () => {
+    const searchbox = document.getElementById("searchBar").value.toUpperCase();
+    const imagecontainerbox = document.querySelectorAll(".image-container-box");
+    
+    for (let i = 0; i < imagecontainerbox.length; i++) {
+        const file_name = imagecontainerbox[i].getElementsByTagName("h2")[0];
+        if (file_name) {
+            const textvalue = file_name.textContent || file_name.innerHTML;
+            if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+                imagecontainerbox[i].style.display = "block";
+            } else {
+                imagecontainerbox[i].style.display = "none";
+            }
+        } else {
+            console.log("h2 tag inside imagecontainerbox[" + i + "] is undefined");
+        }
+    }
+};
+
+// Add event listener to the search bar input
+document.getElementById("searchBar").addEventListener("input", search);

@@ -112,7 +112,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				videoElement.controls = true;
 				videoContainerDiv.appendChild(videoElement);
 
-				const fileNameDiv = document.createElement("div");
+				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
 				const truncatedFileName = truncateFileName(
@@ -148,7 +148,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				audioElement.controls = true;
 				audioContainerDiv.appendChild(audioElement);
 
-				const fileNameDiv = document.createElement("div");
+				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
 				const truncatedFileName = truncateFileName(
@@ -203,7 +203,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				}
 
 				// Create a div for the file name
-				const fileNameDiv = document.createElement("div");
+				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
 				const truncatedFileName = truncateFileName(
@@ -266,7 +266,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				iconDiv.appendChild(iconElement);
 
 				// Create a div for the file name
-				const fileNameDiv = document.createElement("div");
+				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
 				const truncatedFileName = truncateFileName(
@@ -398,3 +398,81 @@ document.getElementById("deleteOption").addEventListener("click", function () {
 function shareFile(file) {
 	// Share logic here
 }
+
+
+// Function to handle file search
+const videosearch = () => {
+	const searchbox = document.getElementById("videosearchBar").value.toUpperCase();
+	const videoContainerDiv = document.querySelectorAll(".video-container-box");
+
+	for (let i = 0; i < videoContainerDiv.length; i++) {
+		const file_name = videoContainerDiv[i].getElementsByTagName("h2")[0];
+		if (file_name) {
+			const textvalue = file_name.textContent || file_name.innerHTML;
+			if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+				videoContainerDiv[i].style.display = "block";
+			} else {
+				videoContainerDiv[i].style.display = "none";
+			}
+		} else {
+			console.log("h2 tag inside videoContainerDiv[" + i + "] is undefined");
+		}
+	}
+};
+// Function to handle file search
+const audeosearch = () => {
+	const searchbox = document.getElementById("audiosearchBar").value.toUpperCase();
+	const audioContainerDiv = document.querySelectorAll(".video-container-box");
+
+	for (let i = 0; i < audioContainerDiv.length; i++) {
+		const file_name = audioContainerDiv[i].getElementsByTagName("h2")[0];
+		if (file_name) {
+			const textvalue = file_name.textContent || file_name.innerHTML;
+			if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+				audioContainerDiv[i].style.display = "block";
+			} else {
+				audioContainerDiv[i].style.display = "none";
+			}
+		} else {
+			console.log("h2 tag inside audioContainerDiv[" + i + "] is undefined");
+		}
+	}
+};
+// Function to handle file search
+const docsearch = () => {
+	const searchbox = document.getElementById("docsearchBar").value.toUpperCase();
+	const docContainerDiv = document.querySelectorAll(".video-container-box");
+
+	for (let i = 0; i < docContainerDiv.length; i++) {
+		const file_name = docContainerDiv[i].getElementsByTagName("h2")[0];
+		if (file_name) {
+			const textvalue = file_name.textContent || file_name.innerHTML;
+			if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+				docContainerDiv[i].style.display = "block";
+			} else {
+				docContainerDiv[i].style.display = "none";
+			}
+		} else {
+			console.log("h2 tag inside docContainerDiv[" + i + "] is undefined");
+		}
+	}
+};
+// Function to handle file search
+const filesearch = () => {
+	const searchbox = document.getElementById("filessearchBar").value.toUpperCase();
+	const fileContainerDiv = document.querySelectorAll(".video-container-box");
+
+	for (let i = 0; i < fileContainerDiv.length; i++) {
+		const file_name = fileContainerDiv[i].getElementsByTagName("h2")[0];
+		if (file_name) {
+			const textvalue = file_name.textContent || file_name.innerHTML;
+			if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+				fileContainerDiv[i].style.display = "block";
+			} else {
+				fileContainerDiv[i].style.display = "none";
+			}
+		} else {
+			console.log("h2 tag inside fileContainerDiv[" + i + "] is undefined");
+		}
+	}
+};
