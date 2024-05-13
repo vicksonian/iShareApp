@@ -430,13 +430,6 @@ async function downloadFile(fileId) {
 	}
 }
 
-// Modify your event listener to pass the fileId to the downloadFile function
-imageContainerBox.addEventListener("contextmenu", (event) => {
-	event.preventDefault(); // Prevent default browser context menu
-	const fileId = file.id; // Assuming you have access to file id here
-	downloadFile(fileId);
-});
-
 
 // Create the context menu container
 const contextMenu = document.createElement("div");
