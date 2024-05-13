@@ -407,7 +407,7 @@ async function downloadFile(fileId) {
 			// `https://ishare-i8td.onrender.com/download/${fileId}`,
 			{
 				headers: {
-					Authorization: `Bearer ${token}`, // Include token in Authorization header
+					Authorization: `Bearer ${token}`,
 				},
 			}
 		);
