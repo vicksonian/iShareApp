@@ -738,7 +738,7 @@ button:active {
 .h-1 .cl-bn {
 	top: 50px;
 	color: rgb(255, 255, 255);
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	right: 0;
 	cursor: pointer;
 	font-size: 10px;
@@ -815,6 +815,7 @@ button:active {
 	border-radius: 4px;
 	display: flex;
 	text-align: left;
+
 }
 
 .bn-t12:hover {

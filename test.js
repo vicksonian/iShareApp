@@ -1,8 +1,8 @@
 /** @format */
 
 const f1_token = localStorage.getItem("token");
-console.log("Files Upload Retrieved token:\n", f1_token);
-console.log("Files Upload Retrieved Token", f1_token);
+// console.log("Files Upload Retrieved token:\n", f1_token);
+// console.log("Files Upload Retrieved Token", f1_token);
 
 // Function to handle image file search
 const search = () => {
@@ -201,7 +201,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				videoContainerDiv.appendChild(fileNameDiv);
 
 				videoFileList.appendChild(videoContainerDiv);
-
 			} else if (["mp3", "wav"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
 				audioContainerDiv.className = "audio-container-box";
@@ -269,7 +268,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				// Append the wrapper container div to the document file list
 				docFileList.appendChild(docWrapperContainer);
-
 			} else {
 				const fileContainerDiv = document.createElement("div");
 				fileContainerDiv.className = "files-container-box";
@@ -327,6 +325,11 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Append the file container div to the otherFilesContainer
 				otherFilesContainer.appendChild(fileContainerDiv);
 			}
+			// Add event listener for right-click
+			fileContainerDiv.addEventListener("contextmenu", (e) => {
+				e.preventDefault();
+				downloadFile(file.id, file.filename);
+			});
 		});
 	})
 	.catch((error) => {
@@ -335,10 +338,37 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 // Function to truncate file names
 function truncateFileName(fileName, maxLength) {
-	console.log("Truncating filename:", fileName);
+	// console.log("Truncating filename:", fileName);
 	if (fileName.length > maxLength) {
 		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
 	} else {
 		return fileName;
 	}
+}
+
+
+
+function downloadFile(fileId, fileName) {
+	const url = `https://ishare-i8td.onrender.com/download/${fileId}`;
+	fetch(url, {
+		headers: {
+			Authorization: `Bearer ${f1_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.blob();
+		})
+		.then((blob) => {
+			const link = document.createElement("a");
+			link.href = URL.createObjectURL(blob);
+			link.download = fileName;
+			link.click();
+			URL.revokeObjectURL(link.href);
+		})
+		.catch((error) => {
+			console.error("Error downloading file:", error);
+		});
 }

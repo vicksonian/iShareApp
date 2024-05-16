@@ -848,23 +848,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div id="contextMenu" class="context-menu">
-		<ul>
-			<li><a href="#" id="downloadOption">Download</a></li>
-			<li><a href="#" id="shareOption">Share</a></li>
-			<li><a href="#" id="deleteOption">Delete</a></li>
-			<!-- Add more options as needed -->
-		</ul>
-	</div>
-
-	<!-- Context menu template -->
-<div id="contextMenu" style="display: none;">
-    <button id="downloadBtn">Download</button>
-    <button id="deleteBtn">Delete</button>
-    <button id="shareBtn">Share</button>
-</div>
-
 	<div id="shareDialog" class="modal">
 		<div class="modal-content">
 			<div class="close-con">
@@ -890,16 +873,16 @@
 		</div>
 	</div>
 
+
+
+
 	<script src="script.js"></script>
 	<script src="upload.js"></script>
 	<script src="res_added.js"></script>
 	<script src="stgSize.js"></script>
-	<script src="down.js"></script>
-	<!-- <script src="fileFunctions.js"></script> -->
-	<!-- <script src="downloadfunction.js"></script> -->
 	<script src="test.js"></script>
-
 	<script src="deletefunction.js"></script>
+	<script src="downloadfunction.js"></script>
 
 	<script>
 		// Function to display success message
@@ -919,324 +902,163 @@
 		function updateSessionData(session) {
 			const sessionId = document.getElementById("sessions");
 			sessionId.innerHTML = `
-                <h2>Session Information:</h2>
-                <p>User ID: ${session.user_id}</p>
-                <p>Username: ${session.username}</p>
-                <p>Email: ${session.email}</p>
-                <p>Files Table: ${session.files_table}</p>
-            `;
+            <h2>Session Information:</h2>
+            <p>User ID: ${session.user_id}</p>
+            <p>Username: ${session.username}</p>
+            <p>Email: ${session.email}</p>
+            <p>Files Table: ${session.files_table}</p>
+        `;
 		}
-	</script>
 
-	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			// Retrieve username from localStorage
 			const username = localStorage.getItem("username");
 
 			// Update the content of the <p> tag with the retrieved username
 			document.getElementById("profiletext").innerText = username;
-		});
-	</script>
 
-	<script>
-		var btnContainer = document.getElementById("nav-list");
-		var btns = btnContainer.getElementsByClassName("nav-list-item");
-		for (var i = 0; i < btns.length; i++) {
-			btns[i].addEventListener("click", function () {
-				var current = document.getElementsByClassName("active");
-				if (current.length > 0) {
-					current[0].className = current[0].className.replace(" active", "");
-				}
-				if (!this.classList.contains("active")) {
-					this.className += " active";
-				}
-			});
-		}
-	</script>
+			var btnContainer = document.getElementById("nav-list");
+			var btns = btnContainer.getElementsByClassName("nav-list-item");
+			for (var i = 0; i < btns.length; i++) {
+				btns[i].addEventListener("click", function () {
+					var current = document.getElementsByClassName("active");
+					if (current.length > 0) {
+						current[0].className = current[0].className.replace(" active", "");
+					}
+					if (!this.classList.contains("active")) {
+						this.className += " active";
+					}
+				});
+			}
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
 			const logoutButton = document.getElementById("logout-btn");
 			logoutButton.addEventListener("click", function (event) {
 				event.preventDefault(); // Prevent default link behavior
 
-				// Fetch request to logout endpoint
-				// fetch("http://192.168.74.8:5000/logout", {
-					fetch("https://ishare-i8td.onrender.com/logout", {
+				fetch("https://ishare-i8td.onrender.com/logout", {
 					method: "POST",
 					headers: {
-						Authorization: "Bearer " + localStorage.getItem("token"), // Get JWT token from client-side storage
+						Authorization: "Bearer " + localStorage.getItem("token"),
 					},
 				})
 					.then((response) => {
 						if (response.ok) {
-							// Successful logout, clear token and redirect to login page
-							localStorage.removeItem("token"); // Clear JWT token from client-side storage
-							window.location.href = "index.html"; // Redirect to login page
+							localStorage.removeItem("token");
+							window.location.href = "index.html";
 						} else {
-							// Handle error response
 							console.error("Failed to logout:", response.statusText);
 						}
 					})
 					.catch((error) => {
-						// Handle network error
 						console.error("Failed to logout:", error);
 					});
 			});
-		});
 
-		function showCurrentForm() {
-			// For demonstration purposes, let's just log a message to the console
-			console.log("Current form state is being checked.");
-			// You can add your logic here to check the current form state
-			// and perform any necessary actions based on that state
-		}
+			function showCurrentForm() {
+				console.log("Current form state is being checked.");
+			}
 
-		// Check the current form state when the page loads
-		window.onload = function () {
-			showCurrentForm();
-		};
+			window.onload = function () {
+				showCurrentForm();
+			};
 
-		// Check if the user is logged in
-		if (localStorage.getItem("token")) {
-			// User is logged in, do nothing
-			//window.location.href = "iSharee.html";
-		} else {
-			// User is not logged in, redirect to login page
-			window.location.href = "index.html";
-		}
-
-		// Listen for the browser's back/forward navigation
-		window.addEventListener("popstate", function () {
-			// Check if the user is logged in
 			if (!localStorage.getItem("token")) {
-				// User is not logged in, redirect to index page
 				window.location.href = "index.html";
 			}
+
+			window.addEventListener("popstate", function () {
+				if (!localStorage.getItem("token")) {
+					window.location.href = "index.html";
+				}
+			});
+
+			const token = localStorage.getItem("jwtToken");
+			if (token) {
+				window.location.href = "/iSharee.html";
+			}
+
+			// Function to show context menu
+			function showContextMenu(event) {
+				event.preventDefault();
+				const contextMenu = document.getElementById("contextMenu");
+				contextMenu.style.display = "block";
+				contextMenu.style.top = `${event.clientY}px`;
+				contextMenu.style.left = `${event.clientX}px`;
+			}
+
+			// Function to hide context menu
+			function hideContextMenu() {
+				const contextMenu = document.getElementById("contextMenu");
+				contextMenu.style.display = "none";
+			}
+
+			// Function to handle download
+			function downloadFile(fileId) {
+				fetch(`/download/${fileId}`)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`HTTP error! Status: ${response.status}`);
+						}
+						return response.blob();
+					})
+					.then(blob => {
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = 'filename';
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(url);
+						document.body.removeChild(a);
+					})
+					.catch(error => {
+						console.error('Error downloading file:', error);
+					});
+			}
+
+			// Add event listeners for context menu buttons
+			document.getElementById("downloadBtn").addEventListener("click", function (event) {
+				const fileId = event.target.dataset.fileId;
+				downloadFile(fileId);
+				hideContextMenu();
+			});
+
+			document.getElementById("deleteBtn").addEventListener("click", function (event) {
+				hideContextMenu();
+			});
+
+			document.getElementById("shareBtn").addEventListener("click", function (event) {
+				hideContextMenu();
+			});
+
+			// Add event listener to show context menu on right-click
+			document.addEventListener("contextmenu", function (event) {
+				const target = event.target.closest(".file-container");
+				if (target) {
+					showContextMenu(event);
+					const fileId = target.dataset.fileId;
+					document.getElementById("downloadBtn").dataset.fileId = fileId;
+					document.getElementById("deleteBtn").dataset.fileId = fileId;
+					document.getElementById("shareBtn").dataset.fileId = fileId;
+				} else {
+					hideContextMenu();
+				}
+			});
+
+			// Hide context menu on click outside
+			document.addEventListener("click", function (event) {
+				if (!event.target.closest("#contextMenu")) {
+					hideContextMenu();
+				}
+			});
 		});
+
+		// // Listen for contextmenu event and prevent default behavior
+		// document.addEventListener('contextmenu', function (event) {
+		// 	event.preventDefault();
+		// });
 	</script>
 
-	<script>
-		// Images Area Images
-		let imagesAreaImages = document.querySelectorAll(".images-area img");
-		// Images Area First Image
-		let imagesAreaFirstImage = document.querySelector(
-			".images-area .firstImage"
-		);
-
-		// Previous And Next Buttons
-		let previousBtn = document.querySelector(".previous-btn");
-		let nextBtn = document.querySelector(".next-btn");
-
-		// Pagination Area
-		let paginationArea = document.querySelector(".pagination-area");
-
-		// Current Image Count
-		let currentImageCount = 1;
-
-		// Slider Controler Function
-		let sliderController;
-		// Create Pagination Spans Function
-		let createPaginationSpans;
-
-		// Every Click On Buttons
-		previousBtn.addEventListener("click", previousImage);
-		nextBtn.addEventListener("click", nextImage);
-
-		// Previous Image Function
-		function previousImage() {
-			// If The currentImageCount Is 1
-			if (currentImageCount === 1) {
-				return false;
-			} else {
-				// Else
-				// Minus One From currentImageCount
-				currentImageCount--;
-				// Call Function sliderController();
-				sliderController();
-			}
-		}
-
-		// Next Image Function
-		function nextImage() {
-			// If The currentImageCount Is imagesAreaImages.length
-			if (currentImageCount === imagesAreaImages.length) {
-				return false;
-			} else {
-				// Else
-				// Plus One To currentImageCount
-				currentImageCount++;
-				// Call Function sliderController();
-				sliderController();
-			}
-		}
-
-		// Create Pagination Spans [Circls] Function
-		(function createPaginationSpans() {
-			// Loop On All The Images Slider
-			for (var i = 0; i < imagesAreaImages.length; i++) {
-				// Create Span
-				let paginationSpan = document.createElement("span");
-				// Append The Span
-				paginationArea.appendChild(paginationSpan);
-			}
-		})();
-
-		// Slider Controler Function
-		(sliderController = function () {
-			// Get All The pagination Spans
-			let paginationCircls = document.querySelectorAll(
-				".pagination-area span"
-			);
-
-			// Call Remore All Active Class Function
-			removeAllActive(paginationCircls);
-
-			// Call Remore Active Button Function
-			activeButton();
-
-			// The currentImageCount Minus One
-			let currentImageMinusOne = currentImageCount - 1;
-
-			// Set Active Class On Current Pagination
-			paginationCircls[currentImageMinusOne].classList.add("active");
-
-			// Move The images Area First Image
-			imagesAreaFirstImage.style.marginLeft = `-${600 * currentImageMinusOne
-				}px`;
-			console.log(600 * currentImageMinusOne);
-		})();
-
-		// Remove All Active Class Function
-		function removeAllActive(targetElement) {
-			for (var i = 0; i < targetElement.length; i++) {
-				targetElement[i].classList.remove("active");
-			}
-		}
-
-		// Check Active Button Function
-		function activeButton() {
-			// If The Current Image Count Equle 1
-			currentImageCount === 1
-				? // Hide The Previous Button
-				previousBtn.classList.add("disabled")
-				: // Else: Show The Previous Button
-				previousBtn.classList.remove("disabled");
-
-			// If The Current Image Count Equle imagesAreaImages.length
-			currentImageCount === imagesAreaImages.length
-				? // Hide The Next Button
-				nextBtn.classList.add("disabled")
-				: // Else: Show The Next Button
-				nextBtn.classList.remove("disabled");
-		}
-
-		// Move Slider Image Every 3 Second
-		setInterval(() => {
-			// If The Current Image Count Not Equle imagesAreaImages.length
-			if (currentImageCount != imagesAreaImages.length) {
-				// Plus One
-				currentImageCount++;
-				// Call Function sliderController();
-				sliderController();
-			} else {
-				// else
-				// Make currentImageCount Equle 1
-				currentImageCount = 1;
-				// Call Function sliderController();
-				sliderController();
-			}
-		}, 3000);
-	</script>
-
-	<script>
-		const token = localStorage.getItem("jwtToken");
-		if (token) {
-			window.location.href = "/iSharee.html"; // Redirect to dashboard
-		}
-	</script>
-
-
-<script>
-// Function to show context menu
-function showContextMenu(event) {
-    event.preventDefault();
-    const contextMenu = document.getElementById("contextMenu");
-    contextMenu.style.display = "block";
-    contextMenu.style.top = `${event.clientY}px`;
-    contextMenu.style.left = `${event.clientX}px`;
-}
-
-// Function to hide context menu
-function hideContextMenu() {
-    const contextMenu = document.getElementById("contextMenu");
-    contextMenu.style.display = "none";
-}
-
-// Function to handle download
-function downloadFile(fileId) {
-    fetch(`/download/${fileId}`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.blob();
-    })
-    .then(blob => {
-        // Create a temporary link element to trigger download
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'filename';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    })
-    .catch(error => {
-        console.error('Error downloading file:', error);
-    });
-}
-
-// Add event listeners for context menu buttons
-document.getElementById("downloadBtn").addEventListener("click", function(event) {
-    const fileId = event.target.dataset.fileId;
-    downloadFile(fileId);
-    hideContextMenu();
-});
-
-document.getElementById("deleteBtn").addEventListener("click", function(event) {
-    // Implement delete functionality
-    hideContextMenu();
-});
-
-document.getElementById("shareBtn").addEventListener("click", function(event) {
-    // Implement share functionality
-    hideContextMenu();
-});
-
-// Add event listener to show context menu on right-click
-document.addEventListener("contextmenu", function(event) {
-    const target = event.target.closest(".file-container");
-    if (target) {
-        showContextMenu(event);
-        // Pass file ID to context menu buttons
-        const fileId = target.dataset.fileId;
-        document.getElementById("downloadBtn").dataset.fileId = fileId;
-        document.getElementById("deleteBtn").dataset.fileId = fileId;
-        document.getElementById("shareBtn").dataset.fileId = fileId;
-    } else {
-        hideContextMenu();
-    }
-});
-
-// Hide context menu on click outside
-document.addEventListener("click", function(event) {
-    if (!event.target.closest("#contextMenu")) {
-        hideContextMenu();
-    }
-});
-</script>
 </body>
 
 </html>
