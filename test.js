@@ -527,6 +527,7 @@ function showDeleteNotification(filename) {
 
 
 function showShareMenu(event, fileId, filename) {
+	// Remove any existing menu container
 	const existingContainer = document.querySelector(
 		".share-context-menu-container"
 	);
@@ -534,9 +535,11 @@ function showShareMenu(event, fileId, filename) {
 		existingContainer.remove();
 	}
 
+	// Create the menu container
 	const menuContainer = document.createElement("div");
 	menuContainer.className = "share-context-menu-container";
 
+	// Create and append the header container and its elements
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "header-container";
 
@@ -556,22 +559,27 @@ function showShareMenu(event, fileId, filename) {
 
 	menuContainer.appendChild(headerContainer);
 
+	// Create and append the input field
 	const input = document.createElement("input");
 	input.id = "recipientInput";
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
+	// Create and append the share button
 	const sharebtn = document.createElement("button");
 	sharebtn.className = "shareButton";
 	sharebtn.id = "shareButton";
 	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
 	menuContainer.appendChild(sharebtn);
 
+	// Create and append the message holder
 	const message = document.createElement("span");
 	message.className = "messageHolder";
 	message.id = "messageHolder";
+	message.textContent = "Message";
 	menuContainer.appendChild(message);
 
+	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
 
 	// Make the menu container visible
@@ -609,24 +617,34 @@ function showShareMenu(event, fileId, filename) {
 					return response.json();
 				})
 				.then((data) => {
-					console.log(data); // Check the data in the console
+					console.log("API Response:", data); // Debugging line
 					const messageHolder = document.getElementById("messageHolder");
-					console.log("Message Holder:", messageHolder); // Debugging line
-					if (data.exists) {
-						messageHolder.textContent = "User available for sharing";
-						messageHolder.style.color = "green";
+					if (messageHolder) {
+						if (data.exists) {
+							messageHolder.textContent = "User available for sharing";
+							messageHolder.style.color = "green";
+						} else {
+							messageHolder.textContent = "User not available for sharing";
+							messageHolder.style.color = "red";
+						}
+						console.log("Message Text:", messageHolder.textContent); // Debugging line
 					} else {
-						messageHolder.textContent = "User not available for sharing";
-						messageHolder.style.color = "red";
+						console.error("Message Holder not found in the DOM");
 					}
-					console.log("Message Text:", messageHolder.textContent); // Debugging line
 				})
 				.catch((error) => {
 					console.error("Error:", error);
+					const messageHolder = document.getElementById("messageHolder");
+					if (messageHolder) {
+						messageHolder.textContent = "Error validating user";
+						messageHolder.style.color = "red";
+					}
 				});
 		} else {
 			const messageHolder = document.getElementById("messageHolder");
-			messageHolder.textContent = "";
+			if (messageHolder) {
+				messageHolder.textContent = "";
+			}
 		}
 	});
 }
@@ -675,13 +693,3 @@ function shareFile(fileId, recipient) {
 		});
 }
 
-// Debounce function to limit the rate of API calls
-function debounce(func, delay) {
-	let debounceTimer;
-	return function () {
-		const context = this;
-		const args = arguments;
-		clearTimeout(debounceTimer);
-		debounceTimer = setTimeout(() => func.apply(context, args), delay);
-	};
-}
