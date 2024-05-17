@@ -1,8 +1,6 @@
 /** @format */
 
 const f1_token = localStorage.getItem("token");
-// console.log("Files Upload Retrieved token:\n", f1_token);
-// console.log("Files Upload Retrieved Token", f1_token);
 
 // Function to handle image file search
 const search = () => {
@@ -45,6 +43,7 @@ const videosearch = () => {
 		}
 	}
 };
+
 // Function to handle audio file search
 const audiosearch = () => {
 	const searchbox = document
@@ -66,6 +65,7 @@ const audiosearch = () => {
 		}
 	}
 };
+
 // Function to handle doc file search
 const docsearch = () => {
 	const searchbox = document.getElementById("docsearchBar").value.toUpperCase();
@@ -85,6 +85,7 @@ const docsearch = () => {
 		}
 	}
 };
+
 // Function to handle file search
 const filesearch = () => {
 	const searchbox = document
@@ -120,7 +121,6 @@ document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
 fetch("https://ishare-i8td.onrender.com/files", {
 	// Fetch files from the Flask backend
-	// fetch("http://192.168.74.8:5000/files", {
 	headers: {
 		Authorization: `Bearer ${f1_token}`,
 	},
@@ -133,10 +133,10 @@ fetch("https://ishare-i8td.onrender.com/files", {
 	})
 	.then((data) => {
 		// Get the photos and other files containers div
-		const photosContainer = document.getElementById("photosfileList"); //display image files
-		const videoFileList = document.getElementById("videofileList"); //display video files
-		const audioFileList = document.getElementById("audiofileList"); //display audio files
-		const docFileList = document.getElementById("docfileList"); //display audio files
+		const photosContainer = document.getElementById("photosfileList"); // Display image files
+		const videoFileList = document.getElementById("videofileList"); // Display video files
+		const audioFileList = document.getElementById("audiofileList"); // Display audio files
+		const docFileList = document.getElementById("docfileList"); // Display document files
 		const otherFilesContainer = document.getElementById("otherFilesList");
 
 		// Clear any existing content in the containers
@@ -180,6 +180,12 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				imageContainerBox.appendChild(imageDiv);
 				photosContainer.appendChild(imageContainerBox);
+
+				// Add right-click event listener
+				imageContainerBox.addEventListener("contextmenu", (event) => {
+					event.preventDefault();
+					showDownloadButton(event, file.id);
+				});
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
 				videoContainerDiv.className = "video-container-box";
@@ -197,10 +203,15 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					MAX_FILE_NAME_LENGTH
 				);
 				fileNameDiv.textContent = truncatedFileName;
-
 				videoContainerDiv.appendChild(fileNameDiv);
 
 				videoFileList.appendChild(videoContainerDiv);
+
+				// Add right-click event listener
+				videoContainerDiv.addEventListener("contextmenu", (event) => {
+					event.preventDefault();
+					showDownloadButton(event, file.id);
+				});
 			} else if (["mp3", "wav"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
 				audioContainerDiv.className = "audio-container-box";
@@ -218,10 +229,15 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					MAX_FILE_NAME_LENGTH
 				);
 				fileNameDiv.textContent = truncatedFileName;
-
 				audioContainerDiv.appendChild(fileNameDiv);
 
 				audioFileList.appendChild(audioContainerDiv);
+
+				// Add right-click event listener
+				audioContainerDiv.addEventListener("contextmenu", (event) => {
+					event.preventDefault();
+					showDownloadButton(event, file.id);
+				});
 			} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
 				// Create a wrapper container div
 				const docWrapperContainer = document.createElement("div");
@@ -246,7 +262,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					case "xlsx":
 						iconElement.className = "far fa-file-excel"; // Excel document icon
 						break;
-					// Add cases for other file types as needed
 				}
 
 				// Create a div for the file name
@@ -268,6 +283,12 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				// Append the wrapper container div to the document file list
 				docFileList.appendChild(docWrapperContainer);
+
+				// Add right-click event listener
+				docWrapperContainer.addEventListener("contextmenu", (event) => {
+					event.preventDefault();
+					showDownloadButton(event, file.id);
+				});
 			} else {
 				const fileContainerDiv = document.createElement("div");
 				fileContainerDiv.className = "files-container-box";
@@ -290,7 +311,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					case "xlsx":
 						iconClass = "far fa-file-excel"; // Font Awesome class for Excel document icon
 						break;
-					// Add cases for other file types as needed
 					default:
 						iconClass = "far fa-file"; // Default file icon
 						break;
@@ -324,12 +344,60 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 				// Append the file container div to the otherFilesContainer
 				otherFilesContainer.appendChild(fileContainerDiv);
+
+				// Add right-click event listener
+				fileContainerDiv.addEventListener("contextmenu", (event) => {
+					event.preventDefault();
+					showDownloadButton(event, file.id);
+				});
 			}
 		});
 	})
 	.catch((error) => {
 		console.error("Error fetching files:", error);
 	});
+
+// Function to create a download button
+function createDownloadButton(fileId) {
+	const downloadButton = document.createElement("button");
+	downloadButton.className = "download-button";
+	downloadButton.textContent = "Download";
+	downloadButton.addEventListener("click", () => {
+		window.location.href = `https://ishare-i8td.onrender.com/download/${fileId}`;
+	});
+	return downloadButton;
+}
+
+// Function to show the download button
+function showDownloadButton(event, fileId) {
+	// Remove any existing download button
+	const existingButton = document.querySelector(".download-button");
+	if (existingButton) {
+		existingButton.remove();
+	}
+
+	// Create and position the new download button
+	const downloadButton = createDownloadButton(fileId);
+	downloadButton.style.position = "absolute";
+	downloadButton.style.left = `${event.pageX}px`;
+	downloadButton.style.top = `${event.pageY}px`;
+
+	document.body.appendChild(downloadButton);
+
+	// Hide the download button when clicking elsewhere
+	document.addEventListener("click", hideDownloadButton);
+}
+
+// Function to hide the download button
+function hideDownloadButton() {
+	const downloadButton = document.querySelector(".download-button");
+	if (downloadButton) {
+		downloadButton.remove();
+	}
+
+	// Remove the event listener
+	document.removeEventListener("click", hideDownloadButton);
+}
 
 // Function to truncate file names
 function truncateFileName(fileName, maxLength) {
@@ -340,5 +408,3 @@ function truncateFileName(fileName, maxLength) {
 		return fileName;
 	}
 }
-
-
