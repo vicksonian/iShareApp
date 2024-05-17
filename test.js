@@ -364,7 +364,7 @@ const d_token = localStorage.getItem("token");
 function createDownloadButton(fileId, filename) {
 	const downloadButton = document.createElement("button");
 	downloadButton.className = "download-button";
-	downloadButton.textContent = "Download";
+	downloadButton.innerHTML = `<i class="fas fa-download"></i> Download`;
 	downloadButton.addEventListener("click", () => {
 		downloadFile(fileId, filename);
 	});
@@ -375,7 +375,7 @@ function createDownloadButton(fileId, filename) {
 function createDeleteButton(fileId, filename) {
 	const deleteButton = document.createElement("button");
 	deleteButton.className = "delete-button";
-	deleteButton.textContent = "Delete";
+	deleteButton.innerHTML = `<i class="fas fa-trash-alt"></i> Delete`;
 	deleteButton.addEventListener("click", () => {
 		deleteFile(fileId, filename);
 	});
