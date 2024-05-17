@@ -976,8 +976,82 @@
 			if (token) {
 				window.location.href = "/iSharee.html";
 			}
-		})
 
+			// Function to show context menu
+			function showContextMenu(event) {
+				event.preventDefault();
+				const contextMenu = document.getElementById("contextMenu");
+				contextMenu.style.display = "block";
+				contextMenu.style.top = `${event.clientY}px`;
+				contextMenu.style.left = `${event.clientX}px`;
+			}
+
+			// Function to hide context menu
+			function hideContextMenu() {
+				const contextMenu = document.getElementById("contextMenu");
+				contextMenu.style.display = "none";
+			}
+
+			// Function to handle download
+			function downloadFile(fileId) {
+				fetch(`/download/${fileId}`)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`HTTP error! Status: ${response.status}`);
+						}
+						return response.blob();
+					})
+					.then(blob => {
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement('a');
+						a.href = url;
+						a.download = 'filename';
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(url);
+						document.body.removeChild(a);
+					})
+					.catch(error => {
+						console.error('Error downloading file:', error);
+					});
+			}
+
+			// Add event listeners for context menu buttons
+			document.getElementById("downloadBtn").addEventListener("click", function (event) {
+				const fileId = event.target.dataset.fileId;
+				downloadFile(fileId);
+				hideContextMenu();
+			});
+
+			document.getElementById("deleteBtn").addEventListener("click", function (event) {
+				hideContextMenu();
+			});
+
+			document.getElementById("shareBtn").addEventListener("click", function (event) {
+				hideContextMenu();
+			});
+
+			// Add event listener to show context menu on right-click
+			document.addEventListener("contextmenu", function (event) {
+				const target = event.target.closest(".file-container");
+				if (target) {
+					showContextMenu(event);
+					const fileId = target.dataset.fileId;
+					document.getElementById("downloadBtn").dataset.fileId = fileId;
+					document.getElementById("deleteBtn").dataset.fileId = fileId;
+					document.getElementById("shareBtn").dataset.fileId = fileId;
+				} else {
+					hideContextMenu();
+				}
+			});
+
+			// Hide context menu on click outside
+			document.addEventListener("click", function (event) {
+				if (!event.target.closest("#contextMenu")) {
+					hideContextMenu();
+				}
+			});
+		});
 	</script>
 
 </body>
