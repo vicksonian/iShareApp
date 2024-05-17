@@ -323,6 +323,7 @@ f#search-form:valid #i41 {
     box-shadow: 0 2px 5px rgb(6, 249, 201);
     z-index: 1000;
     padding: 10px;
+	color: #f1eeee;
 }
 
 /* Style for the context menu buttons */
