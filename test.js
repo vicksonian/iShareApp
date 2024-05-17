@@ -535,22 +535,21 @@ function showShareMenu(event, fileId, filename) {
 	header.textContent = "Enter recipient's username or email";
 	menuContainer.appendChild(header);
 
+	const clbtn = document.createElement("button");
+	clbtn.className = "context-menu-button";
+	clbtn.innerHTML = `<i class="fas fa-times icon"></i> Cancel`;
+	clbtn.addEventListener("click", () => {
+        menuContainer.remove();
+        document.removeEventListener("click", hideMenuOnClickOutside);
+    });
+	menuContainer.appendChild(clbtn);
+	
+
 	const input = document.createElement("input");
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
-	input.addEventListener("keydown", (e) => {
-		if (e.key === "Enter") {
-            const recipient = input.value;
-            shareFile(fileId, filename, recipient);
-        }
-    });
-	input.focus();
-	input.select();
-	document.addEventListener("click", hideMenuOnClickOutside);
-	menuContainer.addEventListener("click", (event) => event.stopPropagation());
-	document.body.appendChild(menuContainer);
-
+	
 	// Create share options
 	const shareOption1 = document.createElement("button");
 	shareOption1.textContent = "Option 1";
