@@ -455,6 +455,13 @@ function shareFile(fileId, filename) {
 
 // Function to show the download, delete, and share buttons
 function showButtons(event, fileId, filename) {
+	console.log(
+		"Showing context menu for fileId:",
+		fileId,
+		"filename:",
+		filename
+	);
+
 	// Remove any existing menus
 	const existingMenus = document.querySelectorAll(".context-menu");
 	existingMenus.forEach((menu) => menu.remove());
@@ -501,6 +508,7 @@ document
 	.forEach((element) => {
 		element.addEventListener("contextmenu", (event) => {
 			event.preventDefault();
+			console.log("Context menu event triggered for element:", element);
 			const fileId = element.dataset.fileId;
 			const filename = element.dataset.filename;
 			showButtons(event, fileId, filename);
@@ -515,4 +523,3 @@ function truncateFileName(fileName, maxLength) {
 		return fileName;
 	}
 }
-
