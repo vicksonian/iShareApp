@@ -530,11 +530,26 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${event.pageX}px`;
 	menuContainer.style.top = `${event.pageY}px`;
 
-	const header = document.createElement("h1")
+	const header = document.createElement("h3")
 	header.className = "context-menu-header";
 	header.textContent = "Enter recipient's username or email";
 	menuContainer.appendChild(header);
-	
+
+	const input = document.createElement("input");
+	input.className = "context-menu-input";
+	menuContainer.appendChild(input);
+
+	input.addEventListener("keydown", (e) => {
+		if (e.key === "Enter") {
+            const recipient = input.value;
+            shareFile(fileId, filename, recipient);
+        }
+    });
+	input.focus();
+	input.select();
+	document.addEventListener("click", hideMenuOnClickOutside);
+	menuContainer.addEventListener("click", (event) => event.stopPropagation());
+	document.body.appendChild(menuContainer);
 
 	// Create share options
 	const shareOption1 = document.createElement("button");
