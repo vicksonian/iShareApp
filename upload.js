@@ -23,7 +23,6 @@ function uploadFile() {
 	}
 
 	const xhr = new XMLHttpRequest();
-	// xhr.open("POST", "http://192.168.74.8:5000/upload", true);
 	xhr.open("POST", "https://ishare-i8td.onrender.com/upload", true);
 
 	// Set Authorization header with the token
@@ -49,18 +48,8 @@ function uploadFile() {
 				document.getElementById("progressBarContainer").style.display = "none";
 			}, 5000);
 
-			// Add the recently uploaded files to the recentlyUploadedfileList div
-			const recentlyUploadedfileList = document.getElementById(
-				"recentlyUploadedfileList"
-			);
-			for (let i = 0; i < files.length; i++) {
-				const fileItem = document.createElement("div");
-				fileItem.textContent = files[i].name; // You can customize this to display more information about the file
-				recentlyUploadedfileList.appendChild(fileItem);
-			}
-
-			// Show the recently uploaded files section
-			document.getElementById("recentlyuploadedfiles").style.display = "block";
+			// Fetch the updated file list
+			fetchFileList();
 		} else if (xhr.status === 400) {
 			// Server returned a bad request status (400)
 			displayErrorMessage(
@@ -78,6 +67,51 @@ function uploadFile() {
 	};
 
 	xhr.send(formData);
+}
+
+// Function to fetch the updated file list
+function fetchFileList() {
+	const token = localStorage.getItem("token");
+
+	fetch("https://ishare-i8td.onrender.com/files", {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.json(); // Parse response as JSON
+		})
+		.then((data) => {
+			// Update UI with the fetched file list
+			updateUIWithFileList(data.files);
+		})
+		.catch((error) => {
+			console.error("Error fetching files:", error);
+		});
+}
+
+// Function to update the UI with the fetched file list
+function updateUIWithFileList(files) {
+	// Get the recentlyUploadedfileList div
+	const recentlyUploadedfileList = document.getElementById(
+		"recentlyUploadedfileList"
+	);
+
+	// Clear any existing content in the recentlyUploadedfileList
+	recentlyUploadedfileList.innerHTML = "";
+
+	// Add the recently uploaded files to the recentlyUploadedfileList div
+	for (let i = 0; i < files.length; i++) {
+		const fileItem = document.createElement("div");
+		fileItem.textContent = files[i].name; // You can customize this to display more information about the file
+		recentlyUploadedfileList.appendChild(fileItem);
+	}
+
+	// Show the recently uploaded files section
+	document.getElementById("recentlyuploadedfiles").style.display = "block";
 }
 
 // Function to display error message
