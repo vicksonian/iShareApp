@@ -518,13 +518,13 @@ function showDeleteNotification(filename) {
 }
 
 function showShareMenu(event, fileId, filename) {
-	const existingContainer = document.querySelector(".context-menu-container");
+	const existingContainer = document.querySelector(".share-context-menu-container");
 	if (existingContainer) {
 		existingContainer.remove();
 	}
 
 	const menuContainer = document.createElement("div");
-	menuContainer.className = "context-menu-container";
+	menuContainer.className = "share-context-menu-container";
 	menuContainer.style.left = `${event.pageX}px`;
 	menuContainer.style.top = `${event.pageY}px`;
 
