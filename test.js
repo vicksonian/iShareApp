@@ -545,10 +545,14 @@ function showShareMenu(event, fileId, filename) {
 
 	document.body.appendChild(menuContainer);
 
+	// Make the menu container visible
+	menuContainer.style.display = "block";
+
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideButtonsOutside);
 	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
+
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
