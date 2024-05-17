@@ -451,10 +451,10 @@ line-height: 1;
     margin-right: 5px;
 }
 
-/* Message holder styling */
-.messageHolder {
+.share-context-menu-container .messageHolder {
     display: block;
     margin-top: 10px;
-    color: #666;
     font-size: 14px;
+    font-weight: bold;
 }
+
