@@ -407,24 +407,31 @@ function downloadFile(fileId, filename) {
 
 
 // Function to show the download button
-function showDownloadButton(event, fileId) {
-    // Remove any existing download button
-    const existingButton = document.querySelector(".download-button");
-    if (existingButton) {
-        existingButton.remove();
-    }
+function showDownloadButton(event, fileId, filename) {
+	// Remove any existing download button
+	const existingButton = document.querySelector(".download-button");
+	if (existingButton) {
+		existingButton.remove();
+	}
 
-    // Create and position the new download button
-    const downloadButton = createDownloadButton(fileId);
-    downloadButton.style.position = "absolute";
-    downloadButton.style.left = `${event.pageX}px`;
-    downloadButton.style.top = `${event.pageY}px`;
+	// Create and position the new download button
+	const downloadButton = createDownloadButton(fileId);
+	downloadButton.style.position = "absolute";
+	downloadButton.style.left = `${event.pageX}px`;
+	downloadButton.style.top = `${event.pageY}px`;
 
-    document.body.appendChild(downloadButton);
+	document.body.appendChild(downloadButton);
 
-    // Hide the download button when clicking elsewhere
-    document.addEventListener("click", hideDownloadButton);
+	// Hide the download button when clicking elsewhere
+	document.addEventListener("click", hideDownloadButton);
+
+	// Pass the filename to the downloadFile function
+	downloadButton.addEventListener("click", () => {
+		downloadFile(fileId, filename);
+	});
 }
+
+
 
 // Function to hide the download button
 function hideDownloadButton() {
