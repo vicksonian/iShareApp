@@ -353,73 +353,83 @@ f#search-form:valid #i41 {
 
 /* ################################## */
 
+/* Container for the entire context menu */
 .share-context-menu-container {
-    position: fixed;
-    background-color: #05074c;
+    position: absolute;
+    background-color: 05074c;
     border: 1px solid #ccc;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    z-index: 9999; /* Ensure it's above other elements */
-	color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(147, 3, 3, 0.616);
+    padding: 15px;
+    z-index: 1000;
 }
 
-.share-context-menu-header {
-    margin-top: 0;
+/* Container for the header and close button */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
-    font-size: 16px;
-	color: #ffffff;
 }
 
+/* Header styling */
+.share-context-menu-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+/* Close button styling */
 .context-menu-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    color: #333;
-    margin-right: 10px; /* Add some space between buttons */
+    color: #999;
+    transition: color 0.3s;
 }
 
+.context-menu-button:hover {
+    color: #666;
+}
+
+/* Input field styling */
 .context-menu-input {
-    width: calc(100% - 20px); /* Adjust input width to fit container */
-    padding: 5px;
+    width: 100%;
+    padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
-	outline: none;
+    border-radius: 4px;
 }
 
-.icon {
+/* Share button styling */
+.shareButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.shareButton:hover {
+    background-color: #0056b3;
+}
+
+.shareButton .icon {
     margin-right: 5px;
 }
 
-/* Position the close button */
-.context-menu-button.close-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
-/* Adjust close button icon position */
-.context-menu-button.close-button .icon {
-    margin-left: auto;
-}
-
-/* Style the Share button */
-.shareButton {
-    background-color: #183049;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* Style the message holder */
+/* Message holder styling */
 .messageHolder {
     display: block;
     margin-top: 10px;
-    color: #fffdfd;
+    color: #666;
     font-size: 14px;
 }

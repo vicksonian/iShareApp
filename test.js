@@ -530,37 +530,39 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${event.pageX}px`;
 	menuContainer.style.top = `${event.pageY}px`;
 
+	const headerContainer = document.createElement("div");
+	headerContainer.className = "header-container"; // New div class
+
 	const header = document.createElement("h3");
-	header.className = "share-context-menu-header"; // Adjusted class name
+	header.className = "share-context-menu-header";
 	header.textContent = "Enter recipient's username or email";
-	menuContainer.appendChild(header);
+	headerContainer.appendChild(header);
 
 	const clbtn = document.createElement("button");
 	clbtn.className = "context-menu-button";
-	clbtn.innerHTML = `<i class="fas fa-times icon"></i> Cancel`;
+	clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
 	clbtn.addEventListener("click", () => {
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
-	menuContainer.appendChild(clbtn);
+	headerContainer.appendChild(clbtn);
+
+	menuContainer.appendChild(headerContainer);
 
 	const input = document.createElement("input");
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
-	const sharebtn =document.createElement("button");
+	const sharebtn = document.createElement("button");
 	sharebtn.className = "shareButton";
 	sharebtn.id = "shareButton";
-	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i> Share`;
-	
+	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
 	menuContainer.appendChild(sharebtn);
-	
 
-	const message = document.createElement("span")
+	const message = document.createElement("span");
 	message.className = "messageHolder";
 	message.id = "messageHolder";
 	menuContainer.appendChild(message);
-
 
 	document.body.appendChild(menuContainer);
 
@@ -570,6 +572,8 @@ function showShareMenu(event, fileId, filename) {
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
 }
+
+
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
