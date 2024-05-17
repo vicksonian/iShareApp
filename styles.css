@@ -350,6 +350,8 @@ f#search-form:valid #i41 {
     font-size: 14px;
 }
 
+/* ################################## */
+
 .share-context-menu-container{
 	position: absolute;
     background-color: #05074c;
@@ -360,4 +362,48 @@ f#search-form:valid #i41 {
     padding: 10px;
 	width: 350px;
 	height: 300px;
+}
+
+
+.share-context-menu-container {
+    position: fixed;
+    padding: 10px;
+    z-index: 9999;
+}
+
+.share-context-menu-header {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.context-menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.context-menu-input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.icon {
+    margin-right: 5px;
+}
+
+/* Position the close button */
+.context-menu-button.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/* Adjust close button icon position */
+.context-menu-button.close-button .icon {
+    margin-left: auto;
 }

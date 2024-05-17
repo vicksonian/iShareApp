@@ -530,8 +530,8 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${event.pageX}px`;
 	menuContainer.style.top = `${event.pageY}px`;
 
-	const header = document.createElement("h3")
-	header.className = "context-menu-header";
+	const header = document.createElement("h3");
+	header.className = "share-context-menu-header"; // Adjusted class name
 	header.textContent = "Enter recipient's username or email";
 	menuContainer.appendChild(header);
 
@@ -539,17 +539,15 @@ function showShareMenu(event, fileId, filename) {
 	clbtn.className = "context-menu-button";
 	clbtn.innerHTML = `<i class="fas fa-times icon"></i> Cancel`;
 	clbtn.addEventListener("click", () => {
-        menuContainer.remove();
-        document.removeEventListener("click", hideMenuOnClickOutside);
-    });
+		menuContainer.remove();
+		document.removeEventListener("click", hideMenuOnClickOutside);
+	});
 	menuContainer.appendChild(clbtn);
-	
 
 	const input = document.createElement("input");
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
-	
 	// Create share options
 	const shareOption1 = document.createElement("button");
 	shareOption1.textContent = "Option 1";
@@ -582,6 +580,7 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
+
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
