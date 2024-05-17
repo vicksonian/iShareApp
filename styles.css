@@ -316,14 +316,22 @@ f#search-form:valid #i41 {
 
 /* Style for the context menu container */
 .context-menu-container {
-    position: absolute;
-    background-color: #05074c;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgb(6, 249, 201);
-    z-index: 1000;
-    padding: 10px;
-	color: #f1eeee;
+position: absolute;
+background-color: #05074c;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-shadow: 0 2px 5px rgb(6, 249, 201);
+z-index: 1000;
+padding: 10px;
+color: #f1eeee;
+width: 150px;
+height: 150px;
+display: flex;
+flex-direction: column;
+gap: 20px;
+text-align: left;
+justify-content: center;
+align-content: center;
 }
 
 /* Style for the context menu buttons */
@@ -336,6 +344,7 @@ f#search-form:valid #i41 {
     width: 100%;
     text-align: left;
     cursor: pointer;
+
 }
 
 .context-menu-button .icon {
@@ -369,7 +378,7 @@ f#search-form:valid #i41 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 36px;
 	
 }
 
@@ -379,6 +388,7 @@ f#search-form:valid #i41 {
     font-weight: bold;
     margin: 0;
     color: #ffffff;
+	padding-right: 32px;
 }
 
 /* Close button styling */
@@ -386,25 +396,36 @@ f#search-form:valid #i41 {
 	width: 20px;
 	height: 20px;
     background: none;
+	padding-left: 20px;
+	float: right;
+	right: 0px;
     border: none;
     cursor: pointer;
     font-size: 16px;
-    color: #999;
+    color: #ffffff;
     transition: color 0.3s;
 }
 
 .context-menu-button:hover {
-    color: #666;
+    color: #c10e0e;
 }
 
 /* Input field styling */
 .context-menu-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-	outline: none;
+width: 100%;
+padding: 8px;
+margin-bottom: 10px;
+border: 1px solid #060a44;
+border-radius: 4px;
+outline: none;
+background: #4244a6a1;
+color: #fff;
+font-size: 16px;
+line-height: 1;
+}
+
+.context-menu-input:focus{
+	outline: #02ffbb;
 }
 
 /* Share button styling */
