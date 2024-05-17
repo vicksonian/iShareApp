@@ -537,7 +537,7 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.className = "share-context-menu-container";
 
 	const headerContainer = document.createElement("div");
-	headerContainer.className = "header-container"; // New div class
+	headerContainer.className = "header-container";
 
 	const header = document.createElement("h3");
 	header.className = "share-context-menu-header";
@@ -585,24 +585,44 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
 	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
 
-	// Add event listener to validate recipient with debounce
-	const recipientInput = document.getElementById("recipientInput");
-	recipientInput.addEventListener("input", debounce(validateRecipient, 300));
-
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
 
-	// Add event listener to the share button
-	sharebtn.addEventListener("click", () => {
-		const recipient = recipientInput.value.trim(); // Get recipient from input field
-		if (recipient) {
-			shareFile(fileId, recipient); // Call shareFile with recipient value
+	// Add event listener to input for real-time validation
+	input.addEventListener("input", () => {
+		const fv_token = localStorage.getItem("token");
+		const recipientIdentifier = input.value;
+
+		if (recipientIdentifier.length > 0) {
+			fetch("https://ishare-i8td.onrender.com/validate_user", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${fv_token}`,
+				},
+				body: JSON.stringify({ recipient_identifier: recipientIdentifier }),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					const messageHolder = document.getElementById("messageHolder");
+					if (data.exists) {
+						messageHolder.textContent = "User available for sharing";
+						messageHolder.style.color = "green";
+					} else {
+						messageHolder.textContent = "User not available for sharing";
+						messageHolder.style.color = "red";
+					}
+				})
+				.catch((error) => {
+					console.error("Error:", error);
+				});
 		} else {
-			message.textContent = "Recipient cannot be empty";
-			message.style.color = "red";
+			const messageHolder = document.getElementById("messageHolder");
+			messageHolder.textContent = "";
 		}
 	});
 }
+
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
@@ -643,41 +663,6 @@ function shareFile(fileId, recipient) {
 			console.error("Error sharing file:", error);
 			const messageHolder = document.getElementById("messageHolder");
 			messageHolder.textContent = "An error occurred while sharing the file";
-			messageHolder.style.color = "red";
-		});
-}
-
-const fv_token = localStorage.getItem("token");
-function validateRecipient(event) {
-	const recipientInput = event.target.value.trim();
-	const messageHolder = document.getElementById("messageHolder");
-
-	if (recipientInput.length === 0) {
-		messageHolder.textContent = "";
-		return;
-	}
-
-	fetch(`https://ishare-i8td.onrender.com/validate_user`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${fv_token}`,
-		},
-		body: JSON.stringify({ recipient_identifier: recipientInput }),
-	})
-		.then((response) => response.json())
-		.then((data) => {
-			if (data.exists) {
-				messageHolder.textContent = "User available for sharing files";
-				messageHolder.style.color = "green";
-			} else {
-				messageHolder.textContent = "User not available";
-				messageHolder.style.color = "red";
-			}
-		})
-		.catch((error) => {
-			console.error("Error validating user:", error);
-			messageHolder.textContent = "Error validating user";
 			messageHolder.style.color = "red";
 		});
 }
