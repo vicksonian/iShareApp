@@ -805,6 +805,10 @@ button:active {
 	border-radius: 4px;
 }
 
+.menu-button{
+	padding-right: 12px;
+}
+
 .bn-t12 {
 	justify-content: center;
 	align-items: center;

@@ -518,7 +518,9 @@ function showDeleteNotification(filename) {
 }
 
 function showShareMenu(event, fileId, filename) {
-	const existingContainer = document.querySelector(".share-context-menu-container");
+	const existingContainer = document.querySelector(
+		".share-context-menu-container"
+	);
 	if (existingContainer) {
 		existingContainer.remove();
 	}
@@ -527,6 +529,12 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.className = "share-context-menu-container";
 	menuContainer.style.left = `${event.pageX}px`;
 	menuContainer.style.top = `${event.pageY}px`;
+
+	const header = document.createElement("h1")
+	header.className = "context-menu-header";
+	header.textContent = "Enter recipient's username or email";
+	menuContainer.appendChild(header);
+	
 
 	// Create share options
 	const shareOption1 = document.createElement("button");
@@ -549,10 +557,17 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.display = "block";
 
 	// Add event listener to hide menu when clicking outside the menu
-	document.addEventListener("click", hideButtonsOutside);
-	menuContainer.addEventListener("click", (event) => event.stopPropagation());
+	document.addEventListener("click", hideMenuOnClickOutside);
 }
 
+function hideMenuOnClickOutside(event) {
+	const menuContainer = document.querySelector(".share-context-menu-container");
+	if (menuContainer && !menuContainer.contains(event.target)) {
+		menuContainer.remove();
+		// Remove the event listener after hiding the menu
+		document.removeEventListener("click", hideMenuOnClickOutside);
+	}
+}
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
