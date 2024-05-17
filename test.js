@@ -119,7 +119,6 @@ document
 document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
-// fetch("https://ishare-i8td.onrender.com/files", {
 fetch("https://ishare-i8td.onrender.com/files", {
 	// Fetch files from the Flask backend
 	headers: {
@@ -159,7 +158,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 			if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 				const imageContainerBox = document.createElement("div");
 				imageContainerBox.className = "image-container-box";
-				imageContainerBox.id = "image-container-box";
+				imageContainerBox.id = `file-${file.id}`; // Use file ID
 
 				const imageDiv = document.createElement("div");
 				imageDiv.className = "image";
@@ -190,6 +189,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
 				videoContainerDiv.className = "video-container-box";
+				videoContainerDiv.id = `file-${file.id}`; // Use file ID
 
 				const videoElement = document.createElement("video");
 				videoElement.src = `data:${file.content_type};base64,${file.content}`;
@@ -213,9 +213,10 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename);
 				});
-			} else if (["mp3", "wav"].includes(fileExtension)) {
+			} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
 				audioContainerDiv.className = "audio-container-box";
+				audioContainerDiv.id = `file-${file.id}`; // Use file ID
 
 				const audioElement = document.createElement("audio");
 				audioElement.src = `data:${file.content_type};base64,${file.content}`;
@@ -239,33 +240,23 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename);
 				});
-			} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
-				// Create a wrapper container div
-				const docWrapperContainer = document.createElement("div");
-				docWrapperContainer.className = "doc-wrapper-container";
-
-				// Create a container div
+			} else if (
+				["doc", "docx", "pdf", "xls", "xlsx", "ppt", "pptx"].includes(
+					fileExtension
+				)
+			) {
 				const docContainerDiv = document.createElement("div");
-				docContainerDiv.className = "doc-container-box";
+				docContainerDiv.className = "doc-wrapper-container";
+				docContainerDiv.id = `file-${file.id}`; // Use file ID
 
-				// Create an icon element for the document
-				const iconElement = document.createElement("i");
-				iconElement.className = "far fa-file"; // Default file icon
-				switch (fileExtension) {
-					case "pdf":
-						iconElement.className = "far fa-file-pdf"; // PDF icon
-						break;
-					case "doc":
-					case "docx":
-						iconElement.className = "far fa-file-word"; // Word document icon
-						break;
-					case "xls":
-					case "xlsx":
-						iconElement.className = "far fa-file-excel"; // Excel document icon
-						break;
-				}
+				const fileDiv = document.createElement("div");
+				fileDiv.className = "file-container";
+				fileDiv.id = "file-container";
 
-				// Create a div for the file name
+				const docElement = document.createElement("img");
+				docElement.src = "/static/images/file-type-icons/doc-icon.png";
+				fileDiv.appendChild(docElement);
+
 				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
@@ -274,59 +265,25 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					MAX_FILE_NAME_LENGTH
 				);
 				fileNameDiv.textContent = truncatedFileName;
+				fileDiv.appendChild(fileNameDiv);
 
-				// Append the icon element and the file name div to the container div
-				fileNameDiv.prepend(iconElement); // Prepend the icon to the file name
-				docContainerDiv.appendChild(fileNameDiv);
-
-				// Append the container div to the wrapper container div
-				docWrapperContainer.appendChild(docContainerDiv);
-
-				// Append the wrapper container div to the document file list
-				docFileList.appendChild(docWrapperContainer);
+				docContainerDiv.appendChild(fileDiv);
+				docFileList.appendChild(docContainerDiv);
 
 				// Add right-click event listener
-				docWrapperContainer.addEventListener("contextmenu", (event) => {
+				docContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename);
 				});
 			} else {
-				const fileContainerDiv = document.createElement("div");
-				fileContainerDiv.className = "files-container-box";
+				const otherContainerDiv = document.createElement("div");
+				otherContainerDiv.className = "files-container-box";
+				otherContainerDiv.id = `file-${file.id}`; // Use file ID
 
-				// Create a div for the contents of the file container
-				const contentsDiv = document.createElement("div");
-				contentsDiv.className = "files-container-box-contents";
+				const fileElement = document.createElement("img");
+				fileElement.src = "/static/images/file-type-icons/file-icon.png";
+				otherContainerDiv.appendChild(fileElement);
 
-				// Determine the appropriate icon class based on the file extension
-				let iconClass;
-				switch (fileExtension) {
-					case "pdf":
-						iconClass = "far fa-file-pdf"; // Font Awesome class for PDF icon
-						break;
-					case "doc":
-					case "docx":
-						iconClass = "far fa-file-word"; // Font Awesome class for Word document icon
-						break;
-					case "xls":
-					case "xlsx":
-						iconClass = "far fa-file-excel"; // Font Awesome class for Excel document icon
-						break;
-					default:
-						iconClass = "far fa-file"; // Default file icon
-						break;
-				}
-
-				// Create an icon element with the appropriate class
-				const iconElement = document.createElement("i");
-				iconElement.className = iconClass;
-
-				// Create a div for the icon
-				const iconDiv = document.createElement("div");
-				iconDiv.className = "icon";
-				iconDiv.appendChild(iconElement);
-
-				// Create a div for the file name
 				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
 				fileNameDiv.id = "fileName"; // Add id attribute
@@ -335,19 +292,12 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					MAX_FILE_NAME_LENGTH
 				);
 				fileNameDiv.textContent = truncatedFileName;
+				otherContainerDiv.appendChild(fileNameDiv);
 
-				// Append the icon div and file name div to the contents div
-				contentsDiv.appendChild(iconDiv);
-				contentsDiv.appendChild(fileNameDiv);
-
-				// Append the contents div to the file container div
-				fileContainerDiv.appendChild(contentsDiv);
-
-				// Append the file container div to the otherFilesContainer
-				otherFilesContainer.appendChild(fileContainerDiv);
+				otherFilesContainer.appendChild(otherContainerDiv);
 
 				// Add right-click event listener
-				fileContainerDiv.addEventListener("contextmenu", (event) => {
+				otherContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename);
 				});
@@ -358,125 +308,70 @@ fetch("https://ishare-i8td.onrender.com/files", {
 		console.error("Error fetching files:", error);
 	});
 
-
-	
 const d_token = localStorage.getItem("token");
-// // Function to create a download button
-// function createDownloadButton(fileId, filename) {
-//   const downloadButton = document.createElement("button");
-//   downloadButton.className = "download-button";
-//   downloadButton.innerHTML = `<i class="fas fa-download"></i> Download`;
-//   downloadButton.addEventListener("click", () => {
-//     downloadFile(fileId, filename);
-//   });
-//   return downloadButton;
-// }
 
-// // Function to create a delete button
-// function createDeleteButton(fileId, filename) {
-//   const deleteButton = document.createElement("button");
-//   deleteButton.className = "delete-button";
-//   deleteButton.innerHTML = `<i class="fas fa-trash-alt"></i> Delete`;
-//   deleteButton.addEventListener("click", () => {
-//     deleteFile(fileId, filename);
-//   });
-//   return deleteButton;
-// }
-
-// // Function to create a share button
-// function createShareButton(fileId, filename) {
-//   const shareButton = document.createElement("button");
-//   shareButton.className = "share-button";
-//   shareButton.innerHTML = `<i class="fas fa-share-alt"></i> Share`;
-//   shareButton.addEventListener("click", () => {
-//     deleteFile(fileId, filename);
-//   });
-//   return shareButton;
-// }
-
-
-// Function to create a download button
 function createDownloadButton(fileId, filename) {
-    const downloadButton = document.createElement("button");
-    downloadButton.className = "context-menu-button";
-    downloadButton.innerHTML = `<i class="fas fa-download icon"></i> Download`;
-    downloadButton.addEventListener("click", () => {
-        downloadFile(fileId, filename);
-    });
-    return downloadButton;
+	const downloadButton = document.createElement("button");
+	downloadButton.className = "context-menu-button";
+	downloadButton.innerHTML = `<i class="fas fa-download icon"></i> Download`;
+	downloadButton.addEventListener("click", () => {
+		downloadFile(fileId, filename);
+	});
+	return downloadButton;
 }
 
-// Function to create a delete button
 function createDeleteButton(fileId, filename) {
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "context-menu-button";
-    deleteButton.innerHTML = `<i class="fas fa-trash-alt icon"></i> Delete`;
-    deleteButton.addEventListener("click", () => {
-        deleteFile(fileId, filename);
-    });
-    return deleteButton;
+	const deleteButton = document.createElement("button");
+	deleteButton.className = "context-menu-button";
+	deleteButton.innerHTML = `<i class="fas fa-trash-alt icon"></i> Delete`;
+	deleteButton.addEventListener("click", () => {
+		deleteFile(fileId, filename);
+	});
+	return deleteButton;
 }
 
-// Function to create a share button
 function createShareButton(fileId, filename) {
-    const shareButton = document.createElement("button");
-    shareButton.className = "context-menu-button";
-    shareButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Share`;
-    shareButton.addEventListener("click", () => {
-        deleteFile(fileId, filename);
-    });
-    return shareButton;
+	const shareButton = document.createElement("button");
+	shareButton.className = "context-menu-button";
+	shareButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Share`;
+	shareButton.addEventListener("click", () => {
+		deleteFile(fileId, filename);
+	});
+	return shareButton;
 }
 
-// Function to show the context menu
 function showButtons(event, fileId, filename) {
-    // Remove any existing context menu container
-    const existingContainer = document.querySelector(".context-menu-container");
-    if (existingContainer) {
-        existingContainer.remove();
-    }
+	const existingContainer = document.querySelector(".context-menu-container");
+	if (existingContainer) {
+		existingContainer.remove();
+	}
 
-    // Create the context menu container
-    const menuContainer = document.createElement("div");
-    menuContainer.className = "context-menu-container";
-    menuContainer.style.left = `${event.pageX}px`;
-    menuContainer.style.top = `${event.pageY}px`;
+	const menuContainer = document.createElement("div");
+	menuContainer.className = "context-menu-container";
+	menuContainer.style.left = `${event.pageX}px`;
+	menuContainer.style.top = `${event.pageY}px`;
 
-    // Create and append the buttons to the container
-    const downloadButton = createDownloadButton(fileId, filename);
-    const deleteButton = createDeleteButton(fileId, filename);
-    const shareButton = createShareButton(fileId, filename);
-    menuContainer.appendChild(downloadButton);
-    menuContainer.appendChild(deleteButton);
-    menuContainer.appendChild(shareButton);
+	const downloadButton = createDownloadButton(fileId, filename);
+	const deleteButton = createDeleteButton(fileId, filename);
+	const shareButton = createShareButton(fileId, filename);
+	menuContainer.appendChild(downloadButton);
+	menuContainer.appendChild(deleteButton);
+	menuContainer.appendChild(shareButton);
 
-    document.body.appendChild(menuContainer);
-
-    // Hide the menu when clicking elsewhere
-    document.addEventListener("click", hideButtons);
-
-    // Prevent event propagation to avoid hiding menu immediately
-    menuContainer.addEventListener("click", (event) => event.stopPropagation());
+	document.body.appendChild(menuContainer);
+	document.addEventListener("click", hideButtons);
+	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
 
-// Function to hide the context menu
 function hideButtons() {
-    const menuContainer = document.querySelector(".context-menu-container");
-    if (menuContainer) {
-        menuContainer.remove();
-    }
-    document.removeEventListener("click", hideButtons);
+	const menuContainer = document.querySelector(".context-menu-container");
+	if (menuContainer) {
+		menuContainer.remove();
+	}
+	document.removeEventListener("click", hideButtons);
 }
 
-
-
-
-
-
-
-// Function to download the file using Fetch API
 function downloadFile(fileId, filename) {
-	// Fetch the download URL with the token included in the headers
 	fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
 		headers: {
 			Authorization: `Bearer ${d_token}`,
@@ -486,101 +381,51 @@ function downloadFile(fileId, filename) {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			return response.blob(); // Get the response as a blob
+			return response.blob();
 		})
 		.then((blob) => {
-			// Create a URL for the blob
 			const url = window.URL.createObjectURL(blob);
-			// Create an anchor element to trigger the download
 			const a = document.createElement("a");
 			a.href = url;
-			a.download = filename; // Use the filename here
+			a.download = filename;
 			document.body.appendChild(a);
-			a.click(); // Simulate a click event to trigger the download
-			a.remove(); // Remove the anchor element
+			a.click();
+			a.remove();
 		})
 		.catch((error) => {
 			console.error("Error downloading file:", error);
 		});
 }
 
-// Function to delete the file using Fetch API
 function deleteFile(fileId, filename) {
-    // Fetch the delete URL with the token included in the headers
-    fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
-        method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${d_token}`,
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        // File deleted successfully
-        console.log(`File '${filename}' deleted successfully.`);
-        
-        // Remove the deleted file from the UI
-        const fileElement = document.getElementById(`file-${fileId}`);
-        if (fileElement) {
-            fileElement.remove();
-            console.log(`File element '${filename}' removed from UI.`);
-        } else {
-            console.log(`File element '${filename}' not found in UI.`);
-        }
-    })
-    .catch((error) => {
-        console.error("Error deleting file:", error);
-    });
+	fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${d_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			console.log(`File '${filename}' deleted successfully.`);
+
+			const fileElement = document.getElementById(`file-${fileId}`);
+			if (fileElement) {
+				fileElement.remove();
+				console.log(`File element '${filename}' removed from UI.`);
+			} else {
+				console.log(`File element '${filename}' not found in UI.`);
+			}
+		})
+		.catch((error) => {
+			console.error("Error deleting file:", error);
+		});
 }
 
-
-// // Function to show the download and delete buttons
-// function showButtons(event, fileId, filename) {
-// 	// Remove any existing buttons
-// 	const existingButtons = document.querySelectorAll(
-// 		".download-button, .delete-button"
-// 	);
-// 	existingButtons.forEach((button) => button.remove());
-
-// 	// Create and position the new buttons
-// 	const downloadButton = createDownloadButton(fileId, filename);
-// 	const deleteButton = createDeleteButton(fileId, filename);
-// 	const shareButton = createShareButton(fileId, filename);
-// 	downloadButton.style.position = "absolute";
-// 	downloadButton.style.left = `${event.pageX}px`;
-// 	downloadButton.style.top = `${event.pageY}px`;
-// 	deleteButton.style.position = "absolute";
-// 	deleteButton.style.left = `${event.pageX}px`;
-// 	deleteButton.style.top = `${event.pageY + 30}px`;
-// 	shareButton.style.position = "absolute";
-// 	shareButton.style.left = `${event.pageX}px`;
-// 	shareButton.style.top = `${event.pageY + 30}px`;
-
-// 	document.body.appendChild(downloadButton);
-// 	document.body.appendChild(deleteButton);
-// 	document.body.appendChild(shareButton);
-
-// 	// Hide the buttons when clicking elsewhere
-// 	document.addEventListener("click", hideButtons);
-
-// 	// Prevent event propagation to avoid hiding buttons immediately
-// 	downloadButton.addEventListener("click", (event) => event.stopPropagation());
-// 	deleteButton.addEventListener("click", (event) => event.stopPropagation());
-// 	shareButton.addEventListener("click", (event) => event.stopPropagation());
-// }
-
-// // Function to hide the buttons
-// function hideButtons() {
-// 	const buttons = document.querySelectorAll(".download-button, .delete-button, .share-button");
-// 	buttons.forEach((button) => button.remove());
-// 	document.removeEventListener("click", hideButtons);
-// }
-
-// Function to truncate file names
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
-		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
+		return fileName.slice(0, maxLength - 3) + "...";
 	} else {
 		return fileName;
 	}
