@@ -318,8 +318,8 @@ f#search-form:valid #i41 {
 .context-menu {
     position: absolute;
     z-index: 100;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
+    background-color: #ff0000;
+    border: 1px solid #00ffee;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

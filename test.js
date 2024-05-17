@@ -119,6 +119,7 @@ document
 document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
+// fetch("https://ishare-i8td.onrender.com/files", {
 fetch("https://ishare-i8td.onrender.com/files", {
 	// Fetch files from the Flask backend
 	headers: {
@@ -383,7 +384,7 @@ function createDeleteButton(fileId, filename) {
 }
 
 // Function to create a delete button
-function createDeleteButton(fileId, filename) {
+function createShareButton(fileId, filename) {
 	const shareButton = document.createElement("button");
 	shareButton.className = "share-button";
 	shareButton.innerHTML = `<i class="fas fa-share-alt"></i> Share`;
@@ -465,15 +466,20 @@ function showButtons(event, fileId, filename) {
 	// Create and position the new buttons
 	const downloadButton = createDownloadButton(fileId, filename);
 	const deleteButton = createDeleteButton(fileId, filename);
+	const shareButton = createShareButton(fileId, filename);
 	downloadButton.style.position = "absolute";
 	downloadButton.style.left = `${event.pageX}px`;
 	downloadButton.style.top = `${event.pageY}px`;
 	deleteButton.style.position = "absolute";
 	deleteButton.style.left = `${event.pageX}px`;
 	deleteButton.style.top = `${event.pageY + 30}px`;
+	shareButton.style.position = "absolute";
+	shareButton.style.left = `${event.pageX}px`;
+	shareButton.style.top = `${event.pageY + 30}px`;
 
 	document.body.appendChild(downloadButton);
 	document.body.appendChild(deleteButton);
+	document.body.appendChild(shareButton);
 
 	// Hide the buttons when clicking elsewhere
 	document.addEventListener("click", hideButtons);
@@ -481,11 +487,12 @@ function showButtons(event, fileId, filename) {
 	// Prevent event propagation to avoid hiding buttons immediately
 	downloadButton.addEventListener("click", (event) => event.stopPropagation());
 	deleteButton.addEventListener("click", (event) => event.stopPropagation());
+	shareButton.addEventListener("click", (event) => event.stopPropagation());
 }
 
 // Function to hide the buttons
 function hideButtons() {
-	const buttons = document.querySelectorAll(".download-button, .delete-button");
+	const buttons = document.querySelectorAll(".download-button, .delete-button, .share-button");
 	buttons.forEach((button) => button.remove());
 	document.removeEventListener("click", hideButtons);
 }
