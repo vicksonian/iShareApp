@@ -371,6 +371,7 @@ function createDownloadButton(fileId) {
 	return downloadButton;
 }
 
+
 // Function to download the file using Fetch API
 function downloadFile(fileId) {
 	// Fetch the download URL with the token included in the headers
@@ -388,10 +389,16 @@ function downloadFile(fileId) {
 		.then((blob) => {
 			// Create a URL for the blob
 			const url = window.URL.createObjectURL(blob);
+
+			// Retrieve filename from the response headers
+			const filename = response.headers
+				.get("Content-Disposition")
+				.split("filename=")[1];
+
 			// Create an anchor element to trigger the download
 			const a = document.createElement("a");
 			a.href = url;
-			a.download = "file"; // Set the default file name here if needed
+			a.download = filename; // Set the filename for download
 			document.body.appendChild(a);
 			a.click(); // Simulate a click event to trigger the download
 			a.remove(); // Remove the anchor element
@@ -400,6 +407,7 @@ function downloadFile(fileId) {
 			console.error("Error downloading file:", error);
 		});
 }
+
 
 // Function to show the download button
 function showDownloadButton(event, fileId) {
