@@ -525,6 +525,7 @@ function showDeleteNotification(filename) {
 	}, 3000); // Remove after 3 seconds (adjust duration as needed)
 }
 
+
 function showShareMenu(event, fileId, filename) {
 	const existingContainer = document.querySelector(
 		".share-context-menu-container"
@@ -602,8 +603,14 @@ function showShareMenu(event, fileId, filename) {
 				},
 				body: JSON.stringify({ recipient_identifier: recipientIdentifier }),
 			})
-				.then((response) => response.json())
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error("Network response was not ok");
+					}
+					return response.json();
+				})
 				.then((data) => {
+					console.log(data); // Check the data in the console
 					const messageHolder = document.getElementById("messageHolder");
 					if (data.exists) {
 						messageHolder.textContent = "User available for sharing";
@@ -622,7 +629,6 @@ function showShareMenu(event, fileId, filename) {
 		}
 	});
 }
-
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
