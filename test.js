@@ -325,11 +325,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Append the file container div to the otherFilesContainer
 				otherFilesContainer.appendChild(fileContainerDiv);
 			}
-			// Add event listener for right-click
-			fileContainerDiv.addEventListener("contextmenu", (e) => {
-				e.preventDefault();
-				downloadFile(file.id, file.filename);
-			});
 		});
 	})
 	.catch((error) => {
