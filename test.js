@@ -253,9 +253,22 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				fileDiv.className = "file-container";
 				fileDiv.id = "file-container";
 
-				const docElement = document.createElement("img");
-				docElement.src = "/static/images/file-type-icons/doc-icon.png";
-				fileDiv.appendChild(docElement);
+				// Create an <i> element for the Font Awesome icon
+				const docIcon = document.createElement("i");
+				docIcon.className = "fas"; // Font Awesome solid style
+				// Assign icon classes based on file type
+				if (fileExtension === "pdf") {
+					docIcon.classList.add("fa-file-pdf");
+				} else if (fileExtension === "doc" || fileExtension === "docx") {
+					docIcon.classList.add("fa-file-word");
+				} else if (fileExtension === "xls" || fileExtension === "xlsx") {
+					docIcon.classList.add("fa-file-excel");
+				} else if (fileExtension === "ppt" || fileExtension === "pptx") {
+					docIcon.classList.add("fa-file-powerpoint");
+				} else {
+					docIcon.classList.add("fa-file"); // Default generic file icon
+				}
+				fileDiv.appendChild(docIcon);
 
 				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
@@ -280,9 +293,10 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				otherContainerDiv.className = "files-container-box";
 				otherContainerDiv.id = `file-${file.id}`; // Use file ID
 
-				const fileElement = document.createElement("img");
-				fileElement.src = "/static/images/file-type-icons/file-icon.png";
-				otherContainerDiv.appendChild(fileElement);
+				// Create an <i> element for the Font Awesome icon
+				const fileIcon = document.createElement("i");
+				fileIcon.className = getIconClassForFileExtension(fileExtension);
+				otherContainerDiv.appendChild(fileIcon);
 
 				const fileNameDiv = document.createElement("h2");
 				fileNameDiv.className = "file-name";
@@ -302,6 +316,23 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					showButtons(event, file.id, file.filename);
 				});
 			}
+
+			// Function to get the appropriate icon class based on the file extension
+			function getIconClassForFileExtension(extension) {
+				// Mapping of file extensions to Font Awesome icons (you can extend this as needed)
+				const iconMap = {
+					html: "fab fa-html5",
+					css: "fab fa-css3-alt",
+					js: "fab fa-js-square",
+					java: "fab fa-java",
+					python: "fab fa-python",
+					// Add more mappings for other programming languages
+				};
+
+				// Check if the extension has a corresponding icon class, otherwise, use a default file icon
+				return iconMap[extension] ? iconMap[extension] : "fas fa-file-code";
+			}
+
 		});
 	})
 	.catch((error) => {
