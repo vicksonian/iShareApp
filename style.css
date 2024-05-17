@@ -908,6 +908,13 @@ button:active {
 }
 
 /* media responsiveness */
+@media screen and (max-width: 320px) {
+.share-context-menu-header{
+	font-size: 10px;
+	
+}
+
+}
 @media screen and (max-width: 520px) {
 	.chart-row.two .small {
 		flex-direction: column;
