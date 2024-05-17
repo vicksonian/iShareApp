@@ -365,15 +365,16 @@ fetch("https://ishare-i8td.onrender.com/files", {
 const d_token = localStorage.getItem("token");
 
 // Function to create a download button
-function createDownloadButton(fileId) {
-    const downloadButton = document.createElement("button");
-    downloadButton.className = "download-button";
-    downloadButton.textContent = "Download";
-    downloadButton.addEventListener("click", () => {
-        downloadFile(fileId);
-    });
-    return downloadButton;
+function createDownloadButton(fileId, filename) {
+	const downloadButton = document.createElement("button");
+	downloadButton.className = "download-button";
+	downloadButton.textContent = "Download";
+	downloadButton.addEventListener("click", () => {
+		downloadFile(fileId, filename); // Pass both fileId and filename
+	});
+	return downloadButton;
 }
+
 
 // Function to download the file using Fetch API
 function downloadFile(fileId, filename) {
@@ -408,28 +409,24 @@ function downloadFile(fileId, filename) {
 
 // Function to show the download button
 function showDownloadButton(event, fileId, filename) {
-	// Remove any existing download button
-	const existingButton = document.querySelector(".download-button");
-	if (existingButton) {
-		existingButton.remove();
-	}
+    // Remove any existing download button
+    const existingButton = document.querySelector(".download-button");
+    if (existingButton) {
+        existingButton.remove();
+    }
 
-	// Create and position the new download button
-	const downloadButton = createDownloadButton(fileId);
-	downloadButton.style.position = "absolute";
-	downloadButton.style.left = `${event.pageX}px`;
-	downloadButton.style.top = `${event.pageY}px`;
+    // Create and position the new download button
+    const downloadButton = createDownloadButton(fileId, filename); // Pass filename
+    downloadButton.style.position = "absolute";
+    downloadButton.style.left = `${event.pageX}px`;
+    downloadButton.style.top = `${event.pageY}px`;
 
-	document.body.appendChild(downloadButton);
+    document.body.appendChild(downloadButton);
 
-	// Hide the download button when clicking elsewhere
-	document.addEventListener("click", hideDownloadButton);
-
-	// Pass the filename to the downloadFile function
-	downloadButton.addEventListener("click", () => {
-		downloadFile(fileId, filename);
-	});
+    // Hide the download button when clicking elsewhere
+    document.addEventListener("click", hideDownloadButton);
 }
+
 
 
 
