@@ -594,9 +594,9 @@ function showShareMenu(event, fileId, filename) {
 
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", () => {
-		const recipient = document.getElementById("recipientInput").value;
+		const recipient = recipientInput.value.trim(); // Get recipient from input field
 		if (recipient) {
-			shareFile(fileId, recipient);
+			shareFile(fileId, recipient); // Call shareFile with recipient value
 		} else {
 			message.textContent = "Recipient cannot be empty";
 			message.style.color = "red";
@@ -692,5 +692,3 @@ function debounce(func, delay) {
 		debounceTimer = setTimeout(() => func.apply(context, args), delay);
 	};
 }
-
-
