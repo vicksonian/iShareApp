@@ -357,13 +357,17 @@ fetch("https://ishare-i8td.onrender.com/files", {
 		console.error("Error fetching files:", error);
 	});
 
+
+const d_token = localStorage.getItem("token");
+
 // Function to create a download button
 function createDownloadButton(fileId) {
 	const downloadButton = document.createElement("button");
 	downloadButton.className = "download-button";
 	downloadButton.textContent = "Download";
 	downloadButton.addEventListener("click", () => {
-		window.location.href = `https://ishare-i8td.onrender.com/download/${fileId}`;
+		// Include the token as a query parameter in the download URL
+		window.location.href = `https://ishare-i8td.onrender.com/download/${fileId}?token=${d_token}`;
 	});
 	return downloadButton;
 }
@@ -401,7 +405,6 @@ function hideDownloadButton() {
 
 // Function to truncate file names
 function truncateFileName(fileName, maxLength) {
-	// console.log("Truncating filename:", fileName);
 	if (fileName.length > maxLength) {
 		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
 	} else {
