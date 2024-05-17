@@ -591,9 +591,8 @@ function showShareMenu(event, fileId, filename) {
 
 	// Add event listener to input for real-time validation
 	input.addEventListener("input", () => {
-		const fv_token = localStorage.getItem("token");
 		const recipientIdentifier = input.value;
-
+		const fv_token = localStorage.getItem("token");
 		if (recipientIdentifier.length > 0) {
 			fetch("https://ishare-i8td.onrender.com/validate_user", {
 				method: "POST",
@@ -612,6 +611,7 @@ function showShareMenu(event, fileId, filename) {
 				.then((data) => {
 					console.log(data); // Check the data in the console
 					const messageHolder = document.getElementById("messageHolder");
+					console.log("Message Holder:", messageHolder); // Debugging line
 					if (data.exists) {
 						messageHolder.textContent = "User available for sharing";
 						messageHolder.style.color = "green";
@@ -619,6 +619,7 @@ function showShareMenu(event, fileId, filename) {
 						messageHolder.textContent = "User not available for sharing";
 						messageHolder.style.color = "red";
 					}
+					console.log("Message Text:", messageHolder.textContent); // Debugging line
 				})
 				.catch((error) => {
 					console.error("Error:", error);
@@ -629,6 +630,7 @@ function showShareMenu(event, fileId, filename) {
 		}
 	});
 }
+
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
