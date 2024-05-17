@@ -577,6 +577,9 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
 	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
 
+	// Add event listener to validate recipient
+	input.addEventListener("input", validateRecipient);
+
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
 
@@ -644,3 +647,39 @@ function shareFile(fileId, recipient) {
 			messageHolder.style.color = "red";
 		});
 }
+
+const fv_token = localStorage.getItem("token");
+function validateRecipient(event) {
+	const recipientInput = event.target.value.trim();
+	const messageHolder = document.getElementById("messageHolder");
+
+	if (recipientInput.length === 0) {
+		messageHolder.textContent = "";
+		return;
+	}
+
+	fetch(`https://ishare-i8td.onrender.com/validate_user`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${f1_token}`,
+		},
+		body: JSON.stringify({ recipient_identifier: recipientInput }),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data.exists) {
+				messageHolder.textContent = "User available for sharing files";
+				messageHolder.style.color = "green";
+			} else {
+				messageHolder.textContent = "User not available";
+				messageHolder.style.color = "red";
+			}
+		})
+		.catch((error) => {
+			console.error("Error validating user:", error);
+			messageHolder.textContent = "Error validating user";
+			messageHolder.style.color = "red";
+		});
+}
+
