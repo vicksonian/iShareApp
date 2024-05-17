@@ -184,7 +184,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				imageContainerBox.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id, file.filename);
+					showButtons(event, file.id, file.filename); // Call showButtons for both download and delete buttons
 				});
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
@@ -210,7 +210,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				videoContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id, file.filename);
+					showButtons(event, file.id, file.filename);
 				});
 			} else if (["mp3", "wav"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
@@ -236,7 +236,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				audioContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id, file.filename);
+					showButtons(event, file.id, file.filename);
 				});
 			} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
 				// Create a wrapper container div
@@ -287,7 +287,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				docWrapperContainer.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id, file.filename);
+					showButtons(event, file.id, file.filename);
 				});
 			} else {
 				const fileContainerDiv = document.createElement("div");
@@ -348,7 +348,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				fileContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id, file.filename);
+					showButtons(event, file.id, file.filename);
 				});
 			}
 		});
