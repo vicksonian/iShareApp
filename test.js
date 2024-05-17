@@ -527,8 +527,6 @@ function showShareMenu(event, fileId, filename) {
 
 	const menuContainer = document.createElement("div");
 	menuContainer.className = "share-context-menu-container";
-	menuContainer.style.left = `${event.pageX}px`;
-	menuContainer.style.top = `${event.pageY}px`;
 
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "header-container"; // New div class
@@ -569,11 +567,18 @@ function showShareMenu(event, fileId, filename) {
 	// Make the menu container visible
 	menuContainer.style.display = "block";
 
+	// Center the menu on the screen
+	const viewportWidth = window.innerWidth;
+	const viewportHeight = window.innerHeight;
+	const menuWidth = menuContainer.offsetWidth;
+	const menuHeight = menuContainer.offsetHeight;
+
+	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
+	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
+
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
 }
-
-
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
