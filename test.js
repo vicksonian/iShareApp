@@ -425,7 +425,13 @@ function showDownloadButton(event, fileId, filename) {
 
     // Hide the download button when clicking elsewhere
     document.addEventListener("click", hideDownloadButton);
+
+    // Pass the filename to the downloadFile function
+    downloadButton.addEventListener("click", () => {
+        downloadFile(fileId, filename);
+    });
 }
+
 
 
 
