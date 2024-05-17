@@ -358,8 +358,15 @@ function showButtons(event, fileId, filename) {
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
 
+	// Add event listener to hide menu when any button is clicked
+	downloadButton.addEventListener("click", hideButtons);
+	deleteButton.addEventListener("click", hideButtons);
+	shareButton.addEventListener("click", hideButtons);
+
 	document.body.appendChild(menuContainer);
-	document.addEventListener("click", hideButtons);
+
+	// Add event listener to hide menu when clicking outside the menu
+	document.addEventListener("click", hideButtonsOutside);
 	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
 
@@ -368,8 +375,16 @@ function hideButtons() {
 	if (menuContainer) {
 		menuContainer.remove();
 	}
-	document.removeEventListener("click", hideButtons);
+	document.removeEventListener("click", hideButtonsOutside);
 }
+
+function hideButtonsOutside(event) {
+	const menuContainer = document.querySelector(".context-menu-container");
+	if (menuContainer && !menuContainer.contains(event.target)) {
+		menuContainer.remove();
+	}
+}
+
 
 function downloadFile(fileId, filename) {
 	fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
