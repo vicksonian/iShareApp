@@ -395,8 +395,9 @@ function createShareButton(fileId, filename) {
 	const shareButton = document.createElement("button");
 	shareButton.className = "context-menu-button";
 	shareButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Share`;
-	shareButton.addEventListener("click", () => {
-		deleteFile(fileId, filename);
+	shareButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		showShareMenu(event, fileId, filename);
 	});
 	return shareButton;
 }
@@ -514,6 +515,39 @@ function showDeleteNotification(filename) {
 	setTimeout(() => {
 		notificationElement.remove();
 	}, 3000); // Remove after 3 seconds (adjust duration as needed)
+}
+
+function showShareMenu(event, fileId, filename) {
+	const existingContainer = document.querySelector(".context-menu-container");
+	if (existingContainer) {
+		existingContainer.remove();
+	}
+
+	const menuContainer = document.createElement("div");
+	menuContainer.className = "context-menu-container";
+	menuContainer.style.left = `${event.pageX}px`;
+	menuContainer.style.top = `${event.pageY}px`;
+
+	// Create share options
+	const shareOption1 = document.createElement("button");
+	shareOption1.textContent = "Option 1";
+	shareOption1.addEventListener("click", () => {
+		// Handle share option 1 action
+	});
+	menuContainer.appendChild(shareOption1);
+
+	const shareOption2 = document.createElement("button");
+	shareOption2.textContent = "Option 2";
+	shareOption2.addEventListener("click", () => {
+		// Handle share option 2 action
+	});
+	menuContainer.appendChild(shareOption2);
+
+	document.body.appendChild(menuContainer);
+
+	// Add event listener to hide menu when clicking outside the menu
+	document.addEventListener("click", hideButtonsOutside);
+	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
 
 function truncateFileName(fileName, maxLength) {
