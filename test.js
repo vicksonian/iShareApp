@@ -369,6 +369,14 @@ fetch("https://ishare-i8td.onrender.com/files", {
 		console.error("Error fetching files:", error);
 	});
 
+function truncateFileName(fileName, maxLength) {
+	if (fileName.length > maxLength) {
+		return fileName.slice(0, maxLength - 3) + "...";
+	} else {
+		return fileName;
+	}
+}
+
 const d_token = localStorage.getItem("token");
 
 function createDownloadButton(fileId, filename) {
@@ -577,8 +585,9 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
 	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
 
-	// Add event listener to validate recipient
-	input.addEventListener("input", validateRecipient);
+	// Add event listener to validate recipient with debounce
+	const recipientInput = document.getElementById("recipientInput");
+	recipientInput.addEventListener("input", debounce(validateRecipient, 300));
 
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
@@ -603,16 +612,6 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
-
-function truncateFileName(fileName, maxLength) {
-	if (fileName.length > maxLength) {
-		return fileName.slice(0, maxLength - 3) + "...";
-	} else {
-		return fileName;
-	}
-}
-
-
 
 const fs_token = localStorage.getItem("token");
 function shareFile(fileId, recipient) {
@@ -682,4 +681,16 @@ function validateRecipient(event) {
 			messageHolder.style.color = "red";
 		});
 }
+
+// Debounce function to limit the rate of API calls
+function debounce(func, delay) {
+	let debounceTimer;
+	return function () {
+		const context = this;
+		const args = arguments;
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(() => func.apply(context, args), delay);
+	};
+}
+
 
