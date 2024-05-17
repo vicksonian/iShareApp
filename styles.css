@@ -386,6 +386,7 @@ f#search-form:valid #i41 {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; /* Ensure padding doesn't affect width */
+	outline: none;
 }
 
 .icon {
