@@ -184,7 +184,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				imageContainerBox.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id);
+					showDownloadButton(event, file.id, file.filename);
 				});
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
@@ -210,7 +210,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				videoContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id);
+					showDownloadButton(event, file.id, file.filename);
 				});
 			} else if (["mp3", "wav"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
@@ -236,7 +236,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				audioContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id);
+					showDownloadButton(event, file.id, file.filename);
 				});
 			} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
 				// Create a wrapper container div
@@ -287,7 +287,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				docWrapperContainer.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id);
+					showDownloadButton(event, file.id, file.filename);
 				});
 			} else {
 				const fileContainerDiv = document.createElement("div");
@@ -348,7 +348,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				// Add right-click event listener
 				fileContainerDiv.addEventListener("contextmenu", (event) => {
 					event.preventDefault();
-					showDownloadButton(event, file.id);
+					showDownloadButton(event, file.id, file.filename);
 				});
 			}
 		});
@@ -376,7 +376,7 @@ function createDownloadButton(fileId) {
 }
 
 // Function to download the file using Fetch API
-function downloadFile(fileId) {
+function downloadFile(fileId, filename) {
     // Fetch the download URL with the token included in the headers
     fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
         headers: {
@@ -395,7 +395,7 @@ function downloadFile(fileId) {
         // Create an anchor element to trigger the download
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'file'; // Set the default file name here if needed
+        a.download = filename; // Use the filename here
         document.body.appendChild(a);
         a.click(); // Simulate a click event to trigger the download
         a.remove(); // Remove the anchor element
@@ -404,6 +404,7 @@ function downloadFile(fileId) {
         console.error('Error downloading file:', error);
     });
 }
+
 
 // Function to show the download button
 function showDownloadButton(event, fileId) {
