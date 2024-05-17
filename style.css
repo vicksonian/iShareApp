@@ -908,10 +908,10 @@ button:active {
 }
 
 /* media responsiveness */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
 .share-context-menu-header{
 	font-size: 10px;
-	
+
 }
 
 }
