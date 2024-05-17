@@ -442,6 +442,7 @@ function deleteFile(fileId, filename) {
     });
 }
 
+
 // Function to show the download and delete buttons
 function showButtons(event, fileId, filename) {
 	// Remove any existing buttons
