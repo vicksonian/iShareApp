@@ -662,7 +662,7 @@ function validateRecipient(event) {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-			Authorization: `Bearer ${f1_token}`,
+			Authorization: `Bearer ${fv_token}`,
 		},
 		body: JSON.stringify({ recipient_identifier: recipientInput }),
 	})
