@@ -548,6 +548,7 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.appendChild(headerContainer);
 
 	const input = document.createElement("input");
+	input.id = "recipientInput";
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
@@ -578,6 +579,17 @@ function showShareMenu(event, fileId, filename) {
 
 	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
+
+	// Add event listener to the share button
+	sharebtn.addEventListener("click", () => {
+		const recipient = document.getElementById("recipientInput").value;
+		if (recipient) {
+			shareFile(fileId, recipient);
+		} else {
+			message.textContent = "Recipient cannot be empty";
+			message.style.color = "red";
+		}
+	});
 }
 
 function hideMenuOnClickOutside(event) {
@@ -589,11 +601,46 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
 		return fileName.slice(0, maxLength - 3) + "...";
 	} else {
 		return fileName;
 	}
+}
+
+
+
+const fs_token = localStorage.getItem("token");
+function shareFile(fileId, recipient) {
+	const payload = {
+		file_ids: [fileId],
+		recipient_identifier: recipient,
+	};
+
+	fetch("https://ishare-i8td.onrender.com/share", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${fs_token}`,
+		},
+		body: JSON.stringify(payload),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			const messageHolder = document.getElementById("messageHolder");
+			if (data.error) {
+				messageHolder.textContent = data.error;
+				messageHolder.style.color = "red";
+			} else {
+				messageHolder.textContent = data.message;
+				messageHolder.style.color = "green";
+			}
+		})
+		.catch((error) => {
+			console.error("Error sharing file:", error);
+			const messageHolder = document.getElementById("messageHolder");
+			messageHolder.textContent = "An error occurred while sharing the file";
+			messageHolder.style.color = "red";
+		});
 }
