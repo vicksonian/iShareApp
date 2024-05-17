@@ -414,23 +414,32 @@ function downloadFile(fileId, filename) {
 
 // Function to delete the file using Fetch API
 function deleteFile(fileId, filename) {
-	// Fetch the delete URL with the token included in the headers
-	fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
-		method: "DELETE",
-		headers: {
-			Authorization: `Bearer ${d_token}`,
-		},
-	})
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-			// File deleted successfully
-			console.log(`File '${filename}' deleted successfully.`);
-		})
-		.catch((error) => {
-			console.error("Error deleting file:", error);
-		});
+    // Fetch the delete URL with the token included in the headers
+    fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${d_token}`,
+        },
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // File deleted successfully
+        console.log(`File '${filename}' deleted successfully.`);
+        
+        // Remove the deleted file from the UI
+        const fileElement = document.getElementById(`file-${fileId}`);
+        if (fileElement) {
+            fileElement.remove();
+            console.log(`File element '${filename}' removed from UI.`);
+        } else {
+            console.log(`File element '${filename}' not found in UI.`);
+        }
+    })
+    .catch((error) => {
+        console.error("Error deleting file:", error);
+    });
 }
 
 // Function to show the download and delete buttons
