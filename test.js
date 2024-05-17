@@ -361,6 +361,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 	
 const d_token = localStorage.getItem("token");
+
 // Function to create a download button
 function createDownloadButton(fileId, filename) {
 	const downloadButton = document.createElement("button");
@@ -383,20 +384,19 @@ function createDeleteButton(fileId, filename) {
 	return deleteButton;
 }
 
-// Function to create a delete button
+// Function to create a share button
 function createShareButton(fileId, filename) {
 	const shareButton = document.createElement("button");
 	shareButton.className = "share-button";
 	shareButton.innerHTML = `<i class="fas fa-share-alt"></i> Share`;
 	shareButton.addEventListener("click", () => {
-		deleteFile(fileId, filename);
+		shareFile(fileId, filename);
 	});
 	return shareButton;
 }
 
 // Function to download the file using Fetch API
 function downloadFile(fileId, filename) {
-	// Fetch the download URL with the token included in the headers
 	fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
 		headers: {
 			Authorization: `Bearer ${d_token}`,
@@ -406,18 +406,16 @@ function downloadFile(fileId, filename) {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			return response.blob(); // Get the response as a blob
+			return response.blob();
 		})
 		.then((blob) => {
-			// Create a URL for the blob
 			const url = window.URL.createObjectURL(blob);
-			// Create an anchor element to trigger the download
 			const a = document.createElement("a");
 			a.href = url;
-			a.download = filename; // Use the filename here
+			a.download = filename;
 			document.body.appendChild(a);
-			a.click(); // Simulate a click event to trigger the download
-			a.remove(); // Remove the anchor element
+			a.click();
+			a.remove();
 		})
 		.catch((error) => {
 			console.error("Error downloading file:", error);
@@ -426,82 +424,95 @@ function downloadFile(fileId, filename) {
 
 // Function to delete the file using Fetch API
 function deleteFile(fileId, filename) {
-    // Fetch the delete URL with the token included in the headers
-    fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
-        method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${d_token}`,
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        // File deleted successfully
-        console.log(`File '${filename}' deleted successfully.`);
-        
-        // Remove the deleted file from the UI
-        const fileElement = document.getElementById(`file-${fileId}`);
-        if (fileElement) {
-            fileElement.remove();
-            console.log(`File element '${filename}' removed from UI.`);
-        } else {
-            console.log(`File element '${filename}' not found in UI.`);
-        }
-    })
-    .catch((error) => {
-        console.error("Error deleting file:", error);
-    });
+	fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${d_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			console.log(`File '${filename}' deleted successfully.`);
+			const fileElement = document.getElementById(`file-${fileId}`);
+			if (fileElement) {
+				fileElement.remove();
+				console.log(`File element '${filename}' removed from UI.`);
+			} else {
+				console.log(`File element '${filename}' not found in UI.`);
+			}
+		})
+		.catch((error) => {
+			console.error("Error deleting file:", error);
+		});
 }
 
+// Function to share the file (placeholder function)
+function shareFile(fileId, filename) {
+	console.log(`Sharing file '${filename}' (ID: ${fileId})`);
+}
 
-// Function to show the download and delete buttons
+// Function to show the download, delete, and share buttons
 function showButtons(event, fileId, filename) {
-	// Remove any existing buttons
-	const existingButtons = document.querySelectorAll(
-		".download-button, .delete-button"
-	);
-	existingButtons.forEach((button) => button.remove());
+	// Remove any existing menus
+	const existingMenus = document.querySelectorAll(".context-menu");
+	existingMenus.forEach((menu) => menu.remove());
 
-	// Create and position the new buttons
+	// Create the context menu container
+	const menuContainer = document.createElement("div");
+	menuContainer.className = "context-menu";
+
+	// Create and add the buttons to the context menu
 	const downloadButton = createDownloadButton(fileId, filename);
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
-	downloadButton.style.position = "absolute";
-	downloadButton.style.left = `${event.pageX}px`;
-	downloadButton.style.top = `${event.pageY}px`;
-	deleteButton.style.position = "absolute";
-	deleteButton.style.left = `${event.pageX}px`;
-	deleteButton.style.top = `${event.pageY + 30}px`;
-	shareButton.style.position = "absolute";
-	shareButton.style.left = `${event.pageX}px`;
-	shareButton.style.top = `${event.pageY + 30}px`;
 
-	document.body.appendChild(downloadButton);
-	document.body.appendChild(deleteButton);
-	document.body.appendChild(shareButton);
+	menuContainer.appendChild(downloadButton);
+	menuContainer.appendChild(deleteButton);
+	menuContainer.appendChild(shareButton);
 
-	// Hide the buttons when clicking elsewhere
+	// Position the context menu
+	menuContainer.style.left = `${event.pageX}px`;
+	menuContainer.style.top = `${event.pageY}px`;
+
+	// Add the context menu to the body
+	document.body.appendChild(menuContainer);
+
+	// Hide the context menu when clicking elsewhere
 	document.addEventListener("click", hideButtons);
 
 	// Prevent event propagation to avoid hiding buttons immediately
-	downloadButton.addEventListener("click", (event) => event.stopPropagation());
-	deleteButton.addEventListener("click", (event) => event.stopPropagation());
-	shareButton.addEventListener("click", (event) => event.stopPropagation());
+	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
 
 // Function to hide the buttons
 function hideButtons() {
-	const buttons = document.querySelectorAll(".download-button, .delete-button, .share-button");
-	buttons.forEach((button) => button.remove());
+	const menus = document.querySelectorAll(".context-menu");
+	menus.forEach((menu) => menu.remove());
 	document.removeEventListener("click", hideButtons);
 }
+
+// Add event listeners to your elements
+document
+	.querySelectorAll(
+		".image-container-box, .video-container-box, .audio-container-box, .doc-wrapper-container, .files-container-box"
+	)
+	.forEach((element) => {
+		element.addEventListener("contextmenu", (event) => {
+			event.preventDefault();
+			const fileId = element.dataset.fileId;
+			const filename = element.dataset.filename;
+			showButtons(event, fileId, filename);
+		});
+	});
 
 // Function to truncate file names
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
-		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
+		return fileName.slice(0, maxLength - 3) + "...";
 	} else {
 		return fileName;
 	}
 }
+
