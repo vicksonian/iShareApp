@@ -320,7 +320,7 @@ f#search-form:valid #i41 {
     background-color: #05074c;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgb(6, 249, 201);
     z-index: 1000;
     padding: 10px;
 }
@@ -342,7 +342,8 @@ f#search-form:valid #i41 {
 }
 
 .context-menu-button:hover {
-    background-color: #f0f0f0;
+    background-color: #05074cb9;
+	color: #00ff59;
 }
 
 .context-menu-button .fas {
