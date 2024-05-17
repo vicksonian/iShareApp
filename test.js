@@ -303,18 +303,28 @@ fetch("https://ishare-i8td.onrender.com/files", {
 				let iconClass;
 				switch (fileExtension) {
 					case "pdf":
-						iconClass = "far fa-file-pdf"; // Font Awesome class for PDF icon
+						iconClass = "far fa-file-pdf";
 						break;
-					case "doc":
-					case "docx":
-						iconClass = "far fa-file-word"; // Font Awesome class for Word document icon
+					case "html":
+						iconClass = "fab fa-html5";
 						break;
-					case "xls":
+					case "css":
+						iconClass = "far fa-css3-alt";
+						break;
+					case "py":
+						iconClass = "fab fa-python";
+						break;
+					case "js":
+						iconClass = "fab fa-js-square";
+						break;
 					case "xlsx":
-						iconClass = "far fa-file-excel"; // Font Awesome class for Excel document icon
+						iconClass = "far fa-file-excel";
+						break;
+					case "gif":
+						iconClass = "fas fa-file-video";
 						break;
 					default:
-						iconClass = "far fa-file"; // Default file icon
+						iconClass = "far fa-file";
 						break;
 				}
 
@@ -435,7 +445,6 @@ function hideButtonsOutside(event) {
 		menuContainer.remove();
 	}
 }
-
 
 function downloadFile(fileId, filename) {
 	fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
