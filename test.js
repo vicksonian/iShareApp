@@ -417,10 +417,28 @@ function deleteFile(fileId, filename) {
 			} else {
 				console.log(`File element '${filename}' not found in UI.`);
 			}
+
+			// Display a notification message
+			showDeleteNotification(filename);
 		})
 		.catch((error) => {
 			console.error("Error deleting file:", error);
 		});
+}
+
+function showDeleteNotification(filename) {
+	// Create a notification message element
+	const notificationElement = document.createElement("div");
+	notificationElement.className = "delete-notification";
+	notificationElement.textContent = `File '${filename}' has been deleted.`;
+
+	// Append the notification to the document body
+	document.body.appendChild(notificationElement);
+
+	// Automatically remove the notification after a certain duration
+	setTimeout(() => {
+		notificationElement.remove();
+	}, 3000); // Remove after 3 seconds (adjust duration as needed)
 }
 
 function truncateFileName(fileName, maxLength) {
