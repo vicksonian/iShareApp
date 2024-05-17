@@ -358,12 +358,8 @@ fetch("https://ishare-i8td.onrender.com/files", {
 	});
 
 
-
-
-
-
+	
 const d_token = localStorage.getItem("token");
-
 // Function to create a download button
 function createDownloadButton(fileId, filename) {
 	const downloadButton = document.createElement("button");
@@ -375,83 +371,109 @@ function createDownloadButton(fileId, filename) {
 	return downloadButton;
 }
 
-// Function to download the file using Fetch API
-function downloadFile(fileId, filename) {
-    // Fetch the download URL with the token included in the headers
-    fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
-        headers: {
-            Authorization: `Bearer ${d_token}`
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.blob(); // Get the response as a blob
-    })
-    .then(blob => {
-        // Create a URL for the blob
-        const url = window.URL.createObjectURL(blob);
-        // Create an anchor element to trigger the download
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename; // Use the filename here
-        document.body.appendChild(a);
-        a.click(); // Simulate a click event to trigger the download
-        a.remove(); // Remove the anchor element
-    })
-    .catch(error => {
-        console.error('Error downloading file:', error);
-    });
+// Function to create a delete button
+function createDeleteButton(fileId, filename) {
+	const deleteButton = document.createElement("button");
+	deleteButton.className = "delete-button";
+	deleteButton.textContent = "Delete";
+	deleteButton.addEventListener("click", () => {
+		deleteFile(fileId, filename);
+	});
+	return deleteButton;
 }
 
+// Function to download the file using Fetch API
+function downloadFile(fileId, filename) {
+	// Fetch the download URL with the token included in the headers
+	fetch(`https://ishare-i8td.onrender.com/download/${fileId}`, {
+		headers: {
+			Authorization: `Bearer ${d_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.blob(); // Get the response as a blob
+		})
+		.then((blob) => {
+			// Create a URL for the blob
+			const url = window.URL.createObjectURL(blob);
+			// Create an anchor element to trigger the download
+			const a = document.createElement("a");
+			a.href = url;
+			a.download = filename; // Use the filename here
+			document.body.appendChild(a);
+			a.click(); // Simulate a click event to trigger the download
+			a.remove(); // Remove the anchor element
+		})
+		.catch((error) => {
+			console.error("Error downloading file:", error);
+		});
+}
 
-// Function to show the download button
-function showDownloadButton(event, fileId, filename) {
-	// Remove any existing download button
-	const existingButton = document.querySelector(".download-button");
-	if (existingButton) {
-		existingButton.remove();
-	}
+// Function to delete the file using Fetch API
+function deleteFile(fileId, filename) {
+	// Fetch the delete URL with the token included in the headers
+	fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${d_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			// File deleted successfully
+			console.log(`File '${filename}' deleted successfully.`);
+		})
+		.catch((error) => {
+			console.error("Error deleting file:", error);
+		});
+}
 
-	// Create and position the new download button
-	const downloadButton = createDownloadButton(fileId, filename); // Pass filename
+// Function to show the download and delete buttons
+function showButtons(event, fileId, filename) {
+	// Remove any existing buttons
+	const existingButtons = document.querySelectorAll(
+		".download-button, .delete-button"
+	);
+	existingButtons.forEach((button) => button.remove());
+
+	// Create and position the new buttons
+	const downloadButton = createDownloadButton(fileId, filename);
+	const deleteButton = createDeleteButton(fileId, filename);
 	downloadButton.style.position = "absolute";
 	downloadButton.style.left = `${event.pageX}px`;
 	downloadButton.style.top = `${event.pageY}px`;
+	deleteButton.style.position = "absolute";
+	deleteButton.style.left = `${event.pageX}px`;
+	deleteButton.style.top = `${event.pageY + 30}px`;
 
 	document.body.appendChild(downloadButton);
+	document.body.appendChild(deleteButton);
 
-	// Hide the download button when clicking elsewhere
-	document.addEventListener("click", hideDownloadButton);
+	// Hide the buttons when clicking elsewhere
+	document.addEventListener("click", hideButtons);
 
-	// Pass the filename to the downloadFile function
-	downloadButton.addEventListener("click", handleDownloadClick); // Change here
+	// Prevent event propagation to avoid hiding buttons immediately
+	downloadButton.addEventListener("click", (event) => event.stopPropagation());
+	deleteButton.addEventListener("click", (event) => event.stopPropagation());
 }
 
-// Function to handle download button click
-function handleDownloadClick(event) {
-    const fileId = event.target.dataset.fileId;
-    const filename = event.target.dataset.filename;
-    downloadFile(fileId, filename);
-}
-
-// Function to hide the download button
-function hideDownloadButton() {
-    const downloadButton = document.querySelector(".download-button");
-    if (downloadButton) {
-        downloadButton.remove();
-    }
-
-    // Remove the event listener
-    document.removeEventListener("click", hideDownloadButton);
+// Function to hide the buttons
+function hideButtons() {
+	const buttons = document.querySelectorAll(".download-button, .delete-button");
+	buttons.forEach((button) => button.remove());
+	document.removeEventListener("click", hideButtons);
 }
 
 // Function to truncate file names
 function truncateFileName(fileName, maxLength) {
-    if (fileName.length > maxLength) {
-        return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
-    } else {
-        return fileName;
-    }
+	if (fileName.length > maxLength) {
+		return fileName.slice(0, maxLength - 3) + "..."; // Truncate and add ellipsis
+	} else {
+		return fileName;
+	}
 }
