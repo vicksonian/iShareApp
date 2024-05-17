@@ -370,11 +370,10 @@ function createDownloadButton(fileId, filename) {
 	downloadButton.className = "download-button";
 	downloadButton.textContent = "Download";
 	downloadButton.addEventListener("click", () => {
-		downloadFile(fileId, filename); // Pass both fileId and filename
+		downloadFile(fileId, filename);
 	});
 	return downloadButton;
 }
-
 
 // Function to download the file using Fetch API
 function downloadFile(fileId, filename) {
@@ -409,32 +408,33 @@ function downloadFile(fileId, filename) {
 
 // Function to show the download button
 function showDownloadButton(event, fileId, filename) {
-    // Remove any existing download button
-    const existingButton = document.querySelector(".download-button");
-    if (existingButton) {
-        existingButton.remove();
-    }
+	// Remove any existing download button
+	const existingButton = document.querySelector(".download-button");
+	if (existingButton) {
+		existingButton.remove();
+	}
 
-    // Create and position the new download button
-    const downloadButton = createDownloadButton(fileId, filename); // Pass filename
-    downloadButton.style.position = "absolute";
-    downloadButton.style.left = `${event.pageX}px`;
-    downloadButton.style.top = `${event.pageY}px`;
+	// Create and position the new download button
+	const downloadButton = createDownloadButton(fileId, filename); // Pass filename
+	downloadButton.style.position = "absolute";
+	downloadButton.style.left = `${event.pageX}px`;
+	downloadButton.style.top = `${event.pageY}px`;
 
-    document.body.appendChild(downloadButton);
+	document.body.appendChild(downloadButton);
 
-    // Hide the download button when clicking elsewhere
-    document.addEventListener("click", hideDownloadButton);
+	// Hide the download button when clicking elsewhere
+	document.addEventListener("click", hideDownloadButton);
 
-    // Pass the filename to the downloadFile function
-    downloadButton.addEventListener("click", () => {
-        downloadFile(fileId, filename);
-    });
+	// Pass the filename to the downloadFile function
+	downloadButton.addEventListener("click", handleDownloadClick); // Change here
 }
 
-
-
-
+// Function to handle download button click
+function handleDownloadClick(event) {
+    const fileId = event.target.dataset.fileId;
+    const filename = event.target.dataset.filename;
+    downloadFile(fileId, filename);
+}
 
 // Function to hide the download button
 function hideDownloadButton() {
