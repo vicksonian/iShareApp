@@ -382,6 +382,17 @@ function createDeleteButton(fileId, filename) {
 	return deleteButton;
 }
 
+// Function to create a delete button
+function createDeleteButton(fileId, filename) {
+	const shareButton = document.createElement("button");
+	shareButton.className = "share-button";
+	shareButton.innerHTML = `<i class="fas fa-share-alt"></i> Share`;
+	shareButton.addEventListener("click", () => {
+		deleteFile(fileId, filename);
+	});
+	return shareButton;
+}
+
 // Function to download the file using Fetch API
 function downloadFile(fileId, filename) {
 	// Fetch the download URL with the token included in the headers

@@ -312,3 +312,73 @@ f#search-form:valid #i41 {
 #search-form:valid a {
 	display: block;
 }
+
+
+/* Context Menu Styles */
+.context-menu {
+    position: absolute;
+    z-index: 100;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.context-menu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.context-menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Download Button Styles */
+.download-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+/* Delete Button Styles */
+.delete-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Share Button Styles */
+.share-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.share-button:hover {
+    background-color: #218838;
+}
+
+/* Icon Styles */
+.icon {
+    margin-right: 8px;
+}
