@@ -576,7 +576,7 @@ function showShareMenu(event, fileId, filename) {
 	const message = document.createElement("span");
 	message.className = "messageHolder";
 	message.id = "messageHolder";
-	message.textContent = "Message";
+	message.textContent = "Message"; // This is just an initial message
 	menuContainer.appendChild(message);
 
 	// Append the menu container to the body
@@ -620,6 +620,7 @@ function showShareMenu(event, fileId, filename) {
 					console.log("API Response:", data); // Debugging line
 					const messageHolder = document.getElementById("messageHolder");
 					if (messageHolder) {
+						console.log("Message Holder Found:", messageHolder); // Debugging line
 						if (data.exists) {
 							messageHolder.textContent = "User available for sharing";
 							messageHolder.style.color = "green";
@@ -627,7 +628,7 @@ function showShareMenu(event, fileId, filename) {
 							messageHolder.textContent = "User not available for sharing";
 							messageHolder.style.color = "red";
 						}
-						console.log("Message Text:", messageHolder.textContent); // Debugging line
+						console.log("Message Text Updated To:", messageHolder.textContent); // Debugging line
 					} else {
 						console.error("Message Holder not found in the DOM");
 					}
