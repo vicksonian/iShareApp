@@ -548,20 +548,19 @@ function showShareMenu(event, fileId, filename) {
 	input.className = "context-menu-input";
 	menuContainer.appendChild(input);
 
-	// Create share options
-	const shareOption1 = document.createElement("button");
-	shareOption1.textContent = "Option 1";
-	shareOption1.addEventListener("click", () => {
-		// Handle share option 1 action
-	});
-	menuContainer.appendChild(shareOption1);
+	const sharebtn =document.createElement("button");
+	sharebtn.className = "shareButton";
+	sharebtn.id = "shareButton";
+	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i> Share`;
+	
+	menuContainer.appendChild(sharebtn);
+	
 
-	const shareOption2 = document.createElement("button");
-	shareOption2.textContent = "Option 2";
-	shareOption2.addEventListener("click", () => {
-		// Handle share option 2 action
-	});
-	menuContainer.appendChild(shareOption2);
+	const message = document.createElement("span")
+	message.className = "messageHolder";
+	message.id = "messageHolder";
+	menuContainer.appendChild(message);
+
 
 	document.body.appendChild(menuContainer);
 
