@@ -718,15 +718,21 @@ function showShareMenu(event, fileId, filename) {
 			});
 	}
 
-	// Function to display messages in the share menu
+	// Modify showShareMenuMessage function to ensure message container is present before updating
 	function showShareMenuMessage(message, color) {
-		const msgContainer = document.getElementById("msgContainer");
-		if (msgContainer) {
-			msgContainer.textContent = message;
-			msgContainer.style.color = color;
-		} else {
-			console.error("Message Container not found in the DOM");
+		// Create message container if not found
+		let msgContainer = document.getElementById("msgContainer");
+		if (!msgContainer) {
+			msgContainer = document.createElement("div");
+			msgContainer.id = "msgContainer";
+			msgContainer.className = "msgContainer";
+			msgContainer.style.display = "flex";
+			msgContainer.style.marginTop = "10px";
+			document.body.appendChild(msgContainer);
 		}
+		// Update message container
+		msgContainer.textContent = message;
+		msgContainer.style.color = color;
 	}
 
 	// Add event listener to the share button
