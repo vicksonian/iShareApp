@@ -678,22 +678,31 @@ function showShareMenu(event, fileId, filename) {
 
 		// Log the recipient identifier for debugging
 		console.log("Recipient identifier:", recipientIdentifier);
-
 	});
 
-	sharebtn.addEventListener("click", (e) => {
-		e.stopPropagation();
+	// Update message container function
+	function updateMessageContainer(message, color) {
+		const msgContainer = document.getElementById("msgContainer");
+		if (msgContainer) {
+			msgContainer.textContent = message;
+			msgContainer.style.color = color;
+		} else {
+			console.error("Message Container not found in the DOM");
+		}
+	}
 
+	// Add event listener to the share button
+	sharebtn.addEventListener("click", (e) => {
+		e.stopPropagation(); // Ensure the click event does not bubble up to document
+
+		// Retrieve the recipient identifier from the captured variable
 		const recipient = recipientIdentifier;
 
+		// Log the recipient identifier for debugging
 		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
-			const msgContainer = document.getElementById("msgContainer");
-			if (msgContainer) {
-				msgContainer.textContent = "Recipient identifier cannot be empty";
-				msgContainer.style.color = "red";
-			}
+			updateMessageContainer("Recipient identifier cannot be empty", "red");
 			return; // Exit the function early if the recipient is empty
 		}
 
@@ -714,47 +723,44 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-const fs_token = localStorage.getItem("token");
 
+// Function to handle sharing file
 function shareFile(fileId, recipient) {
-	const payload = {
-		file_ids: [fileId],
-		recipient_identifier: recipient,
-	};
+    const payload = {
+        file_ids: [fileId],
+        recipient_identifier: recipient,
+    };
 
-	console.log("Payload:", payload); // Log payload for debugging
+    console.log("Payload:", payload); // Log payload for debugging
 
-	fetch("https://ishare-i8td.onrender.com/share", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${fs_token}`,
-		},
-		body: JSON.stringify(payload),
-	})
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
-			return response.json();
-		})
-		.then((data) => {
-			const msgContainer = document.getElementById("msgContainer");
-			if (data.error) {
-				msgContainer.textContent = data.error;
-				msgContainer.style.color = "red";
-			} else {
-				msgContainer.textContent = `File shared with ${recipient}`;
-				msgContainer.style.color = "green";
-			}
-			console.log("File shared successfully:", data);
-		})
-		.catch((error) => {
-			console.error("Error sharing file:", error);
-			const msgContainer = document.getElementById("msgContainer");
-			msgContainer.textContent = "Error sharing file";
-			msgContainer.style.color = "red";
-		});
+    const fs_token = localStorage.getItem("token");
+
+    fetch("https://ishare-i8td.onrender.com/share", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${fs_token}`,
+        },
+        body: JSON.stringify(payload),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.error) {
+                updateMessageContainer(data.error, "red");
+            } else {
+                updateMessageContainer(`File shared with ${recipient}`, "green");
+            }
+            console.log("File shared successfully:", data);
+        })
+        .catch((error) => {
+            console.error("Error sharing file:", error);
+            updateMessageContainer("Error sharing file", "red");
+        });
 }
 
 
