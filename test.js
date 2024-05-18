@@ -574,10 +574,18 @@ function showShareMenu(event, fileId, filename) {
     const message = document.createElement("span");
     message.className = "messageHolder";
     message.id = "messageHolder";
-    message.textContent = "message";  // Initialize with empty text
-    message.style.display = "block";  // Ensure the messageHolder is block level
-    message.style.marginTop = "10px";  // Add some margin for visibility
+    message.textContent = "message";
+    message.style.display = "block";
+    message.style.marginTop = "10px";
     menuContainer.appendChild(message);
+
+	const msg = document.createElement(div)
+	msg.className = "msgContainer";
+	msg.id = "msgContainer";
+	msg.style.display = "block";
+	msg.style.marginTop = "10px";
+	msg.textContent = "Message";
+	menuContainer.appendChild(msg);
 
     // Append the menu container to the body
     document.body.appendChild(menuContainer);
