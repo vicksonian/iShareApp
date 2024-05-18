@@ -49,11 +49,13 @@ body {
     position: sticky;
 }
 
-@media screen and (max-width: 370px) {
-	.photosfileList{
+@media screen and (max-width: 450px) {
+	#photosfileList{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
+		justify-items: center;
 		margin: 10px;
 		padding: 10px auto;
 	}
