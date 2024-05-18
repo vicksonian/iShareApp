@@ -588,7 +588,7 @@ function showShareMenu(event, fileId, filename) {
 	// Add a timeout to remove the confirmation message after a certain duration
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}, 3000); // Remove after 3 seconds (adjust duration as needed)
+	}); // Remove after 3 seconds (adjust duration as needed)
 
 	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
@@ -662,7 +662,17 @@ function showShareMenu(event, fileId, filename) {
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
-		const recipient = document.getElementById("recipientInput").value;
+		const recipient = document.getElementById("recipientInput").value.trim(); // Trim to remove any accidental spaces
+
+		if (recipient === "") {
+			const msgContainer = document.getElementById("msgContainer");
+			if (msgContainer) {
+				msgContainer.textContent = "Recipient identifier cannot be empty";
+				msgContainer.style.color = "red";
+			}
+			return; // Exit the function early if the recipient is empty
+		}
+
 		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
