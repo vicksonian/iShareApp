@@ -588,7 +588,7 @@ function showShareMenu(event, fileId, filename) {
 	// Add a timeout to remove the confirmation message after a certain duration
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}, 14400); // Remove after 3 seconds (adjust duration as needed)
+	}, 3000); // Remove after 3 seconds (adjust duration as needed)
 
 	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
@@ -660,13 +660,15 @@ function showShareMenu(event, fileId, filename) {
 	});
 
 	// Add event listener to the share button
-	sharebtn.addEventListener("click", () => {
+	sharebtn.addEventListener("click", (e) => {
+		e.stopPropagation(); // Ensure the click event does not bubble up to document
 		const recipient = document.getElementById("recipientInput").value;
 		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
 }
+
 
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
@@ -678,6 +680,7 @@ function hideMenuOnClickOutside(event) {
 
 
 const fs_token = localStorage.getItem("token");
+
 function shareFile(fileId, recipient) {
 	const payload = {
 		file_ids: [fileId],
@@ -692,21 +695,28 @@ function shareFile(fileId, recipient) {
 		},
 		body: JSON.stringify(payload),
 	})
-		.then((response) => response.json())
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			return response.json();
+		})
 		.then((data) => {
 			const messageHolder = document.getElementById("messageHolder");
 			if (data.error) {
 				messageHolder.textContent = data.error;
 				messageHolder.style.color = "red";
 			} else {
-				messageHolder.textContent = data.message;
+				messageHolder.textContent = `File shared with ${recipient}`;
 				messageHolder.style.color = "green";
 			}
+			console.log("File shared successfully:", data);
 		})
 		.catch((error) => {
 			console.error("Error sharing file:", error);
 			const messageHolder = document.getElementById("messageHolder");
-			messageHolder.textContent = "An error occurred while sharing the file";
+			messageHolder.textContent = "Error sharing file";
 			messageHolder.style.color = "red";
 		});
 }
+
