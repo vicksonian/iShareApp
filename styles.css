@@ -40,9 +40,7 @@ body {
 
 .image-name {
     width: 100%;
-    /* margin: 10px auto; */
     padding: 5px;
-    /* background: aliceblue; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,8 +56,34 @@ body {
 		margin: 10px;
 		padding: 10px;
 	}
+	.image {
+	margin: 10px;
+	object-fit: cover;
+	max-width: 250px;
+	max-height: 250px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+	.image img {
+	object-fit: contain;
+	max-width: 100%;
+	cursor: pointer;
+}
+
+.image-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
 	.image-container-box {
-        max-width: 200px;
+        max-width: 250px;
     }
 .image-container-box:hover{
 	transform: scale(1.0);
