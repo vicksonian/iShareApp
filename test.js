@@ -742,12 +742,14 @@ function showShareMenu(event, fileId, filename) {
 		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
-			updateMessageContainer("Recipient identifier cannot be empty", "red");
+			updateMessageContainer("Recipient cannot be empty", "red");
 			return;
 		}
-		shareFile(fileId, recipient);
-		menuContainer.remove();
-		document.removeEventListener("click", hideMenuOnClickOutside);
+		shareFile(fileId, recipient, "", "");
+
+		// shareFile(fileId, recipient);
+		// menuContainer.remove();
+		// document.removeEventListener("click", hideMenuOnClickOutside);
 	});
 }
 
