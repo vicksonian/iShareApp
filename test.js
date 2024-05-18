@@ -704,21 +704,21 @@ function shareFile(fileId, recipient) {
 			return response.json();
 		})
 		.then((data) => {
-			const messageHolder = document.getElementById("messageHolder");
+			const msgContainer = document.getElementById("msgContainer");
 			if (data.error) {
-				messageHolder.textContent = data.error;
-				messageHolder.style.color = "red";
+				msgContainer.textContent = data.error;
+				msgContainer.style.color = "red";
 			} else {
-				messageHolder.textContent = `File shared with ${recipient}`;
-				messageHolder.style.color = "green";
+				msgContainer.textContent = `File shared with ${recipient}`;
+				msgContainer.style.color = "green";
 			}
 			console.log("File shared successfully:", data);
 		})
 		.catch((error) => {
 			console.error("Error sharing file:", error);
-			const messageHolder = document.getElementById("messageHolder");
-			messageHolder.textContent = "Error sharing file";
-			messageHolder.style.color = "red";
+			const msgContainer = document.getElementById("msgContainer");
+			msgContainer.textContent = "Error sharing file";
+			msgContainer.style.color = "red";
 		});
 }
 
