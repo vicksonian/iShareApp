@@ -382,6 +382,39 @@ fetch("https://ishare-i8td.onrender.com/files", {
 fetchAndDisplayFiles();
 const intervalId = setInterval(fetchAndDisplayFiles, 300000);
 
+// Function to handle image clicks
+function handleImageClick(event) {
+    const imageElement = event.target;
+    if (!document.fullscreenElement) {
+        imageElement.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable full-screen mode:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Function to handle video clicks
+function handleVideoClick(event) {
+    const videoElement = event.target;
+    if (!document.fullscreenElement) {
+        videoElement.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable full-screen mode:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Add event listeners to images and videos
+document.querySelectorAll('.image-container-box img').forEach(img => {
+    img.addEventListener('click', handleImageClick);
+});
+
+document.querySelectorAll('.video-container-box video').forEach(video => {
+    video.addEventListener('click', handleVideoClick);
+});
+
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
