@@ -456,5 +456,10 @@ line-height: 1;
     margin-top: 10px;
     font-size: 14px;
     font-weight: bold;
+	width: 100%;
+	height: 32px;
+	justify-content: center;
+	align-items: center;
+	background: #4359d1c5;
 }
 

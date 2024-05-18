@@ -603,44 +603,50 @@ function showShareMenu(event, fileId, filename) {
         const fv_token = localStorage.getItem("token");
         if (recipientIdentifier.length > 0) {
             fetch("https://ishare-i8td.onrender.com/validate_user", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${fv_token}`,
-                },
-                body: JSON.stringify({ recipient_identifier: recipientIdentifier }),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log("API Response:", data); // Debugging line
-                    const messageHolder = document.getElementById("messageHolder");
-                    if (messageHolder) {
-                        console.log("Message Holder Found:", messageHolder); // Debugging line
-                        if (data.exists) {
-                            messageHolder.textContent = "User available for sharing";
-                            messageHolder.style.color = "green";
-                        } else {
-                            messageHolder.textContent = "User not available for sharing";
-                            messageHolder.style.color = "red";
-                        }
-                        console.log("Message Text Updated To:", messageHolder.textContent); // Debugging line
-                    } else {
-                        console.error("Message Holder not found in the DOM");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    const messageHolder = document.getElementById("messageHolder");
-                    if (messageHolder) {
-                        messageHolder.textContent = "Error validating user";
-                        messageHolder.style.color = "red";
-                    }
-                });
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								Authorization: `Bearer ${fv_token}`,
+							},
+							body: JSON.stringify({
+								recipient_identifier: recipientIdentifier,
+							}),
+						})
+							.then((response) => {
+								if (!response.ok) {
+									throw new Error("Network response was not ok");
+								}
+								return response.json();
+							})
+							.then((data) => {
+								console.log("API Response:", data); // Debugging line
+								const messageHolder = document.getElementById("messageHolder");
+								if (messageHolder) {
+									console.log("Message Holder Found:", messageHolder); // Debugging line
+									if (data.exists) {
+										messageHolder.textContent = "User available for sharing";
+										messageHolder.style.color = "green"; // Set text color to green
+									} else {
+										messageHolder.textContent =
+											"User not available for sharing";
+										messageHolder.style.color = "red"; // Set text color to red
+									}
+									console.log(
+										"Message Text Updated To:",
+										messageHolder.textContent
+									); // Debugging line
+								} else {
+									console.error("Message Holder not found in the DOM");
+								}
+							})
+							.catch((error) => {
+								console.error("Error:", error);
+								const messageHolder = document.getElementById("messageHolder");
+								if (messageHolder) {
+									messageHolder.textContent = "Error validating user";
+									messageHolder.style.color = "red";
+								}
+							});
         } else {
             const messageHolder = document.getElementById("messageHolder");
             if (messageHolder) {
@@ -655,7 +661,6 @@ function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
 	if (menuContainer && !menuContainer.contains(event.target)) {
 		menuContainer.remove();
-		// Remove the event listener after hiding the menu
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
