@@ -647,6 +647,14 @@ function showShareMenu(event, fileId, filename) {
 			}
 		}
 	});
+
+	// Add event listener to the share button
+	sharebtn.addEventListener("click", () => {
+		const recipient = document.getElementById("recipientInput").value;
+		shareFile(fileId, recipient);
+		menuContainer.remove();
+		document.removeEventListener("click", hideMenuOnClickOutside);
+	});
 }
 
 function hideMenuOnClickOutside(event) {
@@ -656,6 +664,7 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
+
 
 const fs_token = localStorage.getItem("token");
 function shareFile(fileId, recipient) {
