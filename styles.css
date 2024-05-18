@@ -451,26 +451,13 @@ line-height: 1;
     margin-right: 5px;
 }
 
-.share-context-menu-container .messageHolder {
-    display: block;
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: bold;
-	width: 100%;
-	height: 32px;
-	color: #02ffbb;
-	justify-content: center;
-	align-items: center;
-	background: #4359d1c5;
-	z-index: 99999;
-}
-
 .msgContainer{
 	color: #ffffff;
 	width: 100%;
 	height: 32px;
+	text-align: left;
 	justify-content: center;
 	align-items: center;
-	background: #1f2546c5;
+	background: #8e9fff00;
 	z-index: 99999;
 }
