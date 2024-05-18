@@ -628,20 +628,20 @@ function showShareMenu(event, fileId, filename) {
 							})
 							.then((data) => {
 								console.log("API Response:", data); // Debugging line
-								const messageHolder = document.getElementById("messageHolder");
-								if (messageHolder) {
-									console.log("Message Holder Found:", messageHolder); // Debugging line
+								const msgContainer = document.getElementById("msgContainer");
+								if (msgContainer) {
+									console.log("Message Holder Found:", msgContainer); // Debugging line
 									if (data.exists) {
-										messageHolder.textContent = "User available for sharing";
-										messageHolder.style.color = "green"; // Set text color to green
+										msgContainer.textContent = "User available for sharing";
+										msgContainer.style.color = "green"; // Set text color to green
 									} else {
-										messageHolder.textContent =
+										msgContainer.textContent =
 											"User not available for sharing";
-										messageHolder.style.color = "red"; // Set text color to red
+										msgContainer.style.color = "red"; // Set text color to red
 									}
 									console.log(
 										"Message Text Updated To:",
-										messageHolder.textContent
+										msgContainer.textContent
 									); // Debugging line
 								} else {
 									console.error("Message Holder not found in the DOM");
@@ -649,16 +649,16 @@ function showShareMenu(event, fileId, filename) {
 							})
 							.catch((error) => {
 								console.error("Error:", error);
-								const messageHolder = document.getElementById("messageHolder");
-								if (messageHolder) {
-									messageHolder.textContent = "Error validating user";
-									messageHolder.style.color = "red";
+								const msgContainer = document.getElementById("msgContainer");
+								if (msgContainer) {
+									msgContainer.textContent = "Error validating user";
+									msgContainer.style.color = "red";
 								}
 							});
         } else {
-            const messageHolder = document.getElementById("messageHolder");
-            if (messageHolder) {
-                messageHolder.textContent = "";
+            const msgContainer = document.getElementById("msgContainer");
+            if (msgContainer) {
+                msgContainer.textContent = "";
             }
         }
     });
