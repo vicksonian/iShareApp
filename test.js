@@ -674,8 +674,18 @@ function showShareMenu(event, fileId, filename) {
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
+
+		// Retrieve the recipient input element
 		const recipientInput = document.getElementById("recipientInput");
-		const recipient = recipientInput.value.trim();
+
+		// Check if the input element exists and is accessible
+		if (!recipientInput) {
+			console.error("Recipient input element not found or inaccessible");
+			return;
+		}
+
+		// Capture the recipient identifier from the input field
+		const recipient = recipientInput.value.trim(); // Trim to remove any accidental spaces
 
 		// Log the recipient input value for debugging
 		console.log("Recipient input value:", recipientInput.value);
@@ -689,10 +699,13 @@ function showShareMenu(event, fileId, filename) {
 				msgContainer.textContent = "Recipient identifier cannot be empty";
 				msgContainer.style.color = "red";
 			}
-			return;
+			return; // Exit the function early if the recipient is empty
 		}
 
+		// Perform the share action with the recipient identifier
 		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
+
+		// Clean up the menu container and event listener
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
