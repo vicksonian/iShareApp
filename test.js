@@ -680,8 +680,46 @@ function showShareMenu(event, fileId, filename) {
 		console.log("Recipient identifier:", recipientIdentifier);
 	});
 
-	// Update message container function
-	function updateMessageContainer(message, color) {
+	// Modify shareFile function to accept additional parameters for message and color
+	function shareFile(fileId, recipient, message, color) {
+		const payload = {
+			file_ids: [fileId],
+			recipient_identifier: recipient,
+		};
+
+		console.log("Payload:", payload);
+		const fs_token = localStorage.getItem("token");
+
+		fetch("https://ishare-i8td.onrender.com/share", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${fs_token}`,
+			},
+			body: JSON.stringify(payload),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then((data) => {
+				if (data.error) {
+					showShareMenuMessage(message, color);
+				} else {
+					showShareMenuMessage(`File shared with ${recipient}`, color);
+				}
+				console.log("File shared successfully:", data);
+			})
+			.catch((error) => {
+				console.error("Error sharing file:", error);
+				showShareMenuMessage("Error sharing file", "red");
+			});
+	}
+
+	// Function to display messages in the share menu
+	function showShareMenuMessage(message, color) {
 		const msgContainer = document.getElementById("msgContainer");
 		if (msgContainer) {
 			msgContainer.textContent = message;
