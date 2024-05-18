@@ -17,7 +17,8 @@ const search = () => {
 				imagecontainerbox[i].style.display = "none";
 			}
 		} else {
-			console.log("h2 tag inside imagecontainerbox[" + i + "] is undefined");
+			// console.log("h2 tag inside imagecontainerbox[" + i + "] is undefined");
+			console.log("");
 		}
 	}
 };
@@ -39,7 +40,8 @@ const videosearch = () => {
 				videoContainerDiv[i].style.display = "none";
 			}
 		} else {
-			console.log("h2 tag inside videoContainerDiv[" + i + "] is undefined");
+			// console.log("h2 tag inside videoContainerDiv[" + i + "] is undefined");
+			console.log("");
 		}
 	}
 };
@@ -61,7 +63,8 @@ const audiosearch = () => {
 				audioContainerDiv[i].style.display = "none";
 			}
 		} else {
-			console.log("h2 tag inside audioContainerDiv[" + i + "] is undefined");
+			// console.log("h2 tag inside audioContainerDiv[" + i + "] is undefined");
+			console.log();
 		}
 	}
 };
@@ -81,7 +84,8 @@ const docsearch = () => {
 				docContainerDiv[i].style.display = "none";
 			}
 		} else {
-			console.log("h2 tag inside docContainerDiv[" + i + "] is undefined");
+			// console.log("h2 tag inside docContainerDiv[" + i + "] is undefined");
+			console.log("");
 		}
 	}
 };
@@ -103,7 +107,8 @@ const filesearch = () => {
 				fileContainerDiv[i].style.display = "none";
 			}
 		} else {
-			console.log("h2 tag inside fileContainerDiv[" + i + "] is undefined");
+			// console.log("h2 tag inside fileContainerDiv[" + i + "] is undefined");
+			console.log("");
 		}
 	}
 };
@@ -148,7 +153,7 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 		// Iterate over each file in the response data
 		data.files.forEach((file) => {
-			console.log(data);
+			// console.log(data);
 			// Check the file extension
 			const fileExtension = file.filename.split(".").pop().toLowerCase();
 
@@ -366,7 +371,8 @@ fetch("https://ishare-i8td.onrender.com/files", {
 		});
 	})
 	.catch((error) => {
-		console.error("Error fetching files:", error);
+		// console.error("Error fetching files:", error);
+		console.log("");
 	});
 
 function truncateFileName(fileName, maxLength) {
@@ -477,7 +483,8 @@ function downloadFile(fileId, filename) {
 			a.remove();
 		})
 		.catch((error) => {
-			console.error("Error downloading file:", error);
+			// console.error("Error downloading file:", error);
+			console.log("");
 		});
 }
 
@@ -492,21 +499,25 @@ function deleteFile(fileId, filename) {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			console.log(`File '${filename}' deleted successfully.`);
+			// console.log(`File '${filename}' deleted successfully.`);
+			console.log("");
 
 			const fileElement = document.getElementById(`file-${fileId}`);
 			if (fileElement) {
 				fileElement.remove();
-				console.log(`File element '${filename}' removed from UI.`);
+				// console.log(`File element '${filename}' removed from UI.`);
+				console.log("");
 			} else {
-				console.log(`File element '${filename}' not found in UI.`);
+				// console.log(`File element '${filename}' not found in UI.`);
+				console.log("");
 			}
 
 			// Display a notification message
 			showDeleteNotification(filename);
 		})
 		.catch((error) => {
-			console.error("Error deleting file:", error);
+			// console.error("Error deleting file:", error);
+			console.log("");
 		});
 }
 
@@ -664,6 +675,9 @@ function showShareMenu(event, fileId, filename) {
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
 		const recipient = document.getElementById("recipientInput").value.trim(); // Trim to remove any accidental spaces
+
+		// Log the recipient identifier for debugging
+		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
 			const msgContainer = document.getElementById("msgContainer");
