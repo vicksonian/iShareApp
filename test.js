@@ -525,6 +525,7 @@ function showDeleteNotification(filename) {
 	}, 3000); // Remove after 3 seconds (adjust duration as needed)
 }
 
+
 function showShareMenu(event, fileId, filename) {
 	// Remove any existing menu container
 	const existingContainer = document.querySelector(
@@ -558,10 +559,10 @@ function showShareMenu(event, fileId, filename) {
 
 	menuContainer.appendChild(headerContainer);
 
-	// Create and append the input field
+	// Create and append the input field with a unique ID
 	const input = document.createElement("input");
 	input.id = "recipientInput";
-	input.className = "context-menu-input";
+	input.className = "context-menu-input recipient-input";
 	menuContainer.appendChild(input);
 
 	// Create and append the share button
@@ -679,7 +680,6 @@ function showShareMenu(event, fileId, filename) {
 	});
 }
 
-
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
 	if (menuContainer && !menuContainer.contains(event.target)) {
@@ -687,7 +687,6 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
-
 
 const fs_token = localStorage.getItem("token");
 
@@ -731,5 +730,6 @@ function shareFile(fileId, recipient) {
 			msgContainer.style.color = "red";
 		});
 }
+
 
 
