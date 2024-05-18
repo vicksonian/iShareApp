@@ -582,7 +582,7 @@ function showShareMenu(event, fileId, filename) {
 	const msg = document.createElement("div");
 	msg.className = "msgContainer";
 	msg.id = "msgContainer";
-	msg.style.display = "block";
+	msg.style.display = "flex";
 	msg.style.marginTop = "10px";
 	msg.textContent = "Message";
 	menuContainer.appendChild(msg);
