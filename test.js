@@ -1,7 +1,6 @@
 /** @format */
 
 const f1_token = localStorage.getItem("token");
-
 // Function to handle image file search
 const search = () => {
 	const searchbox = document.getElementById("searchBar").value.toUpperCase();
@@ -124,6 +123,31 @@ document
 document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
+
+// Function to handle image clicks
+function handleImageClick(event) {
+    const imageElement = event.target;
+    if (!document.fullscreenElement) {
+        imageElement.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable full-screen mode:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Function to handle video clicks
+function handleVideoClick(event) {
+    const videoElement = event.target;
+    if (!document.fullscreenElement) {
+        videoElement.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable full-screen mode:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
 // Define a function to fetch and display files
 function fetchAndDisplayFiles() {
 fetch("https://ishare-i8td.onrender.com/files", {
@@ -193,6 +217,9 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename); // Call showButtons for both download and delete buttons
 				});
+
+				// Add click event listener for full-screen
+				imageElement.addEventListener("click", handleImageClick);
 			} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 				const videoContainerDiv = document.createElement("div");
 				videoContainerDiv.className = "video-container-box";
@@ -220,6 +247,8 @@ fetch("https://ishare-i8td.onrender.com/files", {
 					event.preventDefault();
 					showButtons(event, file.id, file.filename);
 				});
+				// Add click event listener for full-screen
+				videoElement.addEventListener("click", handleVideoClick);
 			} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
 				const audioContainerDiv = document.createElement("div");
 				audioContainerDiv.className = "audio-container-box";
@@ -381,40 +410,6 @@ fetch("https://ishare-i8td.onrender.com/files", {
 // Fetch and display files initially
 fetchAndDisplayFiles();
 const intervalId = setInterval(fetchAndDisplayFiles, 300000);
-
-// Function to handle image clicks
-function handleImageClick(event) {
-    const imageElement = event.target;
-    if (!document.fullscreenElement) {
-        imageElement.requestFullscreen().catch(err => {
-            console.error('Error attempting to enable full-screen mode:', err);
-        });
-    } else {
-        document.exitFullscreen();
-    }
-}
-
-// Function to handle video clicks
-function handleVideoClick(event) {
-    const videoElement = event.target;
-    if (!document.fullscreenElement) {
-        videoElement.requestFullscreen().catch(err => {
-            console.error('Error attempting to enable full-screen mode:', err);
-        });
-    } else {
-        document.exitFullscreen();
-    }
-}
-
-// Add event listeners to images and videos
-document.querySelectorAll('.image-container-box img').forEach(img => {
-    img.addEventListener('click', handleImageClick);
-});
-
-document.querySelectorAll('.video-container-box video').forEach(video => {
-    video.addEventListener('click', handleVideoClick);
-});
-
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
