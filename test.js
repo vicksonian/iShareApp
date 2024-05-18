@@ -124,17 +124,29 @@ document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
 
-// Function to handle image clicks
+// Function to handle image clicks for full-screen mode
 function handleImageClick(event) {
     const imageElement = event.target;
-    if (!document.fullscreenElement) {
-        imageElement.requestFullscreen().catch(err => {
-            console.error('Error attempting to enable full-screen mode:', err);
-        });
-    } else {
-        document.exitFullscreen();
-    }
+
+    // Create a new image element to display in full-screen
+    const fullscreenImage = document.createElement("img");
+    fullscreenImage.src = imageElement.src;
+    fullscreenImage.className = "fullscreen-img"; // Apply CSS class
+
+    // Create a full-screen overlay
+    const overlay = document.createElement("div");
+    overlay.className = "fullscreen-overlay";
+    overlay.appendChild(fullscreenImage);
+
+    // Add an event listener to close the full-screen view on click
+    overlay.addEventListener("click", () => {
+        document.body.removeChild(overlay);
+    });
+
+    // Append the overlay to the body
+    document.body.appendChild(overlay);
 }
+
 
 // Function to handle video clicks
 function handleVideoClick(event) {
