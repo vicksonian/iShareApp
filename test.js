@@ -526,7 +526,7 @@ function showDeleteNotification(filename) {
 }
 
 
-unction showShareMenu(event, fileId, filename) {
+function showShareMenu(event, fileId, filename) {
     // Remove any existing menu container
     const existingContainer = document.querySelector(".share-context-menu-container");
     if (existingContainer) {
