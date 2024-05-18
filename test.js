@@ -579,6 +579,17 @@ function showShareMenu(event, fileId, filename) {
 	msg.textContent = " ";
 	menuContainer.appendChild(msg);
 
+	// Display a confirmation message
+	const confirmationMsg = document.createElement("div");
+	confirmationMsg.textContent = `File '${filename}' selected for sharing.`;
+	confirmationMsg.className = "confirmation-message";
+	menuContainer.appendChild(confirmationMsg);
+
+	// Add a timeout to remove the confirmation message after a certain duration
+	setTimeout(() => {
+		confirmationMsg.remove();
+	}, 3000); // Remove after 3 seconds (adjust duration as needed)
+
 	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
 
@@ -651,7 +662,7 @@ function showShareMenu(event, fileId, filename) {
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", () => {
 		const recipient = document.getElementById("recipientInput").value;
-		shareFile(fileId, recipient);
+		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
