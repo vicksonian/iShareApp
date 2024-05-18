@@ -380,7 +380,8 @@ fetch("https://ishare-i8td.onrender.com/files", {
 
 // Fetch and display files initially
 fetchAndDisplayFiles();
-const intervalId = setInterval(fetchAndDisplayFiles, 10000);
+const intervalId = setInterval(fetchAndDisplayFiles, 300000);
+
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
