@@ -124,6 +124,8 @@ document
 document.getElementById("filessearchBar").addEventListener("input", filesearch);
 document.getElementById("docsearchBar").addEventListener("input", docsearch);
 
+// Define a function to fetch and display files
+function fetchAndDisplayFiles() {
 fetch("https://ishare-i8td.onrender.com/files", {
 	// Fetch files from the Flask backend
 	headers: {
@@ -374,6 +376,11 @@ fetch("https://ishare-i8td.onrender.com/files", {
 		// console.error("Error fetching files:", error);
 		console.log("");
 	});
+}
+
+// Fetch and display files initially
+fetchAndDisplayFiles();
+const intervalId = setInterval(fetchAndDisplayFiles, 5000);
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
@@ -761,44 +768,31 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
+// Define a function to fetch files from the server
+function fetchFilesAndUpdateUI() {
+    fetch("https://ishare-i8td.onrender.com/files", {
+        headers: {
+            Authorization: `Bearer ${f1_token}`,
+        },
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json(); // Parse response as JSON
+    })
+    .then((data) => {
+        // Update the UI with the fetched files
+        updateUIWithFiles(data.files);
+    })
+    .catch((error) => {
+        console.error("Error fetching files:", error);
+        // Handle error
+    });
+}
 
-// // Function to handle sharing file
-// function shareFile(fileId, recipient) {
-//     const payload = {
-//         file_ids: [fileId],
-//         recipient_identifier: recipient,
-//     };
+// Define the interval for polling (e.g., every 5 seconds)
+const pollingInterval = 5000; // 5 seconds
 
-//     console.log("Payload:", payload);
-//     const fs_token = localStorage.getItem("token");
-
-//     fetch("https://ishare-i8td.onrender.com/share", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${fs_token}`,
-//         },
-//         body: JSON.stringify(payload),
-//     })
-//         .then((response) => {
-//             if (!response.ok) {
-//                 throw new Error(`HTTP error! Status: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then((data) => {
-//             if (data.error) {
-//                 updateMessageContainer(data.error, "red");
-//             } else {
-//                 updateMessageContainer(`File shared with ${recipient}`, "green");
-//             }
-//             console.log("File shared successfully:", data);
-//         })
-//         .catch((error) => {
-//             console.error("Error sharing file:", error);
-//             updateMessageContainer("Error sharing file", "red");
-//         });
-// }
-
-
-
+// Start the polling process
+setInterval(fetchFilesAndUpdateUI, pollingInterval);
