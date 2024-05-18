@@ -37,6 +37,21 @@ body {
 	cursor: pointer;
 }
 
+@media screen and (max-width: 370px) {
+	.photosfileList{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 10px;
+		padding: 10px auto;
+	}
+	.image-container-box {
+        max-width: 200px;
+    }
+.image-container-box:hover{
+	transform: scale(0.8);
+}
+}
 .fullscreen-img {
     width: 100%;
     height: 100%;
