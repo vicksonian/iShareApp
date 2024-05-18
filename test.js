@@ -767,32 +767,3 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
-
-// Define a function to fetch files from the server
-function fetchFilesAndUpdateUI() {
-    fetch("https://ishare-i8td.onrender.com/files", {
-        headers: {
-            Authorization: `Bearer ${f1_token}`,
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); // Parse response as JSON
-    })
-    .then((data) => {
-        // Update the UI with the fetched files
-        updateUIWithFiles(data.files);
-    })
-    .catch((error) => {
-        console.error("Error fetching files:", error);
-        // Handle error
-    });
-}
-
-// Define the interval for polling (e.g., every 5 seconds)
-const pollingInterval = 5000; // 5 seconds
-
-// Start the polling process
-setInterval(fetchFilesAndUpdateUI, pollingInterval);
