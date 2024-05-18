@@ -693,23 +693,15 @@ function showShareMenu(event, fileId, filename) {
 
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", (e) => {
-		e.stopPropagation(); // Ensure the click event does not bubble up to document
-
-		// Retrieve the recipient identifier from the captured variable
+		e.stopPropagation();
 		const recipient = recipientIdentifier;
-
-		// Log the recipient identifier for debugging
 		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
 			updateMessageContainer("Recipient identifier cannot be empty", "red");
-			return; // Exit the function early if the recipient is empty
+			return;
 		}
-
-		// Perform the share action with the recipient identifier
-		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
-
-		// Clean up the menu container and event listener
+		shareFile(fileId, recipient);
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
@@ -731,8 +723,7 @@ function shareFile(fileId, recipient) {
         recipient_identifier: recipient,
     };
 
-    console.log("Payload:", payload); // Log payload for debugging
-
+    console.log("Payload:", payload);
     const fs_token = localStorage.getItem("token");
 
     fetch("https://ishare-i8td.onrender.com/share", {
