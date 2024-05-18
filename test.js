@@ -671,24 +671,27 @@ function showShareMenu(event, fileId, filename) {
 		}
 	});
 
+	// Define the recipient identifier variable
+	let recipientIdentifier = "";
+
+	// Add event listener to input for real-time capture of recipient identifier
+	input.addEventListener("input", () => {
+		// Capture the recipient identifier from the input field
+		recipientIdentifier = input.value.trim(); // Trim to remove any accidental spaces
+
+		// Log the recipient identifier for debugging
+		console.log("Recipient identifier:", recipientIdentifier);
+
+		// Optionally, you can perform validation or other actions here
+		// For example, you can trigger the API validation call or update UI feedback
+	});
+
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
 
-		// Retrieve the recipient input element
-		const recipientInput = document.getElementById("recipientInput");
-
-		// Check if the input element exists and is accessible
-		if (!recipientInput) {
-			console.error("Recipient input element not found or inaccessible");
-			return;
-		}
-
-		// Capture the recipient identifier from the input field
-		const recipient = recipientInput.value.trim(); // Trim to remove any accidental spaces
-
-		// Log the recipient input value for debugging
-		console.log("Recipient input value:", recipientInput.value);
+		// Retrieve the recipient identifier from the captured variable
+		const recipient = recipientIdentifier;
 
 		// Log the recipient identifier for debugging
 		console.log("Recipient identifier:", recipient);
