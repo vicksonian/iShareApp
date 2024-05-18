@@ -754,43 +754,43 @@ function hideMenuOnClickOutside(event) {
 }
 
 
-// Function to handle sharing file
-function shareFile(fileId, recipient) {
-    const payload = {
-        file_ids: [fileId],
-        recipient_identifier: recipient,
-    };
+// // Function to handle sharing file
+// function shareFile(fileId, recipient) {
+//     const payload = {
+//         file_ids: [fileId],
+//         recipient_identifier: recipient,
+//     };
 
-    console.log("Payload:", payload);
-    const fs_token = localStorage.getItem("token");
+//     console.log("Payload:", payload);
+//     const fs_token = localStorage.getItem("token");
 
-    fetch("https://ishare-i8td.onrender.com/share", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${fs_token}`,
-        },
-        body: JSON.stringify(payload),
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            if (data.error) {
-                updateMessageContainer(data.error, "red");
-            } else {
-                updateMessageContainer(`File shared with ${recipient}`, "green");
-            }
-            console.log("File shared successfully:", data);
-        })
-        .catch((error) => {
-            console.error("Error sharing file:", error);
-            updateMessageContainer("Error sharing file", "red");
-        });
-}
+//     fetch("https://ishare-i8td.onrender.com/share", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${fs_token}`,
+//         },
+//         body: JSON.stringify(payload),
+//     })
+//         .then((response) => {
+//             if (!response.ok) {
+//                 throw new Error(`HTTP error! Status: ${response.status}`);
+//             }
+//             return response.json();
+//         })
+//         .then((data) => {
+//             if (data.error) {
+//                 updateMessageContainer(data.error, "red");
+//             } else {
+//                 updateMessageContainer(`File shared with ${recipient}`, "green");
+//             }
+//             console.log("File shared successfully:", data);
+//         })
+//         .catch((error) => {
+//             console.error("Error sharing file:", error);
+//             updateMessageContainer("Error sharing file", "red");
+//         });
+// }
 
 
 
