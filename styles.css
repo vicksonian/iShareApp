@@ -15,7 +15,7 @@ body {
 }
 
 .image-container-box:hover {
-	transform: scale(1.25);
+	transform: scale(1.12);
 	box-shadow: 0 0 10px rgba(73, 173, 239, 0.748);
 }
 
@@ -52,18 +52,17 @@ body {
 @media screen and (max-width: 450px) {
 	#photosfileList{
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		justify-items: center;
 		margin: 10px;
-		padding: 10px auto;
+		padding: 10px;
 	}
 	.image-container-box {
         max-width: 200px;
     }
 .image-container-box:hover{
-	transform: scale(1.1);
+	transform: scale(1.0);
 }
 }
 .fullscreen-img {
