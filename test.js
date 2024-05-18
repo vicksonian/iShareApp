@@ -584,7 +584,7 @@ function showShareMenu(event, fileId, filename) {
 	msg.id = "msgContainer";
 	msg.style.display = "flex";
 	msg.style.marginTop = "10px";
-	msg.textContent = "Message";
+	msg.textContent = "Message...";
 	menuContainer.appendChild(msg);
 
     // Append the menu container to the body
