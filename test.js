@@ -588,7 +588,7 @@ function showShareMenu(event, fileId, filename) {
 	// Add a timeout to remove the confirmation message after a certain duration
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}); // Remove after 3 seconds (adjust duration as needed)
+	}, 3000); // Remove after 3 seconds (adjust duration as needed)
 
 	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
@@ -610,7 +610,7 @@ function showShareMenu(event, fileId, filename) {
 
 	// Add event listener to input for real-time validation
 	input.addEventListener("input", () => {
-		const recipientIdentifier = input.value;
+		const recipientIdentifier = input.value.trim(); // Ensure value is trimmed
 		const fv_token = localStorage.getItem("token");
 		if (recipientIdentifier.length > 0) {
 			fetch("https://ishare-i8td.onrender.com/validate_user", {
@@ -664,6 +664,9 @@ function showShareMenu(event, fileId, filename) {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
 		const recipient = document.getElementById("recipientInput").value.trim(); // Trim to remove any accidental spaces
 
+		// Debugging: Log the recipient value
+		console.log("Recipient input value:", recipient);
+
 		if (recipient === "") {
 			const msgContainer = document.getElementById("msgContainer");
 			if (msgContainer) {
@@ -679,7 +682,6 @@ function showShareMenu(event, fileId, filename) {
 	});
 }
 
-
 function hideMenuOnClickOutside(event) {
 	const menuContainer = document.querySelector(".share-context-menu-container");
 	if (menuContainer && !menuContainer.contains(event.target)) {
@@ -687,7 +689,6 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
-
 
 const fs_token = localStorage.getItem("token");
 
@@ -697,7 +698,8 @@ function shareFile(fileId, recipient) {
 		recipient_identifier: recipient,
 	};
 
-	console.log("Payload:", payload); // Log payload for debugging
+	// Debugging: Log payload for debugging
+	console.log("Payload:", payload);
 
 	fetch("https://ishare-i8td.onrender.com/share", {
 		method: "POST",
@@ -731,5 +733,4 @@ function shareFile(fileId, recipient) {
 			msgContainer.style.color = "red";
 		});
 }
-
 
