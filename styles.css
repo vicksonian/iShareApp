@@ -58,10 +58,32 @@ body {
 	.image-container-box {
         max-width: 250px;
 		max-height: 150px;
+		overflow: hidden;
+		object-fit: cover;
     }
 .image-container-box:hover{
 	transform: scale(1.0);
 }
+
+.image{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.image img {
+	object-fit: cover;
+	max-width: 100%;
+	cursor: pointer;
+}
+
+.image-name {
+	width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-size: 10px;
+	color: #fff;
 }
 .fullscreen-img {
     width: 100%;
