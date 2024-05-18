@@ -675,11 +675,13 @@ function showShareMenu(event, fileId, filename) {
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
 		const recipientInput = document.getElementById("recipientInput");
-		const recipient = recipientInput.value.trim(); // Trim to remove any accidental spaces
+		const recipient = recipientInput.value.trim();
+
+		// Log the recipient input value for debugging
+		console.log("Recipient input value:", recipientInput.value);
 
 		// Log the recipient identifier for debugging
-		console.log("Recipient input value:", recipientInput.value); // Check the input value
-		console.log("Recipient identifier:", recipient); // Check the trimmed recipient value
+		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
 			const msgContainer = document.getElementById("msgContainer");
@@ -687,7 +689,7 @@ function showShareMenu(event, fileId, filename) {
 				msgContainer.textContent = "Recipient identifier cannot be empty";
 				msgContainer.style.color = "red";
 			}
-			return; // Exit the function early if the recipient is empty
+			return;
 		}
 
 		shareFile(fileId, recipient); // Pass fileId and recipient to shareFile
