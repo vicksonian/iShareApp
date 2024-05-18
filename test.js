@@ -687,6 +687,8 @@ function shareFile(fileId, recipient) {
 		recipient_identifier: recipient,
 	};
 
+	console.log("Payload:", payload); // Log payload for debugging
+
 	fetch("https://ishare-i8td.onrender.com/share", {
 		method: "POST",
 		headers: {
@@ -719,4 +721,5 @@ function shareFile(fileId, recipient) {
 			messageHolder.style.color = "red";
 		});
 }
+
 
