@@ -526,128 +526,128 @@ function showDeleteNotification(filename) {
 }
 
 
-function showShareMenu(event, fileId, filename) {
-	// Remove any existing menu container
-	const existingContainer = document.querySelector(
-		".share-context-menu-container"
-	);
-	if (existingContainer) {
-		existingContainer.remove();
-	}
+unction showShareMenu(event, fileId, filename) {
+    // Remove any existing menu container
+    const existingContainer = document.querySelector(".share-context-menu-container");
+    if (existingContainer) {
+        existingContainer.remove();
+    }
 
-	// Create the menu container
-	const menuContainer = document.createElement("div");
-	menuContainer.className = "share-context-menu-container";
+    // Create the menu container
+    const menuContainer = document.createElement("div");
+    menuContainer.className = "share-context-menu-container";
 
-	// Create and append the header container and its elements
-	const headerContainer = document.createElement("div");
-	headerContainer.className = "header-container";
+    // Create and append the header container and its elements
+    const headerContainer = document.createElement("div");
+    headerContainer.className = "header-container";
 
-	const header = document.createElement("h3");
-	header.className = "share-context-menu-header";
-	header.textContent = "Enter recipient's username or email";
-	headerContainer.appendChild(header);
+    const header = document.createElement("h3");
+    header.className = "share-context-menu-header";
+    header.textContent = "Enter recipient's username or email";
+    headerContainer.appendChild(header);
 
-	const clbtn = document.createElement("button");
-	clbtn.className = "context-menu-button";
-	clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
-	clbtn.addEventListener("click", () => {
-		menuContainer.remove();
-		document.removeEventListener("click", hideMenuOnClickOutside);
-	});
-	headerContainer.appendChild(clbtn);
+    const clbtn = document.createElement("button");
+    clbtn.className = "context-menu-button";
+    clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
+    clbtn.addEventListener("click", () => {
+        menuContainer.remove();
+        document.removeEventListener("click", hideMenuOnClickOutside);
+    });
+    headerContainer.appendChild(clbtn);
 
-	menuContainer.appendChild(headerContainer);
+    menuContainer.appendChild(headerContainer);
 
-	// Create and append the input field
-	const input = document.createElement("input");
-	input.id = "recipientInput";
-	input.className = "context-menu-input";
-	menuContainer.appendChild(input);
+    // Create and append the input field
+    const input = document.createElement("input");
+    input.id = "recipientInput";
+    input.className = "context-menu-input";
+    menuContainer.appendChild(input);
 
-	// Create and append the share button
-	const sharebtn = document.createElement("button");
-	sharebtn.className = "shareButton";
-	sharebtn.id = "shareButton";
-	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
-	menuContainer.appendChild(sharebtn);
+    // Create and append the share button
+    const sharebtn = document.createElement("button");
+    sharebtn.className = "shareButton";
+    sharebtn.id = "shareButton";
+    sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
+    menuContainer.appendChild(sharebtn);
 
-	// Create and append the message holder
-	const message = document.createElement("span");
-	message.className = "messageHolder";
-	message.id = "messageHolder";
-	message.textContent = "Message"; // This is just an initial message
-	menuContainer.appendChild(message);
+    // Create and append the message holder
+    const message = document.createElement("span");
+    message.className = "messageHolder";
+    message.id = "messageHolder";
+    message.textContent = "";  // Initialize with empty text
+    message.style.display = "block";  // Ensure the messageHolder is block level
+    message.style.marginTop = "10px";  // Add some margin for visibility
+    menuContainer.appendChild(message);
 
-	// Append the menu container to the body
-	document.body.appendChild(menuContainer);
+    // Append the menu container to the body
+    document.body.appendChild(menuContainer);
 
-	// Make the menu container visible
-	menuContainer.style.display = "block";
+    // Make the menu container visible
+    menuContainer.style.display = "block";
 
-	// Center the menu on the screen
-	const viewportWidth = window.innerWidth;
-	const viewportHeight = window.innerHeight;
-	const menuWidth = menuContainer.offsetWidth;
-	const menuHeight = menuContainer.offsetHeight;
+    // Center the menu on the screen
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const menuWidth = menuContainer.offsetWidth;
+    const menuHeight = menuContainer.offsetHeight;
 
-	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
-	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
+    menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
+    menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
 
-	// Add event listener to hide menu when clicking outside the menu
-	document.addEventListener("click", hideMenuOnClickOutside);
+    // Add event listener to hide menu when clicking outside the menu
+    document.addEventListener("click", hideMenuOnClickOutside);
 
-	// Add event listener to input for real-time validation
-	input.addEventListener("input", () => {
-		const recipientIdentifier = input.value;
-		const fv_token = localStorage.getItem("token");
-		if (recipientIdentifier.length > 0) {
-			fetch("https://ishare-i8td.onrender.com/validate_user", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${fv_token}`,
-				},
-				body: JSON.stringify({ recipient_identifier: recipientIdentifier }),
-			})
-				.then((response) => {
-					if (!response.ok) {
-						throw new Error("Network response was not ok");
-					}
-					return response.json();
-				})
-				.then((data) => {
-					console.log("API Response:", data); // Debugging line
-					const messageHolder = document.getElementById("messageHolder");
-					if (messageHolder) {
-						console.log("Message Holder Found:", messageHolder); // Debugging line
-						if (data.exists) {
-							messageHolder.textContent = "User available for sharing";
-							messageHolder.style.color = "green";
-						} else {
-							messageHolder.textContent = "User not available for sharing";
-							messageHolder.style.color = "red";
-						}
-						console.log("Message Text Updated To:", messageHolder.textContent); // Debugging line
-					} else {
-						console.error("Message Holder not found in the DOM");
-					}
-				})
-				.catch((error) => {
-					console.error("Error:", error);
-					const messageHolder = document.getElementById("messageHolder");
-					if (messageHolder) {
-						messageHolder.textContent = "Error validating user";
-						messageHolder.style.color = "red";
-					}
-				});
-		} else {
-			const messageHolder = document.getElementById("messageHolder");
-			if (messageHolder) {
-				messageHolder.textContent = "";
-			}
-		}
-	});
+    // Add event listener to input for real-time validation
+    input.addEventListener("input", () => {
+        const recipientIdentifier = input.value;
+        const fv_token = localStorage.getItem("token");
+        if (recipientIdentifier.length > 0) {
+            fetch("https://ishare-i8td.onrender.com/validate_user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${fv_token}`,
+                },
+                body: JSON.stringify({ recipient_identifier: recipientIdentifier }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log("API Response:", data); // Debugging line
+                    const messageHolder = document.getElementById("messageHolder");
+                    if (messageHolder) {
+                        console.log("Message Holder Found:", messageHolder); // Debugging line
+                        if (data.exists) {
+                            messageHolder.textContent = "User available for sharing";
+                            messageHolder.style.color = "green";
+                        } else {
+                            messageHolder.textContent = "User not available for sharing";
+                            messageHolder.style.color = "red";
+                        }
+                        console.log("Message Text Updated To:", messageHolder.textContent); // Debugging line
+                    } else {
+                        console.error("Message Holder not found in the DOM");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    const messageHolder = document.getElementById("messageHolder");
+                    if (messageHolder) {
+                        messageHolder.textContent = "Error validating user";
+                        messageHolder.style.color = "red";
+                    }
+                });
+        } else {
+            const messageHolder = document.getElementById("messageHolder");
+            if (messageHolder) {
+                messageHolder.textContent = "";
+            }
+        }
+    });
 }
 
 
