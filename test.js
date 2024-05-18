@@ -674,10 +674,12 @@ function showShareMenu(event, fileId, filename) {
 	// Add event listener to the share button
 	sharebtn.addEventListener("click", (e) => {
 		e.stopPropagation(); // Ensure the click event does not bubble up to document
-		const recipient = document.getElementById("recipientInput").value.trim(); // Trim to remove any accidental spaces
+		const recipientInput = document.getElementById("recipientInput");
+		const recipient = recipientInput.value.trim(); // Trim to remove any accidental spaces
 
 		// Log the recipient identifier for debugging
-		console.log("Recipient identifier:", recipient);
+		console.log("Recipient input value:", recipientInput.value); // Check the input value
+		console.log("Recipient identifier:", recipient); // Check the trimmed recipient value
 
 		if (recipient === "") {
 			const msgContainer = document.getElementById("msgContainer");
