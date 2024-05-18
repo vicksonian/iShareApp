@@ -588,7 +588,7 @@ function showShareMenu(event, fileId, filename) {
 	// Add a timeout to remove the confirmation message after a certain duration
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}, 3000); // Remove after 3 seconds (adjust duration as needed)
+	}, 14400); // Remove after 3 seconds (adjust duration as needed)
 
 	// Append the menu container to the body
 	document.body.appendChild(menuContainer);
