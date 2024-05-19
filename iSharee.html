@@ -243,13 +243,13 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="chart-container-wrapper big">
-						<div class="chart-container">
-							<div id="slideShow" class="slideShow">
-								<p>images slide show</p>
-								<div id="photoSlider" class="photoSlider"></div>
-							</div>
+				<div class="chart-container-wrapper big">
+					<div class="chart-container">
+						<div id="slideShow" class="slideShow">
+							<p>images slide show</p>
+							<div id="photoSlider" class="photoSlider"></div>
 						</div>
 					</div>
 				</div>
@@ -945,88 +945,82 @@
 			}
 		});
 	</script>
-<script>
-	const f12_token = localStorage.getItem("token");
-	// Define a function to fetch and display files
-function fetchAndDisplayFiles() {
-    fetch("https://ishare-i8td.onrender.com/files", {
-        // Fetch files from the Flask backend
-        headers: {
-            Authorization: `Bearer ${f12_token}`,
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        const photosContainer = document.getElementById("photoSlider");
-        const images = [];
+	<script>
+		const f12_token = localStorage.getItem("token");
+		// Define a function to fetch and display files
+		function fetchAndDisplayFiles() {
+			fetch("https://ishare-i8td.onrender.com/files", {
+				// Fetch files from the Flask backend
+				headers: {
+					Authorization: `Bearer ${f12_token}`,
+				},
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then((data) => {
+					const photosContainer = document.getElementById("photoSlider");
+					const images = [];
 
-        photosContainer.innerHTML = "";
+					photosContainer.innerHTML = "";
 
-        data.files.forEach((file) => {
-            const fileExtension = file.filename.split(".").pop().toLowerCase();
+					data.files.forEach((file) => {
+						const fileExtension = file.filename.split(".").pop().toLowerCase();
 
-            if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
-                const imageContainerBox = document.createElement("div");
-                imageContainerBox.className = "image-container-box";
-                imageContainerBox.id = `file-${file.id}`; // Use file ID
-                const imageDiv = document.createElement("div");
-                imageDiv.className = "image";
-                imageDiv.id = "image";
-                const imageElement = document.createElement("img");
-                imageElement.src = `data:${file.content_type};base64,${file.content}`;
-                imageDiv.appendChild(imageElement);
-                imageContainerBox.appendChild(imageDiv);
-                photosContainer.appendChild(imageContainerBox);
+						if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
+							const imageContainerBox = document.createElement("div");
+							imageContainerBox.className = "image-Slider-box";
+							imageContainerBox.id = `file-${file.id}`;
+							const imageDiv = document.createElement("div");
+							imageDiv.className = "image-container";
+							imageDiv.id = "image-container";
+							const imageElement = document.createElement("img");
+							imageElement.src = `data:${file.content_type};base64,${file.content}`;
+							imageDiv.appendChild(imageElement);
+							imageContainerBox.appendChild(imageDiv);
+							photosContainer.appendChild(imageContainerBox);
 
-                // Add the image element to the list
-                images.push(imageContainerBox);
-                imageContainerBox.style.display = "none"; // Hide all images initially
-            }
-        });
+							images.push(imageContainerBox);
+							imageContainerBox.style.display = "none";
+						}
+					});
 
-        // Start the slideshow
-        startSlideshow(images);
-    });
-}
+					startSlideshow(images);
+				});
+		}
 
 
-// Function to start the slideshow
-function startSlideshow(images) {
-    let currentIndex = 0;
+		function startSlideshow(images) {
+			let currentIndex = 0;
 
-    function showNextImage() {
-        // Hide the current image
-        if (images[currentIndex]) {
-            images[currentIndex].style.display = "none";
-        }
+			function showNextImage() {
+				if (images[currentIndex]) {
+					images[currentIndex].style.display = "none";
+				}
 
-        // Increment the index
-        currentIndex = (currentIndex + 1) % images.length;
+				currentIndex = (currentIndex + 1) % images.length;
 
-        // Show the next image
-        if (images[currentIndex]) {
-            images[currentIndex].style.display = "block";
-        }
-    }
+				if (images[currentIndex]) {
+					images[currentIndex].style.display = "block";
+				}
+			}
 
-    // Initially show the first image
-    if (images[0]) {
-        images[0].style.display = "block";
-    }
+			// Initially show the first image
+			if (images[0]) {
+				images[0].style.display = "block";
+			}
 
-    // Set an interval to change the image every 3 seconds
-    setInterval(showNextImage, 3000);
-}
+			// Set an interval to change the image every 3 seconds
+			setInterval(showNextImage, 3000);
+		}
 
-// Call the function to fetch and display files
-fetchAndDisplayFiles();
+		// Call the function to fetch and display files
+		fetchAndDisplayFiles();
 
-</script>
+	</script>
 </body>
 
 </html>
