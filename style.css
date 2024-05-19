@@ -1087,9 +1087,9 @@ button:active {
 }
 
 /* Hide checkboxes */
-.file-checkbox {
+/* .file-checkbox {
 	display: none;
-}
+} */
 
 /* Style selected files */
 .card-container.selected {
