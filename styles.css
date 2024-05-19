@@ -154,6 +154,10 @@ body {
 	background-color: red;
 }
 
+.video-container-box video::-webkit-media-controls-enclosure:hover {
+	display: block;
+}
+
 .audio-container-box {
 	padding: 10px;
 	max-width: 250px;
