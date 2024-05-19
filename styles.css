@@ -149,7 +149,7 @@ body {
 }
 
 .video-container-box video::-webkit-media-controls-enclosure {
-	display: none;
+	
 	color: red;
 	background-color: red;
 }
