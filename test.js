@@ -180,12 +180,19 @@ function fetchAndDisplayFiles() {
 			const audioFileList = document.getElementById("audiofileList");
 			const docFileList = document.getElementById("docfileList");
 			const otherFilesContainer = document.getElementById("otherFilesList");
+			const msgContainer = document.querySelector(".msg");
 
 			photosContainer.innerHTML = "";
 			videoFileList.innerHTML = "";
 			audioFileList.innerHTML = "";
 			docFileList.innerHTML = "";
 			otherFilesContainer.innerHTML = "";
+
+            if (data.files.length === 0) { 
+                msgContainer.textContent = "No files found...";
+            } else {
+                msgContainer.textContent = "";
+
 
 			data.files.forEach((file) => {
 				const fileExtension = file.filename.split(".").pop().toLowerCase();
