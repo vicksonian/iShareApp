@@ -147,33 +147,6 @@ function handleVideoClick(event) {
 	}
 }
 
-// Assuming the filename element is represented by a <h2> element with class "file-name"
-const fileNameElements = document.querySelectorAll(".file-name");
-
-// Iterate over each filename element
-fileNameElements.forEach((fileNameElement) => {
-	// Add double-click event listener
-	fileNameElement.addEventListener("dblclick", (event) => {
-		console.log("Double-click event triggered."); // Check if the event is triggered
-
-		// Find the corresponding checkbox
-		const fileId = event.target.parentElement.id.split("-")[1]; // Extract file ID
-		const checkboxId = `checkbox-${fileId}`;
-		console.log("Checkbox ID:", checkboxId); // Log the constructed checkbox ID
-
-		const checkbox = document.getElementById(checkboxId); // Find the checkbox element
-		console.log("Checkbox element:", checkbox); // Log the checkbox element
-
-		// Toggle the checkbox's checked state
-		if (checkbox) {
-			checkbox.checked = !checkbox.checked;
-			console.log("Checkbox checked state toggled:", checkbox.checked); // Log the toggled state
-		} else {
-			console.log("Checkbox element not found.");
-		}
-	});
-});
-
 // Define a function to fetch and display files
 function fetchAndDisplayFiles() {
 	fetch("https://ishare-i8td.onrender.com/files", {
@@ -219,6 +192,27 @@ function fetchAndDisplayFiles() {
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
 
+				const fileNameElements = document.querySelectorAll(".file-name");
+
+				fileNameElements.forEach((fileNameElement) => {
+					fileNameElement.addEventListener("dblclick", (event) => {
+						console.log("Double-click event triggered."); 
+
+						const fileId = event.target.parentElement.id.split("-")[1];
+						const checkboxId = `checkbox-${fileId}`;
+						console.log("Checkbox ID:", checkboxId);
+
+						const checkbox = document.getElementById(checkboxId); 
+						console.log("Checkbox element:", checkbox);
+
+						if (checkbox) {
+							checkbox.checked = !checkbox.checked;
+							console.log("Checkbox checked state toggled:", checkbox.checked);
+						} else {
+							console.log("Checkbox element not found.");
+						}
+					});
+				});
 				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 					const imageContainerBox = document.createElement("div");
@@ -247,9 +241,10 @@ function fetchAndDisplayFiles() {
 
 					fileNameDiv.appendChild(fileNameHeading);
 
-					imageContainerBox.appendChild(checkbox);
+					
 					imageContainerBox.appendChild(imageDiv);
 					imageContainerBox.appendChild(fileNameDiv);
+					imageContainerBox.appendChild(checkbox);
 					photosContainer.appendChild(imageContainerBox);
 
 					// Add right-click event listener

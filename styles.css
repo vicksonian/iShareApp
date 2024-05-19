@@ -518,7 +518,7 @@ f#search-form:valid #i41 {
 }
 
 .file-checkbox {
-    position: absolute;
+    position: relative;
     z-index: 1;
 	background-color: #00ff59;
 	color: #02ffbb;
