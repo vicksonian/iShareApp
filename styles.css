@@ -152,13 +152,8 @@ body {
 
 .video-container-box video::-webkit-media-controls-enclosure {
 	
-	color: red;
-	background-color: red;
-}
-
-.video-container-box video::-webkit-media-controls-enclosure:hover {
-	display: block;
-	color: white;
+	color: rgba(255, 0, 0, 0);
+	background-color: rgba(255, 0, 0, 0);
 }
 
 .audio-container-box {
