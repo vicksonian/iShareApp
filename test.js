@@ -188,12 +188,24 @@ function fetchAndDisplayFiles() {
 			docFileList.innerHTML = "";
 			otherFilesContainer.innerHTML = "";
 
-            if (data.files.length === 0) { 
-                MsgBoxContainer.textContent = "No files found...";
-            } else {
-                MsgBoxContainer.textContent = "";
+			if (data.files.length === 0) {
+				MsgBoxContainer.textContent = "No files found...";
+			} else {
+				MsgBoxContainer.textContent = "";
 			}
 
+			// Check if each section has any content
+			if (
+				photosContainer.children.length === 0 &&
+				videoFileList.children.length === 0 &&
+				audioFileList.children.length === 0 &&
+				docFileList.children.length === 0 &&
+				otherFilesContainer.children.length === 0
+			) {
+				MsgBoxContainer.textContent = "No files found...";
+			} else {
+				MsgBoxContainer.textContent = "";
+			}
 
 			data.files.forEach((file) => {
 				const fileExtension = file.filename.split(".").pop().toLowerCase();
