@@ -147,6 +147,32 @@ function handleVideoClick(event) {
 	}
 }
 
+// Assuming the filename element is represented by a <h2> element with class "file-name"
+const fileNameElements = document.querySelectorAll(".file-name");
+
+// Iterate over each filename element
+fileNameElements.forEach((fileNameElement) => {
+	// Add double-click event listener
+	fileNameElement.addEventListener("dblclick", (event) => {
+		console.log("Double-click event triggered."); // Check if the event is triggered
+
+		// Find the corresponding checkbox
+		const fileId = event.target.parentElement.id.split("-")[1]; // Extract file ID
+		const checkboxId = `checkbox-${fileId}`;
+		console.log("Checkbox ID:", checkboxId); // Log the constructed checkbox ID
+
+		const checkbox = document.getElementById(checkboxId); // Find the checkbox element
+		console.log("Checkbox element:", checkbox); // Log the checkbox element
+
+		// Toggle the checkbox's checked state
+		if (checkbox) {
+			checkbox.checked = !checkbox.checked;
+			console.log("Checkbox checked state toggled:", checkbox.checked); // Log the toggled state
+		} else {
+			console.log("Checkbox element not found.");
+		}
+	});
+});
 
 // Define a function to fetch and display files
 function fetchAndDisplayFiles() {
@@ -192,33 +218,6 @@ function fetchAndDisplayFiles() {
 				checkbox.id = `checkbox-${file.id}`;
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
-
-const fileNameElements = document.querySelectorAll(".file-name");
-
-// Iterate over each filename element
-fileNameElements.forEach((fileNameElement) => {
-	// Add double-click event listener
-	fileNameElement.addEventListener("dblclick", (event) => {
-		console.log("Double-click event triggered."); // Check if the event is triggered
-
-		// Find the corresponding checkbox
-		const fileId = event.target.parentElement.id.split("-")[1]; // Extract file ID
-		const checkboxId = `checkbox-${fileId}`;
-		console.log("Checkbox ID:", checkboxId); // Log the constructed checkbox ID
-
-		const checkbox = document.getElementById(checkboxId); // Find the checkbox element
-		console.log("Checkbox element:", checkbox); // Log the checkbox element
-
-		// Toggle the checkbox's checked state
-		if (checkbox) {
-			checkbox.checked = !checkbox.checked;
-			console.log("Checkbox checked state toggled:", checkbox.checked); // Log the toggled state
-		} else {
-			console.log("Checkbox element not found.");
-		}
-	});
-});
-
 
 				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
