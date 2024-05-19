@@ -147,6 +147,25 @@ function handleVideoClick(event) {
 	}
 }
 
+// Assuming the filename element is represented by a <h2> element with class "file-name"
+const fileNameElements = document.querySelectorAll(".file-name");
+
+// Iterate over each filename element
+fileNameElements.forEach((fileNameElement) => {
+    // Add double-click event listener
+    fileNameElement.addEventListener("dblclick", (event) => {
+        // Find the corresponding checkbox
+        const checkboxId = `checkbox-${event.target.parentElement.id.split("-")[1]}`;
+        const checkbox = document.getElementById(checkboxId);
+
+        // Toggle the checkbox's checked state
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+        }
+    });
+});
+
+
 // Define a function to fetch and display files
 function fetchAndDisplayFiles() {
 	fetch("https://ishare-i8td.onrender.com/files", {
