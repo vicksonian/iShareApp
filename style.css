@@ -1067,11 +1067,6 @@ button:active {
 	border: 1px solid #ccc;
 }
 
-/* Style for the checkbox */
-.file-checkbox {
-	margin-right: 10px;
-}
-
 /* Style for the remove button */
 .remove-button {
 	background-color: #ff6347; /* IndianRed */
@@ -1086,79 +1081,8 @@ button:active {
 	background-color: #cc4c38; /* Darker shade of IndianRed */
 }
 
-/* Hide checkboxes */
-/* .file-checkbox {
-	display: none;
-} */
 
-/* Style selected files */
-.card-container.selected {
-	background-color: #b30000; /* Change background color as desired */
-}
 
-/* Style selected files */
-.card.selected {
-	background-color: #b30000;
-	z-index: 1;
-	cursor: pointer;
-}
-
-#card-content-name {
-	color: #02ffbb;
-	list-style: none;
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
-	overflow: hidden;
-	cursor: pointer;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-/* Display full text on hover */
-#card-content-name:hover {
-	white-space: normal;
-	overflow: visible;
-}
-
-/* dialog box styling */
-.dialog {
-	display: none;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	padding: 20px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.dialog-content {
-	text-align: center;
-}
-
-.dialog button {
-	margin: 10px;
-	padding: 8px 16px;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.dialog button:focus {
-	outline: none;
-}
-
-.success-message {
-	color: green;
-}
-
-.error-message {
-	color: red;
-}
 
 #videos, #audios, #photos, #files, #documents, #settings, #upload, #download{
 	display: none;
