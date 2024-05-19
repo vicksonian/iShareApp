@@ -47,29 +47,6 @@ body {
 	position: sticky;
 }
 
-@media screen and (max-width: 376px) {
-	#fileList,
-	#audiofileList,
-	#videofileList,
-	#photosfileList {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		justify-items: center;
-	}
-
-	.image-container-box:hover {
-		transform: scale(1);
-	}
-
-	.file-name {
-		font-size: 10px;
-		color: #dfd6d6;
-		text-align: center;
-		margin-top: 15px;
-	}
-}
-
 @media screen and (max-width: 400px) {
 	#fileList,
 	#audiofileList,
@@ -85,7 +62,23 @@ body {
 		transform: scale(1);
 	}
 
-	.file-name {
+	.image {
+		max-width: 250px;
+		max-height: 250px;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 10;
+	}
+
+	.image img {
+		object-fit: contain;
+		max-width: 100%;
+		cursor: pointer;
+	}
+	.image-name .file-name {
 		font-size: 10px;
 		color: #dfd6d6;
 		text-align: center;
