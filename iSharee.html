@@ -993,24 +993,31 @@ function startSlideshow(images) {
     let currentIndex = 0;
 
     function showNextImage() {
+        const currentImage = images[currentIndex];
         const nextIndex = (currentIndex + 1) % images.length;
-        
-        // Apply the slide-out and slide-in classes
-        images[currentIndex].classList.add("slide-out");
-        images[nextIndex].classList.add("slide-in");
-        images[nextIndex].style.display = "block";
+        const nextImage = images[nextIndex];
 
-        // After the animation, reset the classes and update the currentIndex
+        // Prepare the next image to slide in from the right
+        nextImage.style.display = "block";
+        nextImage.style.transform = "translateX(100%)";
+
+        // Force reflow to apply initial position before starting transition
+        nextImage.offsetHeight;
+
+        // Slide the current image to the left and the next image in from the right
+        currentImage.style.transform = "translateX(-100%)";
+        nextImage.style.transform = "translateX(0)";
+
+        // Update current index after the transition
         setTimeout(() => {
-            images[currentIndex].style.display = "none";
-            images[currentIndex].classList.remove("slide-out");
-            images[nextIndex].classList.remove("slide-in");
+            currentImage.style.display = "none";
             currentIndex = nextIndex;
         }, 1000); // Duration of the animation
     }
 
     if (images[0]) {
         images[0].style.display = "block";
+        images[0].style.transform = "translateX(0)";
     }
 
     setInterval(showNextImage, 3000);
