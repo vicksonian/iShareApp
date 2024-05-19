@@ -12,8 +12,6 @@ const hideSpinner = () => {
 	spinner.style.display = "none";
 };
 
-
-
 // Function to handle image file search
 const search = () => {
 	const searchbox = document.getElementById("searchBar").value.toUpperCase();
@@ -759,9 +757,6 @@ function showShareMenu(event, fileId, filename) {
 			});
 	}
 
-
-
-
 	function showShareMenuMessage(message, color) {
 		// Create message container if not found
 		let msgContainer = document.getElementById("msgContainer");
@@ -800,14 +795,14 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-
 // Add event listener to the "Select All" checkbox
-document.getElementById("selectAll").addEventListener("change", (event) => {
-	const checkboxes = document.querySelectorAll(
-		"#fileContainer input[type='checkbox']"
-	);
-	checkboxes.forEach((checkbox) => {
-		checkbox.checked = event.target.checked;
+document
+	.getElementById("selectAll")
+	.addEventListener(".file-checkbox", (event) => {
+		const checkboxes = document.querySelectorAll(
+			"#fileContainer input[type='checkbox']"
+		);
+		checkboxes.forEach((checkbox) => {
+			checkbox.checked = event.target.checked;
+		});
 	});
-});
-
