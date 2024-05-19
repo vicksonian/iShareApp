@@ -183,8 +183,8 @@ function fetchAndDisplayFiles() {
 				const fileExtension = file.filename.split(".").pop().toLowerCase();
 
 				const MAX_FILE_NAME_LENGTH = 20;
+				const fileNameElements = document.querySelectorAll(".file-name");
 
-				// Create a checkbox element
 				const checkbox = document.createElement("input");
 				checkbox.type = "checkbox";
 				checkbox.className = "file-checkbox";
@@ -192,17 +192,15 @@ function fetchAndDisplayFiles() {
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
 
-				const fileNameElements = document.querySelectorAll(".file-name");
-
 				fileNameElements.forEach((fileNameElement) => {
 					fileNameElement.addEventListener("dblclick", (event) => {
-						console.log("Double-click event triggered."); 
+						console.log("Double-click event triggered.");
 
 						const fileId = event.target.parentElement.id.split("-")[1];
 						const checkboxId = `checkbox-${fileId}`;
 						console.log("Checkbox ID:", checkboxId);
 
-						const checkbox = document.getElementById(checkboxId); 
+						const checkbox = document.getElementById(checkboxId);
 						console.log("Checkbox element:", checkbox);
 
 						if (checkbox) {
@@ -241,7 +239,6 @@ function fetchAndDisplayFiles() {
 
 					fileNameDiv.appendChild(fileNameHeading);
 
-					
 					imageContainerBox.appendChild(imageDiv);
 					imageContainerBox.appendChild(fileNameDiv);
 					imageContainerBox.appendChild(checkbox);
