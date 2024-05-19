@@ -559,4 +559,5 @@ f#search-form:valid #i41 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 99999;
 }
