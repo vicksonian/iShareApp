@@ -40,16 +40,14 @@ body {
 
 .image-name {
     width: 100%;
-    /* margin: 10px auto; */
     padding: 5px;
-    /* background: aliceblue; */
     display: flex;
     align-items: center;
     justify-content: center;
     position: sticky;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 400px) {
 	#photosfileList{
 		display: flex;
 		align-items: center;
@@ -57,45 +55,17 @@ body {
 		justify-items: center;
 	}
 
-	.image-container-box {
-        max-width: 250px;
-		max-height: 150px;
-		overflow: hidden;
-		object-fit: cover;
-    }
 .image-container-box:hover{
 	transform: scale(1.0);
 }
 
-.image{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.image img {
-	object-fit: cover;
-	max-width: 100%;
-	cursor: pointer;
-}
-
-.image-name {
-	width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.file-name{
 	font-size: 10px;
-	color: #fff;
+	color: #dfd6d6;
+	text-align: center;
+	margin-top: 15px;
 }
-
 }
-
-
-
-
-
-
-
 
 
 .fullscreen-img {
