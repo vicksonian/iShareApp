@@ -147,6 +147,15 @@ function handleVideoClick(event) {
 	}
 }
 
+// Add checkboxes to each file item
+function createFileCheckbox(fileId) {
+	const checkbox = document.createElement("input");
+	checkbox.type = "checkbox";
+	checkbox.className = "file-checkbox";
+	checkbox.dataset.fileId = fileId;
+	return checkbox;
+}
+
 // Define a function to fetch and display files
 function fetchAndDisplayFiles() {
 	fetch("https://ishare-i8td.onrender.com/files", {
@@ -178,6 +187,7 @@ function fetchAndDisplayFiles() {
 
 			// Iterate over each file in the response data
 			data.files.forEach((file) => {
+				const fileCheckbox = createFileCheckbox(file.id);
 				// console.log(data);
 				// Check the file extension
 				const fileExtension = file.filename.split(".").pop().toLowerCase();
@@ -186,6 +196,7 @@ function fetchAndDisplayFiles() {
 
 				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
+					imageContainerBox.appendChild(fileCheckbox);
 					const imageContainerBox = document.createElement("div");
 					imageContainerBox.className = "image-container-box";
 					imageContainerBox.id = `file-${file.id}`; // Use file ID
@@ -225,6 +236,7 @@ function fetchAndDisplayFiles() {
 					// Add click event listener for full-screen
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
+					videoContainerDiv.appendChild(fileCheckbox);
 					const videoContainerDiv = document.createElement("div");
 					videoContainerDiv.className = "video-container-box";
 					videoContainerDiv.id = `file-${file.id}`; // Use file ID
@@ -254,6 +266,7 @@ function fetchAndDisplayFiles() {
 					// Add click event listener for full-screen
 					videoElement.addEventListener("click", handleVideoClick);
 				} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
+					audioContainerDiv.appendChild(fileCheckbox);
 					const audioContainerDiv = document.createElement("div");
 					audioContainerDiv.className = "audio-container-box";
 					audioContainerDiv.id = `file-${file.id}`; // Use file ID
@@ -281,7 +294,7 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 				} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
-					// Create a wrapper container div
+					docContainerDiv.appendChild(fileCheckbox);
 					const docWrapperContainer = document.createElement("div");
 					docWrapperContainer.className = "doc-wrapper-container";
 
@@ -332,6 +345,7 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 				} else {
+					fileContainerDiv.appendChild(fileCheckbox);
 					const fileContainerDiv = document.createElement("div");
 					fileContainerDiv.className = "files-container-box";
 
@@ -410,6 +424,20 @@ function fetchAndDisplayFiles() {
 			console.log("");
 		});
 }
+
+// Add event listener to the global share button
+document.getElementById("shareButton").addEventListener("click", () => {
+	const selectedFiles = Array.from(
+		document.querySelectorAll(".file-checkbox:checked")
+	).map((checkbox) => checkbox.dataset.fileId);
+
+	if (selectedFiles.length > 0) {
+		showShareMenuForMultipleFiles(selectedFiles);
+	} else {
+		alert("No files selected for sharing.");
+	}
+});
+
 
 // Fetch and display files initially
 fetchAndDisplayFiles();
@@ -672,6 +700,7 @@ function showShareMenu(event, fileId, filename) {
 				},
 				body: JSON.stringify({
 					recipient_identifier: recipientIdentifier,
+					file_ids: fileIds, // Send array of file IDs
 				}),
 			})
 				.then((response) => {
