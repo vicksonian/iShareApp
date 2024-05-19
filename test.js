@@ -9,7 +9,7 @@ const showSpinner = () => {
 
 const hideSpinner = () => {
 	const spinner = document.getElementById("spinner");
-	spinner.style.display = "none";
+	spinner.style.display = "block";
 };
 
 
