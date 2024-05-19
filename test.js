@@ -436,6 +436,28 @@ function createShareButton(fileId, filename) {
 	return shareButton;
 }
 
+function createRenameButton(fileId, filename) {
+	const renamebtn = document.createElement("button");
+	renamebtn.className = "context-menu-button";
+	renamebtn.innerHTML = `<i class="fas fa-share-alt icon"></i> Rename`;
+	renamebtn.addEventListener("click", (event) => {
+		event.preventDefault();
+		showShareMenu(event, fileId, filename);
+	});
+	return renamebtn;
+}
+
+function createSelectAllButton(fileId, filename) {
+	const selectAllButton = document.createElement("button");
+	selectAllButton.className = "context-menu-button";
+	selectAllButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Select All`;
+	selectAllButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		showShareMenu(event, fileId, filename);
+	});
+	return selectAllButton;
+}
+
 function showButtons(event, fileId, filename) {
 	const existingContainer = document.querySelector(".context-menu-container");
 	if (existingContainer) {
@@ -451,16 +473,19 @@ function showButtons(event, fileId, filename) {
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
 	const renameButton = createRenameButton(fileId, filename);
+	const selectAllButton = createSelectAllButton(fileId, filename);
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
 	menuContainer.appendChild(renameButton);
+	menuContainer.appendChild(selectAllButton);
 
 	// Add event listener to hide menu when any button is clicked
 	downloadButton.addEventListener("click", hideButtons);
 	deleteButton.addEventListener("click", hideButtons);
 	shareButton.addEventListener("click", hideButtons);
 	renameButton.addEventListener("click", hideButtons);
+	selectAllButton.addEventListener("click", hideButtons);
 
 	document.body.appendChild(menuContainer);
 
@@ -537,22 +562,16 @@ function deleteFile(fileId, filename) {
 }
 
 function showDeleteNotification(filename) {
-	// Create a notification message element
 	const notificationElement = document.createElement("div");
 	notificationElement.className = "delete-notification";
 	notificationElement.textContent = `File '${filename}' has been deleted.`;
-
-	// Append the notification to the document body
 	document.body.appendChild(notificationElement);
-
-	// Automatically remove the notification after a certain duration
 	setTimeout(() => {
 		notificationElement.remove();
 	}, 3000);
 }
 
 function showShareMenu(event, fileId, filename) {
-	// Remove any existing menu container
 	const existingContainer = document.querySelector(
 		".share-context-menu-container"
 	);
@@ -593,6 +612,12 @@ function showShareMenu(event, fileId, filename) {
 	renamebtn.id = "renameButton";
 	renamebtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
 	menuContainer.appendChild(renamebtn);
+
+	const SelectAllbtn = document.createElement("button");
+	SelectAllbtn.className = "selectAllButton";
+	SelectAllbtn.id = "selectAllButton";
+	SelectAllbtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
+	menuContainer.appendChild(SelectAllbtn);
 
 	const msg = document.createElement("div");
 	msg.className = "msgContainer";
