@@ -159,31 +159,26 @@ function fetchAndDisplayFiles() {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			return response.json(); // Parse response as JSON
+			return response.json();
 		})
 		.then((data) => {
-			// Get the photos and other files containers div
-			const photosContainer = document.getElementById("photosfileList"); // Display image files
-			const videoFileList = document.getElementById("videofileList"); // Display video files
-			const audioFileList = document.getElementById("audiofileList"); // Display audio files
-			const docFileList = document.getElementById("docfileList"); // Display document files
+
+			const photosContainer = document.getElementById("photosfileList");
+			const videoFileList = document.getElementById("videofileList");
+			const audioFileList = document.getElementById("audiofileList");
+			const docFileList = document.getElementById("docfileList");
 			const otherFilesContainer = document.getElementById("otherFilesList");
 
-			// Clear any existing content in the containers
 			photosContainer.innerHTML = "";
 			videoFileList.innerHTML = "";
 			audioFileList.innerHTML = "";
 			docFileList.innerHTML = "";
 			otherFilesContainer.innerHTML = "";
 
-			// Iterate over each file in the response data
 			data.files.forEach((file) => {
-				// console.log(data);
-				// Check the file extension
 				const fileExtension = file.filename.split(".").pop().toLowerCase();
 
 				const MAX_FILE_NAME_LENGTH = 20;
-				const fileNameElements = document.querySelectorAll(".file-name");
 
 				const checkbox = document.createElement("input");
 				checkbox.type = "checkbox";
@@ -192,35 +187,18 @@ function fetchAndDisplayFiles() {
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
 
-				// Iterate over each 'file-name' element
-				fileNameElements.forEach((fileNameElement) => {
-					// Add double-click event listener
-					fileNameElement.addEventListener("dblclick", () => {
-						// Find the associated checkbox
-						const checkbox =
-							fileNameElement.parentNode.querySelector(".file-checkbox");
-						// Toggle the checkbox state
-						checkbox.checked = !checkbox.checked;
-					});
-				});
-
-				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 					const imageContainerBox = document.createElement("div");
 					imageContainerBox.className = "image-container-box";
 					imageContainerBox.id = `file-${file.id}`; // Use file ID
-
 					const imageDiv = document.createElement("div");
 					imageDiv.className = "image";
 					imageDiv.id = "image";
-
 					const imageElement = document.createElement("img");
 					imageElement.src = `data:${file.content_type};base64,${file.content}`;
 					imageDiv.appendChild(imageElement);
-
 					const fileNameDiv = document.createElement("div");
 					fileNameDiv.className = "image-name";
-
 					const fileNameHeading = document.createElement("h2");
 					fileNameHeading.className = "file-name";
 					fileNameHeading.id = "fileName"; // Add id attribute
@@ -229,32 +207,24 @@ function fetchAndDisplayFiles() {
 						MAX_FILE_NAME_LENGTH
 					);
 					fileNameHeading.textContent = truncatedFileName;
-
 					fileNameDiv.appendChild(fileNameHeading);
-
 					imageContainerBox.appendChild(imageDiv);
 					imageContainerBox.appendChild(fileNameDiv);
 					imageContainerBox.appendChild(checkbox);
 					photosContainer.appendChild(imageContainerBox);
-
-					// Add right-click event listener
 					imageContainerBox.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
-						showButtons(event, file.id, file.filename); // Call showButtons for both download and delete buttons
+						showButtons(event, file.id, file.filename);ons
 					});
-
-					// Add click event listener for full-screen
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 					const videoContainerDiv = document.createElement("div");
 					videoContainerDiv.className = "video-container-box";
 					videoContainerDiv.id = `file-${file.id}`; // Use file ID
-
 					const videoElement = document.createElement("video");
 					videoElement.src = `data:${file.content_type};base64,${file.content}`;
 					videoElement.controls = true;
 					videoContainerDiv.appendChild(videoElement);
-
 					const fileNameDiv = document.createElement("h2");
 					fileNameDiv.className = "file-name";
 					fileNameDiv.id = "fileName"; // Add id attribute
@@ -264,20 +234,16 @@ function fetchAndDisplayFiles() {
 					);
 					fileNameDiv.textContent = truncatedFileName;
 					videoContainerDiv.appendChild(fileNameDiv);
-
 					videoFileList.appendChild(videoContainerDiv);
-
-					// Add right-click event listener
 					videoContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
 					});
-					// Add click event listener for full-screen
 					videoElement.addEventListener("click", handleVideoClick);
 				} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
 					const audioContainerDiv = document.createElement("div");
 					audioContainerDiv.className = "audio-container-box";
-					audioContainerDiv.id = `file-${file.id}`; // Use file ID
+					audioContainerDiv.id = `file-${file.id}`;
 
 					const audioElement = document.createElement("audio");
 					audioElement.src = `data:${file.content_type};base64,${file.content}`;
@@ -286,68 +252,50 @@ function fetchAndDisplayFiles() {
 
 					const fileNameDiv = document.createElement("h2");
 					fileNameDiv.className = "file-name";
-					fileNameDiv.id = "fileName"; // Add id attribute
+					fileNameDiv.id = "fileName";
 					const truncatedFileName = truncateFileName(
 						file.filename,
 						MAX_FILE_NAME_LENGTH
 					);
 					fileNameDiv.textContent = truncatedFileName;
 					audioContainerDiv.appendChild(fileNameDiv);
-
 					audioFileList.appendChild(audioContainerDiv);
-
-					// Add right-click event listener
 					audioContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
 					});
 				} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
-					// Create a wrapper container div
 					const docWrapperContainer = document.createElement("div");
 					docWrapperContainer.className = "doc-wrapper-container";
-
-					// Create a container div
 					const docContainerDiv = document.createElement("div");
 					docContainerDiv.className = "doc-container-box";
-
-					// Create an icon element for the document
 					const iconElement = document.createElement("i");
-					iconElement.className = "far fa-file"; // Default file icon
+					iconElement.className = "far fa-file";
 					switch (fileExtension) {
 						case "pdf":
-							iconElement.className = "far fa-file-pdf"; // PDF icon
+							iconElement.className = "far fa-file-pdf";
 							break;
 						case "doc":
 						case "docx":
-							iconElement.className = "far fa-file-word"; // Word document icon
+							iconElement.className = "far fa-file-word";
 							break;
 						case "xls":
 						case "xlsx":
-							iconElement.className = "far fa-file-excel"; // Excel document icon
+							iconElement.className = "far fa-file-excel";
 							break;
 					}
-
-					// Create a div for the file name
 					const fileNameDiv = document.createElement("h2");
 					fileNameDiv.className = "file-name";
-					fileNameDiv.id = "fileName"; // Add id attribute
+					fileNameDiv.id = "fileName";
 					const truncatedFileName = truncateFileName(
 						file.filename,
 						MAX_FILE_NAME_LENGTH
 					);
 					fileNameDiv.textContent = truncatedFileName;
-
-					// Append the icon element and the file name div to the container div
-					fileNameDiv.prepend(iconElement); // Prepend the icon to the file name
+					fileNameDiv.prepend(iconElement);
 					docContainerDiv.appendChild(fileNameDiv);
-
-					// Append the container div to the wrapper container div
 					docWrapperContainer.appendChild(docContainerDiv);
-
-					// Append the wrapper container div to the document file list
 					docFileList.appendChild(docWrapperContainer);
-
-					// Add right-click event listener
 					docWrapperContainer.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
@@ -355,8 +303,6 @@ function fetchAndDisplayFiles() {
 				} else {
 					const fileContainerDiv = document.createElement("div");
 					fileContainerDiv.className = "files-container-box";
-
-					// Create a div for the contents of the file container
 					const contentsDiv = document.createElement("div");
 					contentsDiv.className = "files-container-box-contents";
 
@@ -389,41 +335,41 @@ function fetchAndDisplayFiles() {
 							break;
 					}
 
-					// Create an icon element with the appropriate class
 					const iconElement = document.createElement("i");
 					iconElement.className = iconClass;
-
-					// Create a div for the icon
 					const iconDiv = document.createElement("div");
 					iconDiv.className = "icon";
 					iconDiv.appendChild(iconElement);
-
-					// Create a div for the file name
 					const fileNameDiv = document.createElement("h2");
 					fileNameDiv.className = "file-name";
-					fileNameDiv.id = "fileName"; // Add id attribute
+					fileNameDiv.id = "fileName";
 					const truncatedFileName = truncateFileName(
 						file.filename,
 						MAX_FILE_NAME_LENGTH
 					);
 					fileNameDiv.textContent = truncatedFileName;
-
-					// Append the icon div and file name div to the contents div
 					contentsDiv.appendChild(iconDiv);
 					contentsDiv.appendChild(fileNameDiv);
-
-					// Append the contents div to the file container div
 					fileContainerDiv.appendChild(contentsDiv);
-
-					// Append the file container div to the otherFilesContainer
 					otherFilesContainer.appendChild(fileContainerDiv);
-
-					// Add right-click event listener
 					fileContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
 					});
 				}
+
+				const fileNameElements = document.querySelectorAll(".file-name");
+
+				fileNameElements.forEach((fileNameElement) => {
+					fileNameElement.addEventListener("dblclick", () => {
+						const checkbox =
+							fileNameElement.parentNode.querySelector(".file-checkbox");
+						if (checkbox) {
+							checkbox.checked = !checkbox.checked;
+						}
+					});
+				});
+			
 			});
 		})
 		.catch((error) => {
@@ -432,7 +378,6 @@ function fetchAndDisplayFiles() {
 		});
 }
 
-// Fetch and display files initially
 fetchAndDisplayFiles();
 const intervalId = setInterval(fetchAndDisplayFiles, 300000);
 
