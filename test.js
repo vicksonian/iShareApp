@@ -192,6 +192,18 @@ function fetchAndDisplayFiles() {
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
 
+				// Iterate over each 'file-name' element
+				fileNameElements.forEach((fileNameElement) => {
+					// Add double-click event listener
+					fileNameElement.addEventListener("dblclick", () => {
+						// Find the associated checkbox
+						const checkbox =
+							fileNameElement.parentNode.querySelector(".file-checkbox");
+						// Toggle the checkbox state
+						checkbox.checked = !checkbox.checked;
+					});
+				});
+
 				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 					const imageContainerBox = document.createElement("div");
