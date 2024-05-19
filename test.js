@@ -180,7 +180,7 @@ function fetchAndDisplayFiles() {
 			const audioFileList = document.getElementById("audiofileList");
 			const docFileList = document.getElementById("docfileList");
 			const otherFilesContainer = document.getElementById("otherFilesList");
-			const msgContainer = document.querySelector(".msg");
+			const MsgBoxContainer = document.querySelector(".msg");
 
 			photosContainer.innerHTML = "";
 			videoFileList.innerHTML = "";
@@ -189,9 +189,9 @@ function fetchAndDisplayFiles() {
 			otherFilesContainer.innerHTML = "";
 
             if (data.files.length === 0) { 
-                msgContainer.textContent = "No files found...";
+                MsgBoxContainer.textContent = "No files found...";
             } else {
-                msgContainer.textContent = "";
+                MsgBoxContainer.textContent = "";
 			}
 
 
@@ -788,39 +788,6 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-// Function to rename a file
-function renameFile(fileId, oldFileName) {
-	const newFileName = prompt("Enter a new name for the file:", oldFileName);
-	if (newFileName && newFileName !== oldFileName) {
-		fetch(`https://ishare-i8td.onrender.com/rename/${fileId}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${f1_token}`,
-			},
-			body: JSON.stringify({ newFileName: newFileName }),
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
-				return response.json();
-			})
-			.then((data) => {
-				// Update the file name in the UI
-				const fileElement = document.getElementById(`file-${fileId}`);
-				const fileNameElement = fileElement.querySelector(".file-name");
-				const truncatedFileName = truncateFileName(
-					newFileName,
-					MAX_FILE_NAME_LENGTH
-				);
-				fileNameElement.textContent = truncatedFileName;
-			})
-			.catch((error) => {
-				console.error("Error renaming file:", error);
-			});
-	}
-}
 
 // Add event listener to the "Select All" checkbox
 document.getElementById("selectAll").addEventListener("change", (event) => {
@@ -832,104 +799,3 @@ document.getElementById("selectAll").addEventListener("change", (event) => {
 	});
 });
 
-// Function to delete selected files
-document.getElementById("deleteSelected").addEventListener("click", () => {
-	const selectedCheckboxes = document.querySelectorAll(
-		"#fileContainer input[type='checkbox']:checked"
-	);
-	const selectedFileIds = Array.from(selectedCheckboxes).map((checkbox) =>
-		checkbox.getAttribute("data-file-id")
-	);
-	const confirmDelete = confirm(
-		`Are you sure you want to delete ${selectedFileIds.length} selected files?`
-	);
-	if (confirmDelete) {
-		const deletePromises = selectedFileIds.map((fileId) =>
-			fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
-				method: "DELETE",
-				headers: {
-					Authorization: `Bearer ${f1_token}`,
-				},
-			})
-		);
-
-		Promise.all(deletePromises)
-			.then((responses) => {
-				responses.forEach((response) => {
-					if (!response.ok) {
-						throw new Error(`HTTP error! Status: ${response.status}`);
-					}
-				});
-				// Remove the deleted file elements from the UI
-				selectedFileIds.forEach((fileId) => {
-					const fileElement = document.getElementById(`file-${fileId}`);
-					if (fileElement) {
-						fileElement.remove();
-					}
-				});
-			})
-			.catch((error) => {
-				console.error("Error deleting selected files:", error);
-			});
-	}
-});
-
-// Function to rename selected files
-document.getElementById("renameSelected").addEventListener("click", () => {
-	const selectedCheckboxes = document.querySelectorAll(
-		"#fileContainer input[type='checkbox']:checked"
-	);
-	const selectedFileIds = Array.from(selectedCheckboxes).map((checkbox) =>
-		checkbox.getAttribute("data-file-id")
-	);
-
-	selectedFileIds.forEach((fileId) => {
-		const oldFileName = document
-			.getElementById(`file-${fileId}`)
-			.querySelector(".file-name").textContent;
-		const newFileName = prompt("Enter a new name for the file:", oldFileName);
-		if (newFileName && newFileName !== oldFileName) {
-			fetch(`https://ishare-i8td.onrender.com/rename/${fileId}`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${f1_token}`,
-				},
-				body: JSON.stringify({ newFileName: newFileName }),
-			})
-				.then((response) => {
-					if (!response.ok) {
-						throw new Error(`HTTP error! Status: ${response.status}`);
-					}
-					return response.json();
-				})
-				.then((data) => {
-					// Update the file name in the UI
-					const fileElement = document.getElementById(`file-${fileId}`);
-					const fileNameElement = fileElement.querySelector(".file-name");
-					const truncatedFileName = truncateFileName(
-						newFileName,
-						MAX_FILE_NAME_LENGTH
-					);
-					fileNameElement.textContent = truncatedFileName;
-				})
-				.catch((error) => {
-					console.error("Error renaming file:", error);
-				});
-		}
-	});
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-	fetchAndDisplayFiles();
-});
-
-// Function to handle click on video to play/pause
-function handleVideoClick(event) {
-	const video = event.target;
-	if (video.paused) {
-		video.play();
-	} else {
-		video.pause();
-	}
-}
