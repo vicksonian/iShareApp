@@ -192,25 +192,6 @@ function fetchAndDisplayFiles() {
 				checkbox.name = `checkbox-${file.id}`;
 				checkbox.value = file.filename;
 
-				fileNameElements.forEach((fileNameElement) => {
-					fileNameElement.addEventListener("dblclick", (event) => {
-						console.log("Double-click event triggered.");
-
-						const fileId = event.target.parentElement.id.split("-")[1];
-						const checkboxId = `checkbox-${fileId}`;
-						console.log("Checkbox ID:", checkboxId);
-
-						const checkbox = document.getElementById(checkboxId);
-						console.log("Checkbox element:", checkbox);
-
-						if (checkbox) {
-							checkbox.checked = !checkbox.checked;
-							console.log("Checkbox checked state toggled:", checkbox.checked);
-						} else {
-							console.log("Checkbox element not found.");
-						}
-					});
-				});
 				// Create an appropriate HTML element based on the file type
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 					const imageContainerBox = document.createElement("div");
