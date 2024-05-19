@@ -946,85 +946,76 @@
 		});
 	</script>
 	<script>
-const f12_token = localStorage.getItem("token");
-// Define a function to fetch and display files
-function fetchAndDisplayFiles() {
-    fetch("https://ishare-i8td.onrender.com/files", {
-        headers: {
-            Authorization: `Bearer ${f12_token}`,
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        const photosContainer = document.getElementById("photoSlider");
-        const images = [];
+		const f12_token = localStorage.getItem("token");
+		// Define a function to fetch and display files
+		function fetchAndDisplayFiles() {
+			fetch("https://ishare-i8td.onrender.com/files", {
+				// Fetch files from the Flask backend
+				headers: {
+					Authorization: `Bearer ${f12_token}`,
+				},
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then((data) => {
+					const photosContainer = document.getElementById("photoSlider");
+					const images = [];
 
-        photosContainer.innerHTML = "";
+					photosContainer.innerHTML = "";
 
-        data.files.forEach((file) => {
-            const fileExtension = file.filename.split(".").pop().toLowerCase();
+					data.files.forEach((file) => {
+						const fileExtension = file.filename.split(".").pop().toLowerCase();
 
-            if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
-                const imageContainerBox = document.createElement("div");
-                imageContainerBox.className = "image-slider-box";
-                imageContainerBox.id = `file-${file.id}`;
-                const imageDiv = document.createElement("div");
-                imageDiv.className = "image-container";
-                const imageElement = document.createElement("img");
-                imageElement.src = `data:${file.content_type};base64,${file.content}`;
-                imageDiv.appendChild(imageElement);
-                imageContainerBox.appendChild(imageDiv);
-                photosContainer.appendChild(imageContainerBox);
+						if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
+							const imageContainerBox = document.createElement("div");
+							imageContainerBox.className = "image-Slider-box";
+							imageContainerBox.id = `file-${file.id}`;
+							const imageDiv = document.createElement("div");
+							imageDiv.className = "image-container";
+							imageDiv.id = "image-container";
+							const imageElement = document.createElement("img");
+							imageElement.src = `data:${file.content_type};base64,${file.content}`;
+							imageDiv.appendChild(imageElement);
+							imageContainerBox.appendChild(imageDiv);
+							photosContainer.appendChild(imageContainerBox);
 
-                images.push(imageContainerBox);
-            }
-        });
+							images.push(imageContainerBox);
+							imageContainerBox.style.display = "none";
+						}
+					});
 
-        startSlideshow(images);
-    });
-}
+					startSlideshow(images);
+				});
+		}
 
-function startSlideshow(images) {
-    let currentIndex = 0;
 
-    function showNextImage() {
-        const currentImage = images[currentIndex];
-        const nextIndex = (currentIndex + 1) % images.length;
-        const nextImage = images[nextIndex];
+		function startSlideshow(images) {
+			let currentIndex = 0;
 
-        // Prepare the next image to slide in from the right
-        nextImage.style.display = "block";
-        nextImage.style.transform = "translateX(100%)";
+			function showNextImage() {
+				if (images[currentIndex]) {
+					images[currentIndex].style.display = "none";
+				}
 
-        // Force reflow to apply initial position before starting transition
-        nextImage.offsetHeight;
+				currentIndex = (currentIndex + 1) % images.length;
 
-        // Slide the current image to the left and the next image in from the right
-        currentImage.style.transform = "translateX(-100%)";
-        nextImage.style.transform = "translateX(0)";
+				if (images[currentIndex]) {
+					images[currentIndex].style.display = "block";
+				}
+			}
 
-        // Update current index after the transition
-        setTimeout(() => {
-            currentImage.style.display = "none";
-            currentIndex = nextIndex;
-        }, 1000); // Duration of the animation
-    }
 
-    if (images[0]) {
-        images[0].style.display = "block";
-        images[0].style.transform = "translateX(0)";
-    }
+			if (images[0]) {
+				images[0].style.display = "block";
+			}
 
-    setInterval(showNextImage, 3000);
-}
-
-fetchAndDisplayFiles();
-
+			setInterval(showNextImage, 27000);
+		}
+		fetchAndDisplayFiles();
 
 	</script>
 </body>
