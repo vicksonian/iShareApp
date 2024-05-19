@@ -425,18 +425,18 @@ function fetchAndDisplayFiles() {
 		});
 }
 
-// Add event listener to the global share button
-document.getElementById("shareButton").addEventListener("click", () => {
-	const selectedFiles = Array.from(
-		document.querySelectorAll(".file-checkbox:checked")
-	).map((checkbox) => checkbox.dataset.fileId);
+// // Add event listener to the global share button
+// document.getElementById("shareButton").addEventListener("click", () => {
+// 	const selectedFiles = Array.from(
+// 		document.querySelectorAll(".file-checkbox:checked")
+// 	).map((checkbox) => checkbox.dataset.fileId);
 
-	if (selectedFiles.length > 0) {
-		showShareMenuForMultipleFiles(selectedFiles);
-	} else {
-		alert("No files selected for sharing.");
-	}
-});
+// 	if (selectedFiles.length > 0) {
+// 		showShareMenuForMultipleFiles(selectedFiles);
+// 	} else {
+// 		alert("No files selected for sharing.");
+// 	}
+// });
 
 
 // Fetch and display files initially
