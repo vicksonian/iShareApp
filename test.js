@@ -192,6 +192,7 @@ function fetchAndDisplayFiles() {
                 msgContainer.textContent = "No files found...";
             } else {
                 msgContainer.textContent = "";
+			}
 
 
 			data.files.forEach((file) => {
