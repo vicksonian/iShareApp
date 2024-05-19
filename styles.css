@@ -516,3 +516,10 @@ f#search-form:valid #i41 {
 	background: #8e9fff00;
 	z-index: 99999;
 }
+
+.file-checkbox{
+	color: red !important;
+	width: 20px;
+	height: 20px;
+	background-color: #00ff59;
+}
