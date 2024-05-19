@@ -12,6 +12,40 @@
 	<link rel="stylesheet" href="style.css" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+	<style>
+  .container {
+    --uib-size: 40px;
+    --uib-color: rgb(238, 42, 42);
+    --uib-speed: 1.1s;
+    --uib-stroke: 5px;
+    --mask-size: calc(var(--uib-size) / 2 - var(--uib-stroke));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: var(--uib-size);
+    width: var(--uib-size);
+    -webkit-mask: radial-gradient(
+      circle var(--mask-size),
+      transparent 99%,
+      #09e780 100%
+    );
+    mask: radial-gradient(circle var(--mask-size), transparent 99%, #02f854 100%);
+    background-image: conic-gradient(transparent 25%, var(--uib-color));
+    animation: spin calc(var(--uib-speed)) linear infinite;
+    border-radius: 50%;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -247,12 +281,13 @@
 
 				<div class="chart-container-wrapper big">
 					<div class="chart-container">
-						<div id="slideShow" class="slideShow">
+						<div id="slideShow" class="slideShow" style="display: block; background-color: rgb(92, 145, 127); width: 100%;">
 							<p>Your image collection</p>
-							<div id="photoSlider" class="photoSlider">
-								<!-- Example spinner element -->
-								<div id="spinner">Loading...</div>
 
+
+
+							<div id="photoSlider" class="photoSlider">
+								<div class="container" id="spinner"></div>
 							</div>
 						</div>
 					</div>
@@ -325,7 +360,7 @@
 				<div id="fileList"></div>
 
 				<div id="otherFilesList">
-					<div id="spinner">Loading...</div>
+					<div class="container" id="spinner"></div>
 				</div>
 			</div>
 
@@ -367,7 +402,7 @@
 				</div>
 				<div id="videofileList">
 					<!-- Example spinner element -->
-						<div id="spinner">Loading...</div>
+						<div class="container" id="spinner"></div>
 
 				</div>
 			</div>
@@ -411,7 +446,7 @@
 					<input type="text" id="audiosearchBar" placeholder="Search files..." onkeyup="search()">
 				</div>
 				<div id="audiofileList">
-					<div id="spinner">Loading...</div>
+					<div class="container" id="spinner"></div>
 				</div>
 			</div>
 
@@ -454,7 +489,7 @@
 
 				</div>
 				<div id="docfileList">
-					<div id="spinner">Loading...</div>
+					<div class="container" id="spinner"></div>
 				</div>
 			</div>
 
@@ -497,7 +532,7 @@
 
 				</div>
 				<div id="photosfileList">
-					<div id="spinner">Loading...</div>
+					<div class="container" id="spinner"></div>
 				</div>
 			</div>
 
@@ -565,8 +600,8 @@
 						</button>
 					</div>
 
-					<div id="fileContainer"><div id="spinner">Loading...</div></div>
-					<div id="filesContents"><div id="spinner">Loading...</div></div>
+					<div id="fileContainer"><div class="container" id="spinner"></div></div>
+					<div id="filesContents"><div class="container" id="spinner"></div></div>
 				</div>
 
 				<div class="main-header-line">

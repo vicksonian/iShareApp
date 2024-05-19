@@ -525,6 +525,9 @@ f#search-form:valid #i41 {
     position: relative;
     overflow: hidden;
     padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .image-slider-box {
@@ -553,14 +556,10 @@ f#search-form:valid #i41 {
     border-radius: 10px;
 }
 
-
 #spinner{
 	position: absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 99999;
-	color: #02ffbb;
-	font-size: 16px;
-	
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
 }
