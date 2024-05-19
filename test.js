@@ -162,7 +162,6 @@ function fetchAndDisplayFiles() {
 			return response.json();
 		})
 		.then((data) => {
-
 			const photosContainer = document.getElementById("photosfileList");
 			const videoFileList = document.getElementById("videofileList");
 			const audioFileList = document.getElementById("audiofileList");
@@ -214,7 +213,8 @@ function fetchAndDisplayFiles() {
 					photosContainer.appendChild(imageContainerBox);
 					imageContainerBox.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
-						showButtons(event, file.id, file.filename);ons
+						showButtons(event, file.id, file.filename);
+						ons;
 					});
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
@@ -357,19 +357,17 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 				}
+			});
+			const fileNameElements = document.querySelectorAll(".file-name");
 
-				const fileNameElements = document.querySelectorAll(".file-name");
-
-				fileNameElements.forEach((fileNameElement) => {
-					fileNameElement.addEventListener("dblclick", () => {
-						const checkbox =
-							fileNameElement.parentNode.querySelector(".file-checkbox");
-						if (checkbox) {
-							checkbox.checked = !checkbox.checked;
-						}
-					});
+			fileNameElements.forEach((fileNameElement) => {
+				fileNameElement.addEventListener("dblclick", () => {
+					const checkbox =
+						fileNameElement.parentNode.querySelector(".file-checkbox");
+					if (checkbox) {
+						checkbox.checked = !checkbox.checked;
+					}
 				});
-			
 			});
 		})
 		.catch((error) => {
