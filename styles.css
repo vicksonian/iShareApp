@@ -97,6 +97,7 @@ body {
 	margin-top: 15px;
 	font-size: 14px;
 	color: #dfd6d6;
+	user-select: none;
 }
 
 .file-name:hover {
