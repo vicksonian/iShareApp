@@ -560,4 +560,7 @@ f#search-form:valid #i41 {
 	justify-content: center;
 	align-items: center;
 	z-index: 99999;
+	color: #02ffbb;
+	font-size: 16px;
+	
 }
