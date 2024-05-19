@@ -228,7 +228,6 @@ function fetchAndDisplayFiles() {
 					imageContainerBox.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
-						ons;
 					});
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
