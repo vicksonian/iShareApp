@@ -194,6 +194,7 @@ function fetchAndDisplayFiles() {
 
             // Create an appropriate HTML element based on the file type
             if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
+				imageContainerBox.appendChild(checkbox);
                 const imageContainerBox = document.createElement("div");
                 imageContainerBox.className = "image-container-box";
                 imageContainerBox.id = `file-${file.id}`; // Use file ID
