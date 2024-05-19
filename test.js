@@ -184,6 +184,7 @@ function fetchAndDisplayFiles() {
 				checkbox.className = "file-checkbox";
 				checkbox.id = `checkbox-${file.id}`;
 				checkbox.name = `checkbox-${file.id}`;
+				checkbox.style.display = "none"
 				checkbox.value = file.filename;
 
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
