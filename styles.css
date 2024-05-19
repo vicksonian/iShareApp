@@ -552,3 +552,11 @@ f#search-form:valid #i41 {
     max-height: 100%;
     border-radius: 10px;
 }
+
+
+#spinner{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
