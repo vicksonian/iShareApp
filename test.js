@@ -154,16 +154,26 @@ const fileNameElements = document.querySelectorAll(".file-name");
 fileNameElements.forEach((fileNameElement) => {
     // Add double-click event listener
     fileNameElement.addEventListener("dblclick", (event) => {
+        console.log("Double-click event triggered."); // Check if the event is triggered
+        
         // Find the corresponding checkbox
-        const checkboxId = `checkbox-${event.target.parentElement.id.split("-")[1]}`;
-        const checkbox = document.getElementById(checkboxId);
-
+        const fileId = event.target.parentElement.id.split("-")[1]; // Extract file ID
+        const checkboxId = `checkbox-${fileId}`;
+        console.log("Checkbox ID:", checkboxId); // Log the constructed checkbox ID
+        
+        const checkbox = document.getElementById(checkboxId); // Find the checkbox element
+        console.log("Checkbox element:", checkbox); // Log the checkbox element
+        
         // Toggle the checkbox's checked state
         if (checkbox) {
             checkbox.checked = !checkbox.checked;
+            console.log("Checkbox checked state toggled:", checkbox.checked); // Log the toggled state
+        } else {
+            console.log("Checkbox element not found.");
         }
     });
 });
+
 
 
 // Define a function to fetch and display files
