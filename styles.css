@@ -26,7 +26,6 @@ body {
 	max-height: 250px;
 	overflow: hidden;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
@@ -67,7 +66,6 @@ body {
 		max-height: 250px;
 		overflow: hidden;
 		display: flex;
-		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 		gap: 10;
