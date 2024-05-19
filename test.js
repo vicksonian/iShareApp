@@ -233,14 +233,14 @@ function fetchAndDisplayFiles() {
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 					const videoContainerDiv = document.createElement("div");
 					videoContainerDiv.className = "video-container-box";
-					videoContainerDiv.id = `file-${file.id}`; // Use file ID
+					videoContainerDiv.id = `file-${file.id}`;
 					const videoElement = document.createElement("video");
 					videoElement.src = `data:${file.content_type};base64,${file.content}`;
 					videoElement.controls = true;
 					videoContainerDiv.appendChild(videoElement);
 					const fileNameDiv = document.createElement("h2");
 					fileNameDiv.className = "file-name";
-					fileNameDiv.id = "fileName"; // Add id attribute
+					fileNameDiv.id = "fileName";
 					const truncatedFileName = truncateFileName(
 						file.filename,
 						MAX_FILE_NAME_LENGTH

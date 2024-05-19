@@ -249,7 +249,11 @@
 					<div class="chart-container">
 						<div id="slideShow" class="slideShow">
 							<p>Your image collection</p>
-							<div id="photoSlider" class="photoSlider"></div>
+							<div id="photoSlider" class="photoSlider">
+								<!-- Example spinner element -->
+								<div id="spinner">Loading...</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
@@ -320,7 +324,9 @@
 				</div>
 				<div id="fileList"></div>
 
-				<div id="otherFilesList"></div>
+				<div id="otherFilesList">
+					<div id="spinner">Loading...</div>
+				</div>
 			</div>
 
 			<div class="content" id="videos">
@@ -359,7 +365,11 @@
 
 					<input type="text" id="videosearchBar" placeholder="Search files..." onkeyup="search()">
 				</div>
-				<div id="videofileList"></div>
+				<div id="videofileList">
+					<!-- Example spinner element -->
+						<div id="spinner">Loading...</div>
+
+				</div>
 			</div>
 
 			<div class="content" id="audios">
@@ -400,7 +410,9 @@
 
 					<input type="text" id="audiosearchBar" placeholder="Search files..." onkeyup="search()">
 				</div>
-				<div id="audiofileList"></div>
+				<div id="audiofileList">
+					<div id="spinner">Loading...</div>
+				</div>
 			</div>
 
 			<div class="content" id="documents">
@@ -441,7 +453,9 @@
 					<input type="text" id="docsearchBar" placeholder="Search files..." onkeyup="search()">
 
 				</div>
-				<div id="docfileList"></div>
+				<div id="docfileList">
+					<div id="spinner">Loading...</div>
+				</div>
 			</div>
 
 			<div class="content" id="photos">
@@ -482,7 +496,9 @@
 					<input type="text" id="searchBar" placeholder="Search files..." onkeyup="search()">
 
 				</div>
-				<div id="photosfileList"></div>
+				<div id="photosfileList">
+					<div id="spinner">Loading...</div>
+				</div>
 			</div>
 
 			<div class="content" id="upload">
@@ -549,8 +565,8 @@
 						</button>
 					</div>
 
-					<div id="fileContainer"></div>
-					<div id="filesContents"></div>
+					<div id="fileContainer"><div id="spinner">Loading...</div></div>
+					<div id="filesContents"><div id="spinner">Loading...</div></div>
 				</div>
 
 				<div class="main-header-line">
