@@ -1,6 +1,19 @@
 /** @format */
 
 const f1_token = localStorage.getItem("token");
+
+const showSpinner = () => {
+	const spinner = document.getElementById("spinner");
+	spinner.style.display = "block";
+};
+
+const hideSpinner = () => {
+	const spinner = document.getElementById("spinner");
+	spinner.style.display = "none";
+};
+
+
+
 // Function to handle image file search
 const search = () => {
 	const searchbox = document.getElementById("searchBar").value.toUpperCase();
@@ -184,7 +197,7 @@ function fetchAndDisplayFiles() {
 				checkbox.className = "file-checkbox";
 				checkbox.id = `checkbox-${file.id}`;
 				checkbox.name = `checkbox-${file.id}`;
-				checkbox.style.display = "none"
+				checkbox.style.display = "none";
 				checkbox.value = file.filename;
 
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
@@ -372,8 +385,10 @@ function fetchAndDisplayFiles() {
 			});
 		})
 		.catch((error) => {
-			// console.error("Error fetching files:", error);
-			console.log("");
+			console.error("Error fetching files:", error);
+		})
+		.finally(() => {
+			hideSpinner(); // Hide the spinner
 		});
 }
 
@@ -435,14 +450,17 @@ function showButtons(event, fileId, filename) {
 	const downloadButton = createDownloadButton(fileId, filename);
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
+	const renameButton = createRenameButton(fileId, filename);
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
+	menuContainer.appendChild(renameButton);
 
 	// Add event listener to hide menu when any button is clicked
 	downloadButton.addEventListener("click", hideButtons);
 	deleteButton.addEventListener("click", hideButtons);
 	shareButton.addEventListener("click", hideButtons);
+	renameButton.addEventListener("click", hideButtons);
 
 	document.body.appendChild(menuContainer);
 
@@ -488,7 +506,6 @@ function downloadFile(fileId, filename) {
 			a.remove();
 		})
 		.catch((error) => {
-			// console.error("Error downloading file:", error);
 			console.log("");
 		});
 }
@@ -504,24 +521,17 @@ function deleteFile(fileId, filename) {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
-			// console.log(`File '${filename}' deleted successfully.`);
 			console.log("");
-
 			const fileElement = document.getElementById(`file-${fileId}`);
 			if (fileElement) {
 				fileElement.remove();
-				// console.log(`File element '${filename}' removed from UI.`);
 				console.log("");
 			} else {
-				// console.log(`File element '${filename}' not found in UI.`);
 				console.log("");
 			}
-
-			// Display a notification message
 			showDeleteNotification(filename);
 		})
 		.catch((error) => {
-			// console.error("Error deleting file:", error);
 			console.log("");
 		});
 }
@@ -538,7 +548,7 @@ function showDeleteNotification(filename) {
 	// Automatically remove the notification after a certain duration
 	setTimeout(() => {
 		notificationElement.remove();
-	}, 3000); // Remove after 3 seconds (adjust duration as needed)
+	}, 3000);
 }
 
 function showShareMenu(event, fileId, filename) {
@@ -549,20 +559,14 @@ function showShareMenu(event, fileId, filename) {
 	if (existingContainer) {
 		existingContainer.remove();
 	}
-
-	// Create the menu container
 	const menuContainer = document.createElement("div");
 	menuContainer.className = "share-context-menu-container";
-
-	// Create and append the header container and its elements
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "header-container";
-
 	const header = document.createElement("h3");
 	header.className = "share-context-menu-header";
 	header.textContent = "Enter recipient's username or email";
 	headerContainer.appendChild(header);
-
 	const clbtn = document.createElement("button");
 	clbtn.className = "context-menu-button";
 	clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
@@ -571,21 +575,24 @@ function showShareMenu(event, fileId, filename) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	});
 	headerContainer.appendChild(clbtn);
-
 	menuContainer.appendChild(headerContainer);
 
-	// Create and append the input field with a unique ID
 	const input = document.createElement("input");
 	input.id = "recipientInput";
 	input.className = "context-menu-input recipient-input";
 	menuContainer.appendChild(input);
 
-	// Create and append the share button
 	const sharebtn = document.createElement("button");
 	sharebtn.className = "shareButton";
 	sharebtn.id = "shareButton";
 	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
 	menuContainer.appendChild(sharebtn);
+
+	const renamebtn = document.createElement("button");
+	renamebtn.className = "renameButton";
+	renamebtn.id = "renameButton";
+	renamebtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
+	menuContainer.appendChild(renamebtn);
 
 	const msg = document.createElement("div");
 	msg.className = "msgContainer";
@@ -594,25 +601,15 @@ function showShareMenu(event, fileId, filename) {
 	msg.style.marginTop = "10px";
 	msg.textContent = " ";
 	menuContainer.appendChild(msg);
-
-	// Display a confirmation message
 	const confirmationMsg = document.createElement("div");
 	confirmationMsg.textContent = `File '${filename}' selected for sharing.`;
 	confirmationMsg.className = "confirmation-message";
 	menuContainer.appendChild(confirmationMsg);
-
-	// Add a timeout to remove the confirmation message after a certain duration
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}, 14400); // Remove after 3 seconds (adjust duration as needed)
-
-	// Append the menu container to the body
+	}, 14400);
 	document.body.appendChild(menuContainer);
-
-	// Make the menu container visible
 	menuContainer.style.display = "block";
-
-	// Center the menu on the screen
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
 	const menuWidth = menuContainer.offsetWidth;
@@ -620,11 +617,7 @@ function showShareMenu(event, fileId, filename) {
 
 	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
 	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
-
-	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideMenuOnClickOutside);
-
-	// Add event listener to input for real-time validation
 	input.addEventListener("input", () => {
 		const recipientIdentifier = input.value;
 		const fv_token = localStorage.getItem("token");
@@ -722,7 +715,9 @@ function showShareMenu(event, fileId, filename) {
 			});
 	}
 
-	// Modify showShareMenuMessage function to ensure message container is present before updating
+
+
+
 	function showShareMenuMessage(message, color) {
 		// Create message container if not found
 		let msgContainer = document.getElementById("msgContainer");
@@ -750,10 +745,6 @@ function showShareMenu(event, fileId, filename) {
 			return;
 		}
 		shareFile(fileId, recipient, "", "");
-
-		// shareFile(fileId, recipient);
-		// menuContainer.remove();
-		// document.removeEventListener("click", hideMenuOnClickOutside);
 	});
 }
 
@@ -762,5 +753,151 @@ function hideMenuOnClickOutside(event) {
 	if (menuContainer && !menuContainer.contains(event.target)) {
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
+	}
+}
+
+// Function to rename a file
+function renameFile(fileId, oldFileName) {
+	const newFileName = prompt("Enter a new name for the file:", oldFileName);
+	if (newFileName && newFileName !== oldFileName) {
+		fetch(`https://ishare-i8td.onrender.com/rename/${fileId}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${f1_token}`,
+			},
+			body: JSON.stringify({ newFileName: newFileName }),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then((data) => {
+				// Update the file name in the UI
+				const fileElement = document.getElementById(`file-${fileId}`);
+				const fileNameElement = fileElement.querySelector(".file-name");
+				const truncatedFileName = truncateFileName(
+					newFileName,
+					MAX_FILE_NAME_LENGTH
+				);
+				fileNameElement.textContent = truncatedFileName;
+			})
+			.catch((error) => {
+				console.error("Error renaming file:", error);
+			});
+	}
+}
+
+// Add event listener to the "Select All" checkbox
+document.getElementById("selectAll").addEventListener("change", (event) => {
+	const checkboxes = document.querySelectorAll(
+		"#fileContainer input[type='checkbox']"
+	);
+	checkboxes.forEach((checkbox) => {
+		checkbox.checked = event.target.checked;
+	});
+});
+
+// Function to delete selected files
+document.getElementById("deleteSelected").addEventListener("click", () => {
+	const selectedCheckboxes = document.querySelectorAll(
+		"#fileContainer input[type='checkbox']:checked"
+	);
+	const selectedFileIds = Array.from(selectedCheckboxes).map((checkbox) =>
+		checkbox.getAttribute("data-file-id")
+	);
+	const confirmDelete = confirm(
+		`Are you sure you want to delete ${selectedFileIds.length} selected files?`
+	);
+	if (confirmDelete) {
+		const deletePromises = selectedFileIds.map((fileId) =>
+			fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${f1_token}`,
+				},
+			})
+		);
+
+		Promise.all(deletePromises)
+			.then((responses) => {
+				responses.forEach((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+				});
+				// Remove the deleted file elements from the UI
+				selectedFileIds.forEach((fileId) => {
+					const fileElement = document.getElementById(`file-${fileId}`);
+					if (fileElement) {
+						fileElement.remove();
+					}
+				});
+			})
+			.catch((error) => {
+				console.error("Error deleting selected files:", error);
+			});
+	}
+});
+
+// Function to rename selected files
+document.getElementById("renameSelected").addEventListener("click", () => {
+	const selectedCheckboxes = document.querySelectorAll(
+		"#fileContainer input[type='checkbox']:checked"
+	);
+	const selectedFileIds = Array.from(selectedCheckboxes).map((checkbox) =>
+		checkbox.getAttribute("data-file-id")
+	);
+
+	selectedFileIds.forEach((fileId) => {
+		const oldFileName = document
+			.getElementById(`file-${fileId}`)
+			.querySelector(".file-name").textContent;
+		const newFileName = prompt("Enter a new name for the file:", oldFileName);
+		if (newFileName && newFileName !== oldFileName) {
+			fetch(`https://ishare-i8td.onrender.com/rename/${fileId}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${f1_token}`,
+				},
+				body: JSON.stringify({ newFileName: newFileName }),
+			})
+				.then((response) => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! Status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then((data) => {
+					// Update the file name in the UI
+					const fileElement = document.getElementById(`file-${fileId}`);
+					const fileNameElement = fileElement.querySelector(".file-name");
+					const truncatedFileName = truncateFileName(
+						newFileName,
+						MAX_FILE_NAME_LENGTH
+					);
+					fileNameElement.textContent = truncatedFileName;
+				})
+				.catch((error) => {
+					console.error("Error renaming file:", error);
+				});
+		}
+	});
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	fetchAndDisplayFiles();
+});
+
+// Function to handle click on video to play/pause
+function handleVideoClick(event) {
+	const video = event.target;
+	if (video.paused) {
+		video.play();
+	} else {
+		video.pause();
 	}
 }
