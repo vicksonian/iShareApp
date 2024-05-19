@@ -74,6 +74,55 @@ document.querySelector(".close-menu").addEventListener("click", function () {
 	document.querySelector(".app-left").classList.remove("show");
 });
 
+// Function to close section and show dashboard
+function closeSection(sectionId) {
+	document.getElementById(sectionId).style.display = "none";
+	document.getElementById("dashboard").style.display = "block";
+}
+
+// Function to show dashboard and hide all other sections
+function showDashboard() {
+	document.getElementById("dashboard").style.display = "block";
+	document.querySelectorAll(".section").forEach(function (section) {
+		section.style.display = "none";
+	});
+}
+
+// Function to handle click on section buttons
+function handleSectionButtonClick(sectionId) {
+	showSection(sectionId);
+}
+
+// Attach click event listeners to section buttons
+document.querySelectorAll(".section-button").forEach(function (button) {
+	button.addEventListener("click", function () {
+		const sectionId = button.dataset.sectionId;
+		handleSectionButtonClick(sectionId);
+	});
+});
+
+// Function to show a specific section and hide others
+function showSection(sectionId) {
+	showDashboard();
+	document.getElementById(sectionId).style.display = "block";
+	document.getElementById(sectionId).classList.add("active-section");
+}
+
+// Event listener for back button
+document.querySelector(".back-button").addEventListener("click", function () {
+	// Get the currently active section
+	const activeSection = document.querySelector(".active-section");
+
+	// Get the ID of the active section
+	const activeSectionId = activeSection ? activeSection.id : null;
+
+	if (activeSectionId) {
+		// Close the active section and show dashboard
+		closeSection(activeSectionId);
+		activeSection.classList.remove("active-section");
+	}
+});
+
 function closePhotosSection() {
 	document.getElementById("photos").style.display = "none";
 	document.getElementById("dashboard").style.display = "block";
@@ -235,4 +284,3 @@ const clearInput = () => {
 	const input = document.getElementsByTagName("input")[0];
 	input.value = "";
 };
-
