@@ -40,7 +40,9 @@ body {
 
 .image-name {
     width: 100%;
+    /* margin: 10px auto; */
     padding: 5px;
+    /* background: aliceblue; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,6 +89,15 @@ body {
 }
 
 }
+
+
+
+
+
+
+
+
+
 .fullscreen-img {
     width: 100%;
     height: 100%;
