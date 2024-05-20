@@ -433,7 +433,7 @@ f#search-form:valid #i41 {
 	height: 20px;
 	border: none;
 	cursor: pointer;
-	background: RED;
+	background: rgba(255, 0, 0, 0);
 	font-size: 14px;
 	color: #ffffff;
 	transition: color 0.3s;
