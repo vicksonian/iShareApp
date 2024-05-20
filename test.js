@@ -790,7 +790,7 @@ function showShareMenu(event, fileId, filename) {
 		console.log("Recipient identifier:", recipient);
 
 		if (recipient === "") {
-			updateMessageContainer("Recipient cannot be empty", "red");
+			msgContainer("Recipient cannot be empty", "red");
 			return;
 		}
 		shareFile(fileId, recipient, "", "");
