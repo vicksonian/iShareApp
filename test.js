@@ -464,30 +464,10 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-
-// Example rename menu function (you need to implement the details)
-function showRenameMenu(event, fileId, filename) {
-	// Your code to show the rename menu or prompt goes here
-	// For example, you could prompt the user to enter a new name for the file
-	const newName = prompt("Enter new name for the file:", filename);
-	if (newName) {
-		// Call a function to handle the renaming process
-		renameFile(fileId, newName);
-	}
-}
-
-// Example function to handle renaming (you need to implement the details)
-function renameFile(fileId, newName) {
-	console.log(`Renaming file ${fileId} to ${newName}`);
-	// Your code to rename the file on the server goes here
-	// For example, you could make an API call to rename the file
-}
-
-
 function createSelectAllButton(fileId, filename) {
 	const selectAllButton = document.createElement("button");
 	selectAllButton.className = "context-menu-button";
-	selectAllButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Select All`;
+	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
 	selectAllButton.addEventListener("click", (event) => {
 		event.preventDefault();
 		showShareMenu(event, fileId, filename);
@@ -829,4 +809,38 @@ function hideMenuOnClickOutside(event) {
 		menuContainer.remove();
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
+}
+
+// Function to show the rename menu and prompt the user for a new name
+function showRenameMenu(event, fileId, filename) {
+	const newName = prompt("Enter new name for the file:", filename);
+	if (newName && newName !== filename) {
+		renameFile(fileId, newName);
+	}
+}
+
+// const fR_token = localStorage.getItem("token");
+// Function to make an API call to rename the file on the server
+function renameFile(fileId, newName) {
+	const fR_token = localStorage.getItem("token");
+	fetch("/rename", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${fR_token}`,
+		},
+		body: JSON.stringify({ file_id: fileId, new_filename: newName }),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data.message) {
+				alert("File renamed successfully");
+			} else {
+				alert("Error renaming file: " + (data.error || "Unknown error"));
+			}
+		})
+		.catch((error) => {
+			console.error("Error renaming file:", error);
+			alert("Error renaming file: " + error.message);
+		});
 }
