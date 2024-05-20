@@ -520,17 +520,21 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton() {
+function createSelectAllButton(containerId) {
 	const selectAllButton = document.createElement("button");
 	selectAllButton.className = "context-menu-button";
 	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
 	selectAllButton.addEventListener("click", () => {
-		selectAllFiles();
+		selectAllFiles(containerId);
 	});
 	return selectAllButton;
 }
-function selectAllFiles() {
-	const checkboxes = document.querySelectorAll(".file-checkbox");
+
+function selectAllFiles(containerId) {
+	const container = document.getElementById(containerId);
+	if (!container) return; // Check if container exists
+
+	const checkboxes = container.querySelectorAll(".file-checkbox");
 	checkboxes.forEach((checkbox) => {
 		checkbox.checked = true;
 		// Optionally, you can apply visual cues to indicate selection here
@@ -540,6 +544,26 @@ function selectAllFiles() {
 		}
 	});
 }
+
+// Create "Select All" button for photos section
+const photosSelectAllButton = createSelectAllButton("photosContainer");
+photosContainer.appendChild(photosSelectAllButton);
+
+// Create "Select All" button for videos section
+const videosSelectAllButton = createSelectAllButton("videoFileList");
+videoFileList.appendChild(videosSelectAllButton);
+
+// Create "Select All" button for videos section
+const audioSelectAllButton = createSelectAllButton("audiofileList");
+audioFileList.appendChild(audioSelectAllButton);
+
+// Create "Select All" button for videos section
+const docSelectAllButton = createSelectAllButton("docfileList");
+docFileList.appendChild(docSelectAllButton);
+
+// Create "Select All" button for videos section
+const filesSelectAllButton = createSelectAllButton("otherFilesList");
+otherFilesContainer.appendChild(filesSelectAllButton);
 
 function showButtons(event, fileId, filename) {
 	const existingContainer = document.querySelector(".context-menu-container");
