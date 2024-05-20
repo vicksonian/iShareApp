@@ -631,12 +631,7 @@ function showShareMenu(event, fileId, filename) {
 	// Create the spinner element dynamically
 	const spinner = document.createElement("div");
 	spinner.className = "spinner-container";
-	spinner.style.width = "40px";
-	spinner.style.height = "40px";
 	spinner.style.position = "absolute";
-	spinner.style.top = "50%";
-	spinner.style.left = "50%";
-	spinner.style.transform = "translate(-50%, -50%)";
 	spinner.innerHTML = `
   <div class="share-button-spinner"></div>
 `;
