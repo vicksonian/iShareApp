@@ -148,7 +148,6 @@ body {
 }
 
 .video-container-box video::-webkit-media-controls-enclosure {
-	
 	color: rgba(255, 0, 0, 0);
 	background-color: rgba(255, 0, 0, 0);
 }
@@ -444,7 +443,7 @@ f#search-form:valid #i41 {
 	text-align: left;
 }
 
-#context-menu-close-btn{
+#context-menu-close-btn {
 	height: 20px;
 	width: 40px;
 	border: none;
@@ -456,7 +455,6 @@ f#search-form:valid #i41 {
 	align-items: center;
 	justify-content: center;
 }
-
 
 .context-menu-button:hover {
 	color: #c10e0e;
@@ -479,7 +477,6 @@ f#search-form:valid #i41 {
 .context-menu-input:focus {
 	outline: #02ffbb;
 }
-
 
 .shareButton {
 	width: 100%;
@@ -505,99 +502,111 @@ f#search-form:valid #i41 {
 }
 
 .msgContainer {
-	color: #ffffff;
 	width: 100%;
 	height: 32px;
 	text-align: left;
 	justify-content: center;
 	align-items: center;
 	background: #8e9fff00;
+	font-size: 12px;
+	color: green;
 	z-index: 99999;
+	margin-bottom: 20px;
 }
 
-.file-checkbox {
-    position: relative;
-    z-index: 1;
-	background-color: #00ff59;
-	color: #02ffbb;
-}
-
-#photoSlider {
-    width: 100%;
-    height: 350px;
-    position: relative;
-    overflow: hidden;
-    padding: 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.image-slider-box {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 1s ease-in-out;
-}
-
-.image-container {
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-container img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 10px;
-}
-
-#spinner{
-	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99999;
-}
-
-.pBar{
-	position: absolute;
-    z-index: 99999;
-	bottom: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-@media screen and (max-width: 400px){
-	.share-context-menu-container{
-		max-width: 200px;
-        padding: 10px;
-        font-size: 12px;
-
-	}
-	.context-menu-container{
-		max-width: 200px;
-		padding: 10px;
-		font-size: 12px;
-	}
-
-	.confirmation-message{
-
+	.confirmation-message {
 		display: flex;
 		word-wrap: normal;
 		flex-direction: column;
 		justify-content: center;
 		max-width: 100%;
 		font-size: 12px;
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+		line-height: 1;
+		color: #fff;
+	}
+
+.file-checkbox {
+	position: relative;
+	z-index: 1;
+	background-color: #00ff59;
+	color: #02ffbb;
+}
+
+#photoSlider {
+	width: 100%;
+	height: 350px;
+	position: relative;
+	overflow: hidden;
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.image-slider-box {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity 1s ease-in-out;
+}
+
+.image-container {
+	max-width: 100%;
+	max-height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.image-container img {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 10px;
+}
+
+#spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 99999;
+}
+
+.pBar {
+	position: absolute;
+	z-index: 99999;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@media screen and (max-width: 400px) {
+	.share-context-menu-container {
+		max-width: 200px;
+		padding: 10px;
+		font-size: 12px;
+	}
+	.context-menu-container {
+		max-width: 200px;
+		padding: 10px;
+		font-size: 12px;
+	}
+
+	.confirmation-message {
+		display: flex;
+		word-wrap: normal;
+		flex-direction: column;
+		justify-content: center;
+		max-width: 100%;
+		font-size: 12px;
+		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 		line-height: 1;
 	}
 }
