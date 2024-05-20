@@ -604,7 +604,7 @@ function showShareMenu(event, fileId, filename) {
 	header.textContent = "Enter recipient's username or email";
 	headerContainer.appendChild(header);
 	const clbtn = document.createElement("button");
-	clbtn.className = "context-menu-button";
+	clbtn.className = "context-menu-closeButton";
 	clbtn.id = "context-menu-close-btn";
 	clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
 	clbtn.addEventListener("click", () => {
@@ -625,17 +625,17 @@ function showShareMenu(event, fileId, filename) {
 	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
 	menuContainer.appendChild(sharebtn);
 
-	const renamebtn = document.createElement("button");
-	renamebtn.className = "renameButton";
-	renamebtn.id = "renameButton";
-	renamebtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
-	menuContainer.appendChild(renamebtn);
+	// const renamebtn = document.createElement("button");
+	// renamebtn.className = "renameButton";
+	// renamebtn.id = "renameButton";
+	// renamebtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
+	// menuContainer.appendChild(renamebtn);
 
-	const SelectAllbtn = document.createElement("button");
-	SelectAllbtn.className = "selectAllButton";
-	SelectAllbtn.id = "selectAllButton";
-	SelectAllbtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
-	menuContainer.appendChild(SelectAllbtn);
+	// const SelectAllbtn = document.createElement("button");
+	// SelectAllbtn.className = "selectAllButton";
+	// SelectAllbtn.id = "selectAllButton";
+	// SelectAllbtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
+	// menuContainer.appendChild(SelectAllbtn);
 
 	const msg = document.createElement("div");
 	msg.className = "msgContainer";
