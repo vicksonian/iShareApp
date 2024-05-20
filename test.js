@@ -409,8 +409,8 @@ function fetchAndDisplayFiles() {
 		});
 }
 
-fetchAndDisplayFiles();
-const intervalId = setInterval(fetchAndDisplayFiles, 600000);
+// fetchAndDisplayFiles();
+// const intervalId = setInterval(fetchAndDisplayFiles, 600000);
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
@@ -456,18 +456,31 @@ function createShareButton(fileId, filename) {
 function createRenameButton(fileId, filename) {
 	const renamebtn = document.createElement("button");
 	renamebtn.className = "context-menu-button";
-	renamebtn.innerHTML = `<i class="fas fa-edit icon"></i> Rename`; // Use 'fa-edit' for the rename icon
+	renamebtn.innerHTML = `<i class="fas fa-edit icon"></i> Rename`;
 	renamebtn.addEventListener("click", (event) => {
 		event.preventDefault();
-		showRenameMenu(event, fileId, filename); // Assuming you have a function to handle renaming
+		showRenameMenu(event, fileId, filename);
 	});
 	return renamebtn;
 }
 
+function createSelectAllButton(fileId, filename) {
+    const selectAllButton = document.createElement("button");
+    selectAllButton.className = "context-menu-button";
+    selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
+    selectAllButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
+    });
+    return selectAllButton;
+}
 
-
-
-
+// Example function to handle selecting all files (you need to implement the details)
+function selectAllFiles(event, fileId, filename) {
+    console.log("Select All button clicked");
+    // Your code to select all files goes here
+    // For example, you could update the UI to indicate that all files are selected
+}
 
 
 // Example rename menu function (you need to implement the details)
@@ -487,8 +500,6 @@ function renameFile(fileId, newName) {
 	// Your code to rename the file on the server goes here
 	// For example, you could make an API call to rename the file
 }
-
-
 
 
 function showButtons(event, fileId, filename) {
