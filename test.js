@@ -265,6 +265,7 @@ function fetchAndDisplayFiles() {
 					);
 					fileNameDiv.textContent = truncatedFileName;
 					videoContainerDiv.appendChild(fileNameDiv);
+					videoContainerDiv.appendChild(checkbox);
 					videoFileList.appendChild(videoContainerDiv);
 					videoContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
@@ -290,6 +291,7 @@ function fetchAndDisplayFiles() {
 					);
 					fileNameDiv.textContent = truncatedFileName;
 					audioContainerDiv.appendChild(fileNameDiv);
+					audioContainerDiv.appendChild(checkbox);
 					audioFileList.appendChild(audioContainerDiv);
 					audioContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
@@ -327,6 +329,7 @@ function fetchAndDisplayFiles() {
 					docContainerDiv.appendChild(fileNameDiv);
 					docWrapperContainer.appendChild(docContainerDiv);
 					docFileList.appendChild(docWrapperContainer);
+					docContainerDiv.appendChild(checkbox);
 					docWrapperContainer.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
@@ -382,6 +385,7 @@ function fetchAndDisplayFiles() {
 					contentsDiv.appendChild(iconDiv);
 					contentsDiv.appendChild(fileNameDiv);
 					fileContainerDiv.appendChild(contentsDiv);
+					fileContainerDiv.appendChild(checkbox);
 					otherFilesContainer.appendChild(fileContainerDiv);
 					fileContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
