@@ -587,6 +587,13 @@ f#search-form:valid #i41 {
 	align-items: center;
 }
 
+#shareButtonicon{
+	color: #51ff00;
+}
+#shareButtonicon:hover{
+	color: #d5ff00;
+}
+
 .share-button-spinner {
     --uib-size: 40px;
     --uib-color: #d5ff00;

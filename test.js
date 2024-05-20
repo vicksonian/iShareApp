@@ -622,10 +622,9 @@ function showShareMenu(event, fileId, filename) {
 	const sharebtn = document.createElement("button");
 	sharebtn.className = "shareButton";
 	sharebtn.id = "shareButton";
-
-	// Create the icon element
 	const icon = document.createElement("i");
 	icon.className = "fas fa-share-alt icon";
+	icon.id = "shareButtonicon";
 	sharebtn.appendChild(icon);
 
 	// Create the spinner element dynamically
@@ -635,7 +634,7 @@ function showShareMenu(event, fileId, filename) {
 	spinner.innerHTML = `
   <div class="share-button-spinner"></div>
 `;
-	spinner.style.display = "block";
+	spinner.style.display = "none";
 	sharebtn.appendChild(spinner);
 
 	menuContainer.appendChild(sharebtn);
