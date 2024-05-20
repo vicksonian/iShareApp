@@ -405,7 +405,7 @@ function fetchAndDisplayFiles() {
 			console.error("Error fetching files:", error);
 		})
 		.finally(() => {
-			hideSpinner();
+			hideSpinner(); // Hide the spinner
 		});
 }
 
@@ -552,55 +552,31 @@ function downloadFile(fileId, filename) {
 		});
 }
 
-// Function to handle file viewing
-function viewFile(fileId) {
-	console.log("View file:", fileId);
-}
-
-// Function to handle file deletion
 function deleteFile(fileId, filename) {
-	const confirmDelete = window.confirm(
-		`Are you sure you want to delete ${filename}?`
-	);
-	if (confirmDelete) {
-		fetch(`https://ishare-i8td.onrender.com/files/${fileId}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${d_token}`,
-			},
+	fetch(`https://ishare-i8td.onrender.com/delete/${fileId}`, {
+		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${d_token}`,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			console.log(`File '${filename}' deleted successfully.`);
+			const fileElement = document.getElementById(`file-${fileId}`);
+			if (fileElement) {
+				fileElement.remove();
+				console.log(`File element '${filename}' removed from UI.`);
+			} else {
+				console.log(`File element '${filename}' not found in UI.`);
+			}
+			showDeleteNotification(filename);
 		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
-				console.log("File deleted successfully:", filename);
-				fetchAndDisplayFiles(); // Refresh the file list
-			})
-			.catch((error) => {
-				console.error("Error deleting file:", error);
-			});
-	}
+		.catch((error) => {
+			console.error("Error deleting file:", error);
+		});
 }
-
-// Function to toggle the checkbox state
-function toggleCheckboxState(event) {
-	const fileNameElement = event.target;
-	const checkbox = fileNameElement
-		.closest("div")
-		.querySelector(".file-checkbox");
-	checkbox.checked = !checkbox.checked;
-}
-
-// Add event listeners to toggle checkbox state on double-click
-document.addEventListener("dblclick", function (event) {
-	if (
-		event.target.classList.contains("file-name") ||
-		event.target.classList.contains("doc-file-name") ||
-		event.target.classList.contains("file-file-name")
-	) {
-		toggleCheckboxState(event);
-	}
-});
 
 function showDeleteNotification(filename) {
 	const notificationElement = document.createElement("div");
