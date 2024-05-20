@@ -465,30 +465,33 @@ function createRenameButton(fileId, filename) {
 }
 
 function createSelectAllButton(fileId, filename) {
-	const selectAllButton = document.createElement("button");
-	selectAllButton.className = "context-menu-button";
-	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
-	selectAllButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
-	});
-	return selectAllButton;
+    const selectAllButton = document.createElement("button");
+    selectAllButton.className = "context-menu-button";
+    selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
+    selectAllButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
+    });
+    return selectAllButton;
 }
 
 // Example function to handle selecting all files (you need to implement the details)
 function selectAllFiles(event, fileId, filename) {
-	console.log("Select All button clicked");
-
-
+    console.log("Select All button clicked");
+    // Your code to select all files goes here
+    // For example, you could update the UI to indicate that all files are selected
 }
 
 
-// Function to show the rename menu and prompt the user for a new name
+// Example rename menu function (you need to implement the details)
 function showRenameMenu(event, fileId, filename) {
-    const newName = prompt("Enter new name for the file:", filename);
-    if (newName && newName !== filename) {
-        renameFile(fileId, newName);
-    }
+	// Your code to show the rename menu or prompt goes here
+	// For example, you could prompt the user to enter a new name for the file
+	const newName = prompt("Enter new name for the file:", filename);
+	if (newName) {
+		// Call a function to handle the renaming process
+		renameFile(fileId, newName);
+	}
 }
 
 // Example function to handle renaming (you need to implement the details)
