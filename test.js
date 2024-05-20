@@ -221,7 +221,7 @@ function fetchAndDisplayFiles() {
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
 					const imageContainerBox = document.createElement("div");
 					imageContainerBox.className = "image-container-box";
-					imageContainerBox.id = `file-${file.id}`; // Use file ID
+					imageContainerBox.id = `file-${file.id}`;
 					const imageDiv = document.createElement("div");
 					imageDiv.className = "image";
 					imageDiv.id = "image";
@@ -337,6 +337,7 @@ function fetchAndDisplayFiles() {
 				} else {
 					const fileContainerDiv = document.createElement("div");
 					fileContainerDiv.className = "files-container-box";
+					fileContainerDiv.id = `file-${file.id}`;
 					const contentsDiv = document.createElement("div");
 					contentsDiv.className = "files-container-box-contents";
 
@@ -870,4 +871,3 @@ function renameFile(fileId, newName) {
 			alert("Error renaming file: " + error.message);
 		});
 }
-
