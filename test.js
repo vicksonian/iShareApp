@@ -456,10 +456,10 @@ function createShareButton(fileId, filename) {
 function createRenameButton(fileId, filename) {
 	const renamebtn = document.createElement("button");
 	renamebtn.className = "context-menu-button";
-	renamebtn.innerHTML = `<i class="fas fa-share-alt icon"></i> Rename`;
+	renamebtn.innerHTML = `<i class="fas fa-edit icon"></i> Rename`;
 	renamebtn.addEventListener("click", (event) => {
 		event.preventDefault();
-		showShareMenu(event, fileId, filename);
+		showRenameMenu(event, fileId, filename);
 	});
 	return renamebtn;
 }
@@ -470,10 +470,29 @@ function createSelectAllButton(fileId, filename) {
 	selectAllButton.innerHTML = `<i class="fas fa-share-alt icon"></i> Select All`;
 	selectAllButton.addEventListener("click", (event) => {
 		event.preventDefault();
-		showShareMenu(event, fileId, filename);
+		selectAllFiles(event, fileId, filename);
 	});
 	return selectAllButton;
 }
+
+// Example rename menu function (you need to implement the details)
+function showRenameMenu(event, fileId, filename) {
+	// Your code to show the rename menu or prompt goes here
+	// For example, you could prompt the user to enter a new name for the file
+	const newName = prompt("Enter new name for the file:", filename);
+	if (newName) {
+		// Call a function to handle the renaming process
+		renameFile(fileId, newName);
+	}
+}
+
+// Example function to handle renaming (you need to implement the details)
+function renameFile(fileId, newName) {
+	console.log(`Renaming file ${fileId} to ${newName}`);
+	// Your code to rename the file on the server goes here
+	// For example, you could make an API call to rename the file
+}
+
 
 function showButtons(event, fileId, filename) {
 	const existingContainer = document.querySelector(".context-menu-container");
@@ -810,15 +829,3 @@ function hideMenuOnClickOutside(event) {
 		document.removeEventListener("click", hideMenuOnClickOutside);
 	}
 }
-
-// // Add event listener to the "Select All" checkbox
-// document
-// 	.getElementById("selectAll")
-// 	.addEventListener(".file-checkbox", (event) => {
-// 		const checkboxes = document.querySelectorAll(
-// 			"#fileContainer input[type='checkbox']"
-// 		);
-// 		checkboxes.forEach((checkbox) => {
-// 			checkbox.checked = event.target.checked;
-// 		});
-// 	});
