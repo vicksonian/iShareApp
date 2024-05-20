@@ -819,10 +819,10 @@ function showRenameMenu(event, fileId, filename) {
 	}
 }
 
-// const fR_token = localStorage.getItem("token");
+const fR_token = localStorage.getItem("token");
 // Function to make an API call to rename the file on the server
 function renameFile(fileId, newName) {
-	const fR_token = localStorage.getItem("token");
+	// const fR_token = localStorage.getItem("token");
 	fetch("https://ishare-i8td.onrender.com/rename", {
 		method: "POST",
 		headers: {
