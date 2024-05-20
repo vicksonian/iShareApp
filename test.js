@@ -410,7 +410,7 @@ function fetchAndDisplayFiles() {
 }
 
 fetchAndDisplayFiles();
-const intervalId = setInterval(fetchAndDisplayFiles, 300000);
+const intervalId = setInterval(fetchAndDisplayFiles);
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
