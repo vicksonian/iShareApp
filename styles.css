@@ -444,7 +444,6 @@ f#search-form:valid #i41 {
 	width: 20px;
 	height: 20px;
 	background: none;
-	padding-left: 20px;
 	float: right;
 	right: 0px;
 	border: none;
@@ -478,6 +477,8 @@ f#search-form:valid #i41 {
 
 .context-menu-container .context-menu-button:last-child {
     background-color: #ff0202;
+	width: 100%;
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
