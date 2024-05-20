@@ -366,8 +366,7 @@ function fetchAndDisplayFiles() {
 					});
 
 					docWrapperContainer.addEventListener("dblclick", () => {
-						const checkbox =
-							docWrapperContainer.querySelector(".file-checkbox");
+						const checkbox = docWrapperContainer.querySelector(".file-checkbox");
 						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
 							docWrapperContainer.style.backgroundColor = "#f0f0f0";
@@ -520,21 +519,17 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton(containerId) {
+function createSelectAllButton() {
 	const selectAllButton = document.createElement("button");
 	selectAllButton.className = "context-menu-button";
 	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
 	selectAllButton.addEventListener("click", () => {
-		selectAllFiles(containerId);
+		selectAllFiles();
 	});
 	return selectAllButton;
 }
-
-function selectAllFiles(containerId) {
-	const container = document.getElementById(containerId);
-	if (!container) return; // Check if container exists
-
-	const checkboxes = container.querySelectorAll(".file-checkbox");
+function selectAllFiles() {
+	const checkboxes = document.querySelectorAll(".file-checkbox");
 	checkboxes.forEach((checkbox) => {
 		checkbox.checked = true;
 		// Optionally, you can apply visual cues to indicate selection here
@@ -673,7 +668,6 @@ function showShareMenu(event, fileId, filename) {
 	header.className = "share-context-menu-header";
 	header.textContent = "Enter recipient's username or email";
 	headerContainer.appendChild(header);
-
 	const clbtn = document.createElement("button");
 	clbtn.className = "context-menu-closeButton";
 	clbtn.id = "context-menu-close-btn";
