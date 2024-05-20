@@ -482,7 +482,8 @@ f#search-form:valid #i41 {
 
 
 .shareButton {
-	background-color: #050662;
+	width: 100%;
+	background-color: #8082dc;
 	color: white;
 	border: none;
 	padding: 8px 12px;
