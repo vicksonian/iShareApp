@@ -634,7 +634,12 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.appendChild(msg);
 
 	const confirmationMsg = document.createElement("div");
-	confirmationMsg.textContent = `File '${filename}' selected for sharing.`;
+	const maxLength = 50;
+	const truncatedFilename =
+		filename.length > maxLength
+			? filename.substring(0, maxLength) + "..."
+			: filename;
+	confirmationMsg.textContent = `File '${truncatedFilename}' selected for sharing.`;
 	confirmationMsg.className = "confirmation-message";
 	menuContainer.appendChild(confirmationMsg);
 	setTimeout(() => {
