@@ -389,6 +389,7 @@ f#search-form:valid #i41 {
 .context-menu-button {
 	display: flex;
 	align-items: center;
+	background: none;
 	padding: 5px;
 	width: 100%;
 	text-align: left;
