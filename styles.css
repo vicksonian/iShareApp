@@ -566,6 +566,15 @@ f#search-form:valid #i41 {
     z-index: 99999;
 }
 
+.pBar{
+	position: absolute;
+    z-index: 99999;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 @media screen and (max-width: 400px){
 	.share-context-menu-container{
 		max-width: 200px;

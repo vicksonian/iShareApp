@@ -647,6 +647,14 @@ function showShareMenu(event, fileId, filename) {
 	}, 1440000);
 	document.body.appendChild(menuContainer);
 
+	const pbar = document.createElement("progressbar");
+	pbar.className = "pBar";
+	pbar.id = "pBar";
+	pbar.style.display = "none";
+	pbar.style.width = "100%";
+	pbar.style.backgroundColor = "aqua";
+	menuContainer.appendChild(pbar);
+
 	menuContainer.style.display = "block";
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
