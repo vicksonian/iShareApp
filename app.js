@@ -186,21 +186,6 @@ function fetchAndDisplayFiles() {
 			docFileList.innerHTML = "";
 			otherFilesContainer.innerHTML = "";
 
-			// const photosSelectAllButton = createSelectAllButton("photosContainer");
-			// photosContainer.appendChild(photosSelectAllButton);
-
-			// const videosSelectAllButton = createSelectAllButton("videoFileList");
-			// videoFileList.appendChild(videosSelectAllButton);
-
-			// const audioSelectAllButton = createSelectAllButton("audiofileList");
-			// audioFileList.appendChild(audioSelectAllButton);
-
-			// const docSelectAllButton = createSelectAllButton("docfileList");
-			// docFileList.appendChild(docSelectAllButton);
-
-			// const filesSelectAllButton = createSelectAllButton("otherFilesList");
-			// otherFilesContainer.appendChild(filesSelectAllButton);
-
 			if (data.files.length === 0) {
 				MsgBoxContainer.textContent = "No files found...";
 			} else {
@@ -535,42 +520,15 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-// Function to create a single "Select All" button
-function createSelectAllButton() {
-    const selectAllButton = document.createElement("button");
-    selectAllButton.className = "context-menu-button";
-    selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
-    selectAllButton.addEventListener("click", () => {
-        // Determine the active section based on user interaction
-        const activeSection = determineActiveSection();
-        if (activeSection) {
-            selectAllFiles(activeSection);
-        }
-    });
-    return selectAllButton;
+function createSelectAllButton(containerId) {
+	const selectAllButton = document.createElement("button");
+	selectAllButton.className = "context-menu-button";
+	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
+	selectAllButton.addEventListener("click", () => {
+		selectAllFiles(containerId);
+	});
+	return selectAllButton;
 }
-
-// Function to determine the active section based on user interaction
-function determineActiveSection() {
-    // Check which section has files visible (display: block)
-    if (photosContainer.style.display === "block") {
-        return photosContainer;
-    } else if (videoFileList.style.display === "block") {
-        return videoFileList;
-    } else if (audioFileList.style.display === "block") {
-        return audioFileList;
-    } else if (docFileList.style.display === "block") {
-        return docFileList;
-    } else if (otherFilesContainer.style.display === "block") {
-        return otherFilesContainer;
-    }
-    return null; // Return null if no active section is found
-}
-
-// Attach the click event listener to the single "Select All" button
-const selectAllButton = createSelectAllButton();
-document.getElementById("selectAllButtonContainer").appendChild(selectAllButton);
-
 
 function selectAllFiles(containerId) {
 	const container = document.getElementById(containerId);
@@ -602,10 +560,7 @@ function showButtons(event, fileId, filename) {
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
 	const renameButton = createRenameButton(fileId, filename);
-
-	// const selectAllButton = createSelectAllButton(fileId, filename);
-    const selectAllButton = createSelectAllButton();
-
+	const selectAllButton = createSelectAllButton(fileId, filename);
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
@@ -927,81 +882,12 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-// // Function to show the rename menu and prompt the user for a new name
-// function showRenameMenu(event, fileId, filename) {
-// 	const newName = prompt("Enter new name for the file:", filename);
-// 	if (newName && newName !== filename) {
-// 		renameFile(fileId, newName);
-// 	}
-// }
-
 // Function to show the rename menu and prompt the user for a new name
 function showRenameMenu(event, fileId, filename) {
-	// Check if rename menu already exists, if so, remove it
-	const existingRenameMenu = document.getElementById("renameMenu");
-	if (existingRenameMenu) {
-		existingRenameMenu.remove();
+	const newName = prompt("Enter new name for the file:", filename);
+	if (newName && newName !== filename) {
+		renameFile(fileId, newName);
 	}
-
-	// Create the rename menu container
-	const renameMenu = document.createElement("div");
-	renameMenu.id = "renameMenu";
-	renameMenu.className = "rename-menu";
-
-	// Create input field for entering new name
-	const inputField = document.createElement("input");
-	inputField.type = "text";
-	inputField.value = filename; // Set the initial value to the current filename
-	inputField.className = "rename-input";
-
-	// Create submit button
-	const submitButton = document.createElement("button");
-	submitButton.textContent = "Rename";
-	submitButton.className = "rename-button";
-
-	// Event listener for submit button
-	submitButton.addEventListener("click", () => {
-		const newName = inputField.value.trim(); // Get the new name from the input field
-		if (newName && newName !== filename) {
-			renameFile(fileId, newName); // Call the renameFile function with the new name
-			renameMenu.remove(); // Remove the rename menu after renaming
-		}
-	});
-
-	// Append input field and submit button to the rename menu
-	renameMenu.appendChild(inputField);
-	renameMenu.appendChild(submitButton);
-
-	// Append rename menu to the document body
-	document.body.appendChild(renameMenu);
-
-	// Position the rename menu at the center of the section
-	const section = event.target.closest(".file-container"); // Assuming each section has a class named "file-container"
-	if (section) {
-		const sectionRect = section.getBoundingClientRect();
-		const sectionCenterX = sectionRect.left + sectionRect.width / 2;
-		const sectionCenterY = sectionRect.top + sectionRect.height / 2;
-		const menuWidth = renameMenu.offsetWidth;
-		const menuHeight = renameMenu.offsetHeight;
-		renameMenu.style.left = sectionCenterX - menuWidth / 2 + "px";
-		renameMenu.style.top = sectionCenterY - menuHeight / 2 + "px";
-	} else {
-		// If section not found, position at the center of the viewport
-		renameMenu.style.left = "50%";
-		renameMenu.style.top = "50%";
-		renameMenu.style.transform = "translate(-50%, -50%)";
-	}
-
-	// Focus on the input field
-	inputField.focus();
-
-	// Event listener to remove rename menu when clicking outside of it
-	document.addEventListener("click", function removeRenameMenu(event) {
-		if (!renameMenu.contains(event.target)) {
-			renameMenu.remove();
-			document.removeEventListener("click", removeRenameMenu);
-		}
-	});
 }
 
 const fR_token = localStorage.getItem("token");
