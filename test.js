@@ -464,16 +464,16 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton(fileId, filename) {
-	const selectAllButton = document.createElement("button");
-	selectAllButton.className = "context-menu-button";
-	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
-	selectAllButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
-	});
-	return selectAllButton;
-}
+// function createSelectAllButton(fileId, filename) {
+// 	const selectAllButton = document.createElement("button");
+// 	selectAllButton.className = "context-menu-button";
+// 	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
+// 	selectAllButton.addEventListener("click", (event) => {
+// 		event.preventDefault();
+// 		selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
+// 	});
+// 	return selectAllButton;
+// }
 
 // Example function to handle selecting all files (you need to implement the details)
 function selectAllFiles(event, fileId, filename) {
@@ -534,7 +534,7 @@ function showButtons(event, fileId, filename) {
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
 	const renameButton = createRenameButton(fileId, filename);
-	const selectAllButton = createSelectAllButton(fileId, filename);
+	// const selectAllButton = createSelectAllButton(fileId, filename);
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
@@ -546,7 +546,7 @@ function showButtons(event, fileId, filename) {
 	deleteButton.addEventListener("click", hideButtons);
 	shareButton.addEventListener("click", hideButtons);
 	renameButton.addEventListener("click", hideButtons);
-	selectAllButton.addEventListener("click", hideButtons);
+	// selectAllButton.addEventListener("click", hideButtons);
 
 	document.body.appendChild(menuContainer);
 
