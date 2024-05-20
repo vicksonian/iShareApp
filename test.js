@@ -795,14 +795,14 @@ function hideMenuOnClickOutside(event) {
 	}
 }
 
-// Add event listener to the "Select All" checkbox
-document
-	.getElementById("selectAll")
-	.addEventListener(".file-checkbox", (event) => {
-		const checkboxes = document.querySelectorAll(
-			"#fileContainer input[type='checkbox']"
-		);
-		checkboxes.forEach((checkbox) => {
-			checkbox.checked = event.target.checked;
-		});
-	});
+// // Add event listener to the "Select All" checkbox
+// document
+// 	.getElementById("selectAll")
+// 	.addEventListener(".file-checkbox", (event) => {
+// 		const checkboxes = document.querySelectorAll(
+// 			"#fileContainer input[type='checkbox']"
+// 		);
+// 		checkboxes.forEach((checkbox) => {
+// 			checkbox.checked = event.target.checked;
+// 		});
+// 	});
