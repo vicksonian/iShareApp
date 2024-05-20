@@ -736,7 +736,10 @@ function showShareMenu(event, fileId, filename) {
 			recipient_identifier: recipient,
 		};
 
-		console.log("Payload:", payload);
+		// Show spinner
+		const spinner = document.querySelector(".spinner-container");
+		spinner.style.display = "block";
+
 		const fs_token = localStorage.getItem("token");
 
 		fetch("https://ishare-i8td.onrender.com/share", {
@@ -764,6 +767,10 @@ function showShareMenu(event, fileId, filename) {
 			.catch((error) => {
 				console.error("Error sharing file:", error);
 				showShareMenuMessage("Error sharing file", "red");
+			})
+			.finally(() => {
+				// Hide spinner after request completion
+				spinner.style.display = "none";
 			});
 	}
 
