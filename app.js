@@ -248,13 +248,13 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 
-					fileContainerDiv.addEventListener("dblclick", () => {
-						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+					imageContainerBox.addEventListener("dblclick", () => {
+						const checkbox = imageContainerBox.querySelector(".file-checkbox");
 						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
-							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+							imageContainerBox.style.backgroundColor = "#f0f0f0";
 						} else {
-							fileContainerDiv.style.backgroundColor = "";
+							imageContainerBox.style.backgroundColor = "";
 						}
 					});
 					imageElement.addEventListener("click", handleImageClick);
@@ -282,13 +282,13 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 
-					fileContainerDiv.addEventListener("dblclick", () => {
-						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+					videoContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = videoContainerDiv.querySelector(".file-checkbox");
 						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
-							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+							videoContainerDiv.style.backgroundColor = "#f0f0f0";
 						} else {
-							fileContainerDiv.style.backgroundColor = "";
+							videoContainerDiv.style.backgroundColor = "";
 						}
 					});
 					videoElement.addEventListener("click", handleVideoClick);
@@ -318,13 +318,13 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 
-					fileContainerDiv.addEventListener("dblclick", () => {
-						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+					audioContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = audioContainerDiv.querySelector(".file-checkbox");
 						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
-							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+							audioContainerDiv.style.backgroundColor = "#f0f0f0";
 						} else {
-							fileContainerDiv.style.backgroundColor = "";
+							audioContainerDiv.style.backgroundColor = "";
 						}
 					});
 				} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
@@ -365,13 +365,14 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 
-					fileContainerDiv.addEventListener("dblclick", () => {
-						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+					docWrapperContainer.addEventListener("dblclick", () => {
+						const checkbox =
+							docWrapperContainer.querySelector(".file-checkbox");
 						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
-							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+							docWrapperContainer.style.backgroundColor = "#f0f0f0";
 						} else {
-							fileContainerDiv.style.backgroundColor = "";
+							docWrapperContainer.style.backgroundColor = "";
 						}
 					});
 				} else {
@@ -519,15 +520,25 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton(fileId, filename) {
+function createSelectAllButton() {
 	const selectAllButton = document.createElement("button");
 	selectAllButton.className = "context-menu-button";
 	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
-	selectAllButton.addEventListener("click", (event) => {
-		event.preventDefault();
-		showShareMenu(event, fileId, filename);
+	selectAllButton.addEventListener("click", () => {
+		selectAllFiles();
 	});
 	return selectAllButton;
+}
+function selectAllFiles() {
+	const checkboxes = document.querySelectorAll(".file-checkbox");
+	checkboxes.forEach((checkbox) => {
+		checkbox.checked = true;
+		// Optionally, you can apply visual cues to indicate selection here
+		const fileContainerDiv = checkbox.closest(".files-container-box");
+		if (fileContainerDiv) {
+			fileContainerDiv.style.backgroundColor = "#f0f0f0"; // Change background color
+		}
+	});
 }
 
 function showButtons(event, fileId, filename) {
