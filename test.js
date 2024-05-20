@@ -775,7 +775,6 @@ function showShareMenu(event, fileId, filename) {
 	}
 
 	function showShareMenuMessage(message, color) {
-		// Create message container if not found
 		let msgContainer = document.getElementById("msgContainer");
 		if (!msgContainer) {
 			msgContainer = document.createElement("div");
