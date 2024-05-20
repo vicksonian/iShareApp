@@ -650,7 +650,7 @@ function showShareMenu(event, fileId, filename) {
 	const pbar = document.createElement("progressbar");
 	pbar.className = "pBar";
 	pbar.id = "pBar";
-	pbar.style.display = "none";
+	pbar.style.display = "block";
 	pbar.style.width = "100%";
 	pbar.style.backgroundColor = "aqua";
 	menuContainer.appendChild(pbar);
