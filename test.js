@@ -475,7 +475,6 @@ function createSelectAllButton(fileId, filename) {
 	return selectAllButton;
 }
 
-// Example function to handle selecting all files (you need to implement the details)
 function selectAllFiles(event, fileId, filename) {
 	console.log("Select All button clicked");
 
@@ -491,30 +490,30 @@ function showRenameMenu(event, fileId, filename) {
     }
 }
 
-// Function to make an API call to rename the file on the server
+const Rtoken = localStorage.getItem("token");
 function renameFile(fileId, newName) {
     const token = localStorage.getItem('authToken'); // Assuming you store the auth token in local storage
-    fetch('/rename', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Assuming the token is required for authentication
-        },
-        body: JSON.stringify({ file_id: fileId, new_filename: newName })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            alert('File renamed successfully');
-			fetchAndDisplayFiles();
-        } else {
-            alert('Error renaming file: ' + (data.error || 'Unknown error'));
-        }
-    })
-    .catch(error => {
-        console.error('Error renaming file:', error);
-        alert('Error renaming file: ' + error.message);
-    });
+    fetch("https://ishare-i8td.onrender.com/rename", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${Rtoken}`,
+			},
+			body: JSON.stringify({ file_id: fileId, new_filename: newName }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.message) {
+					alert("File renamed successfully");
+					fetchAndDisplayFiles();
+				} else {
+					alert("Error renaming file: " + (data.error || "Unknown error"));
+				}
+			})
+			.catch((error) => {
+				console.error("Error renaming file:", error);
+				alert("Error renaming file: " + error.message);
+			});
 }
 
 function showButtons(event, fileId, filename) {
