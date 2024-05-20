@@ -389,7 +389,7 @@ f#search-form:valid #i41 {
 .context-menu-button {
 	display: flex;
 	align-items: center;
-	background: none;
+	background: rgba(255, 0, 0, 0);
 	padding: 5px;
 	width: 100%;
 	text-align: left;
@@ -444,6 +444,7 @@ f#search-form:valid #i41 {
 	height: 20px;
 	border: none;
 	cursor: pointer;
+	background: #01041500;
 	font-size: 14px;
 	color: #ffffff;
 	transition: color 0.3s;
