@@ -39,7 +39,6 @@ body {
 
 .image-name {
 	width: 100%;
-	padding: 5px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -402,6 +401,7 @@ f#search-form:valid #i41 {
 
 /* Container for the entire context menu */
 .share-context-menu-container {
+	max-width: 280px;
 	position: absolute;
 	background-color: #05074c;
 	border: 1px solid #ccc;
@@ -567,6 +567,12 @@ f#search-form:valid #i41 {
 }
 
 @media screen and (max-width: 400px){
+	.share-context-menu-container{
+		max-width: 200px;
+        padding: 10px;
+        font-size: 12px;
+
+	}
 	.context-menu-container{
 		max-width: 200px;
 		padding: 10px;

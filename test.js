@@ -625,18 +625,6 @@ function showShareMenu(event, fileId, filename) {
 	sharebtn.innerHTML = `<i class="fas fa-share-alt icon"></i>`;
 	menuContainer.appendChild(sharebtn);
 
-	// const renamebtn = document.createElement("button");
-	// renamebtn.className = "renameButton";
-	// renamebtn.id = "renameButton";
-	// renamebtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
-	// menuContainer.appendChild(renamebtn);
-
-	// const SelectAllbtn = document.createElement("button");
-	// SelectAllbtn.className = "selectAllButton";
-	// SelectAllbtn.id = "selectAllButton";
-	// SelectAllbtn.innerHTML = `<i class="fas fa-pen-alt icon"></i>`;
-	// menuContainer.appendChild(SelectAllbtn);
-
 	const msg = document.createElement("div");
 	msg.className = "msgContainer";
 	msg.id = "msgContainer";
@@ -644,14 +632,17 @@ function showShareMenu(event, fileId, filename) {
 	msg.style.marginTop = "10px";
 	msg.textContent = " ";
 	menuContainer.appendChild(msg);
+
 	const confirmationMsg = document.createElement("div");
 	confirmationMsg.textContent = `File '${filename}' selected for sharing.`;
 	confirmationMsg.className = "confirmation-message";
 	menuContainer.appendChild(confirmationMsg);
 	setTimeout(() => {
 		confirmationMsg.remove();
-	}, 14400);
+	});//14000
 	document.body.appendChild(menuContainer);
+
+
 	menuContainer.style.display = "block";
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
