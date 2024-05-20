@@ -605,6 +605,7 @@ function showShareMenu(event, fileId, filename) {
 	headerContainer.appendChild(header);
 	const clbtn = document.createElement("button");
 	clbtn.className = "context-menu-button";
+	clbtn.id = "context-menu-close-btn";
 	clbtn.innerHTML = `<i class="fas fa-times icon"></i>`;
 	clbtn.addEventListener("click", () => {
 		menuContainer.remove();

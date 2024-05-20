@@ -444,6 +444,19 @@ f#search-form:valid #i41 {
 	text-align: left;
 }
 
+#context-menu-close-btn{
+	height: 20px;
+	width: 40px;
+	border: none;
+	background: transparent;
+	font-size: 14px;
+	color: red;
+	transition: color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 
 .context-menu-button:hover {
 	color: #c10e0e;
