@@ -475,6 +475,7 @@ function createSelectAllButton(fileId, filename) {
 	return selectAllButton;
 }
 
+// Example function to handle selecting all files (you need to implement the details)
 function selectAllFiles(event, fileId, filename) {
 	console.log("Select All button clicked");
 
@@ -490,31 +491,13 @@ function showRenameMenu(event, fileId, filename) {
     }
 }
 
-// const Rtoken = localStorage.getItem("token");
-// function renameFile(fileId, newName) {
-//     const token = localStorage.getItem('authToken'); // Assuming you store the auth token in local storage
-//     fetch("https://ishare-i8td.onrender.com/rename", {
-// 			method: "POST",
-// 			headers: {
-// 				"Content-Type": "application/json",
-// 				Authorization: `Bearer ${Rtoken}`,
-// 			},
-// 			body: JSON.stringify({ file_id: fileId, new_filename: newName }),
-// 		})
-// 			.then((response) => response.json())
-// 			.then((data) => {
-// 				if (data.message) {
-// 					alert("File renamed successfully");
-// 					fetchAndDisplayFiles();
-// 				} else {
-// 					alert("Error renaming file: " + (data.error || "Unknown error"));
-// 				}
-// 			})
-// 			.catch((error) => {
-// 				console.error("Error renaming file:", error);
-// 				alert("Error renaming file: " + error.message);
-// 			});
-// }
+// Example function to handle renaming (you need to implement the details)
+function renameFile(fileId, newName) {
+	console.log(`Renaming file ${fileId} to ${newName}`);
+	// Your code to rename the file on the server goes here
+	// For example, you could make an API call to rename the file
+}
+
 
 function showButtons(event, fileId, filename) {
 	const existingContainer = document.querySelector(".context-menu-container");
