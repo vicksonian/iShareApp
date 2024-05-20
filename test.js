@@ -639,9 +639,8 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.appendChild(confirmationMsg);
 	setTimeout(() => {
 		confirmationMsg.remove();
-	});//14000
+	}, 1440000);
 	document.body.appendChild(menuContainer);
-
 
 	menuContainer.style.display = "block";
 	const viewportWidth = window.innerWidth;
