@@ -376,7 +376,7 @@ f#search-form:valid #i41 {
 	z-index: 1000;
 	padding: 10px;
 	color: #f1eeee;
-	width: 200px;
+	width: 150px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -385,6 +385,16 @@ f#search-form:valid #i41 {
 	align-content: center;
 }
 
+/* Style for the context menu buttons */
+.context-menu-button {
+	display: flex;
+	align-items: center;
+	border: none;
+	padding: 5px;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+}
 
 .context-menu-button .icon {
 	margin-right: 8px;
@@ -434,6 +444,7 @@ f#search-form:valid #i41 {
 	width: 20px;
 	height: 20px;
 	background: none;
+	padding-left: 20px;
 	float: right;
 	right: 0px;
 	border: none;
@@ -466,11 +477,10 @@ f#search-form:valid #i41 {
 }
 
 .context-menu-container .context-menu-button:last-child {
-    background-color: #ea0606;
+    background-color: #ff0202;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
 }
 
 /* Share button styling */
