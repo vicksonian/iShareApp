@@ -215,15 +215,10 @@ function fetchAndDisplayFiles() {
 				checkbox.className = "file-checkbox";
 				checkbox.id = `checkbox-${file.id}`;
 				checkbox.name = `checkbox-${file.id}`;
-				checkbox.style.display = "block";
+				checkbox.style.display = "none";
 				checkbox.value = file.filename;
 
-				const contextMenuButtonContainer = document.createElement("div");
-				contextMenuButtonContainer.className = "context-menu-button-container";
-
-				let sectionClass;
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
-					sectionClass = "photosfileList";
 					const imageContainerBox = document.createElement("div");
 					imageContainerBox.className = "image-container-box";
 					imageContainerBox.id = `file-${file.id}`;
@@ -264,7 +259,6 @@ function fetchAndDisplayFiles() {
 					});
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
-					sectionClass = "videofileList";
 					const videoContainerDiv = document.createElement("div");
 					videoContainerDiv.className = "video-container-box";
 					videoContainerDiv.id = `file-${file.id}`;
@@ -299,7 +293,6 @@ function fetchAndDisplayFiles() {
 					});
 					videoElement.addEventListener("click", handleVideoClick);
 				} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
-					sectionClass = "audiofileList";
 					const audioContainerDiv = document.createElement("div");
 					audioContainerDiv.className = "audio-container-box";
 					audioContainerDiv.id = `file-${file.id}`;
@@ -335,7 +328,6 @@ function fetchAndDisplayFiles() {
 						}
 					});
 				} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
-					sectionClass = "docfileList";
 					const docWrapperContainer = document.createElement("div");
 					docWrapperContainer.className = "doc-wrapper-container";
 					const docContainerDiv = document.createElement("div");
@@ -384,7 +376,6 @@ function fetchAndDisplayFiles() {
 						}
 					});
 				} else {
-					sectionClass = "otherFilesList";
 					const fileContainerDiv = document.createElement("div");
 					fileContainerDiv.className = "files-container-box";
 					fileContainerDiv.id = `file-${file.id}`;
@@ -453,10 +444,6 @@ function fetchAndDisplayFiles() {
 						}
 					});
 				}
-
-				// Add the select all button to the context menu for each section
-				const selectAllButton = createSelectAllButton(sectionClass);
-				contextMenuButtonContainer.appendChild(selectAllButton);
 			});
 			const fileNameElements = document.querySelectorAll(".file-name");
 
@@ -478,8 +465,8 @@ function fetchAndDisplayFiles() {
 		});
 }
 
-// fetchAndDisplayFiles();
-// const intervalId = setInterval(fetchAndDisplayFiles, 600000);
+fetchAndDisplayFiles();
+const intervalId = setInterval(fetchAndDisplayFiles, 600000);
 
 function truncateFileName(fileName, maxLength) {
 	if (fileName.length > maxLength) {
@@ -533,27 +520,23 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton(sectionClass) {
+function createSelectAllButton() {
 	const selectAllButton = document.createElement("button");
 	selectAllButton.className = "context-menu-button";
 	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
 	selectAllButton.addEventListener("click", () => {
-		selectAllFiles(sectionClass);
+		selectAllFiles();
 	});
 	return selectAllButton;
 }
-
-function selectAllFiles(sectionClass) {
-	const checkboxes = document.querySelectorAll(
-		`.${sectionClass} .file-checkbox`
-	);
+function selectAllFiles() {
+	const checkboxes = document.querySelectorAll(".file-checkbox");
 	checkboxes.forEach((checkbox) => {
 		checkbox.checked = true;
-		const fileContainerDiv = checkbox.closest(
-			".files-container-box, .image-container-box, .video-container-box, .audio-container-box, .doc-wrapper-container"
-		);
+		// Optionally, you can apply visual cues to indicate selection here
+		const fileContainerDiv = checkbox.closest(".files-container-box");
 		if (fileContainerDiv) {
-			fileContainerDiv.style.backgroundColor = "#f0f0f0";
+			fileContainerDiv.style.backgroundColor = "#f0f0f0"; // Change background color
 		}
 	});
 }
@@ -573,29 +556,14 @@ function showButtons(event, fileId, filename) {
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
 	const renameButton = createRenameButton(fileId, filename);
-
-	// Determine section class based on the file type
-	const fileElement = document.getElementById(`file-${fileId}`);
-	let sectionClass = "";
-	if (fileElement.closest(".image-container-box")) {
-		sectionClass = "photosfileList";
-	} else if (fileElement.closest(".video-container-box")) {
-		sectionClass = "videofileList";
-	} else if (fileElement.closest(".audio-container-box")) {
-		sectionClass = "audiofileList";
-	} else if (fileElement.closest(".doc-wrapper-container")) {
-		sectionClass = "docfileList";
-	} else if (fileElement.closest(".files-container-box")) {
-		sectionClass = "otherFilesList";
-	}
-
-	const selectAllButton = createSelectAllButton(sectionClass);
+	const selectAllButton = createSelectAllButton(fileId, filename);
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
 	menuContainer.appendChild(renameButton);
 	menuContainer.appendChild(selectAllButton);
 
+	// Add event listener to hide menu when any button is clicked
 	downloadButton.addEventListener("click", hideButtons);
 	deleteButton.addEventListener("click", hideButtons);
 	shareButton.addEventListener("click", hideButtons);
@@ -603,6 +571,8 @@ function showButtons(event, fileId, filename) {
 	selectAllButton.addEventListener("click", hideButtons);
 
 	document.body.appendChild(menuContainer);
+
+	// Add event listener to hide menu when clicking outside the menu
 	document.addEventListener("click", hideButtonsOutside);
 	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
