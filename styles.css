@@ -587,9 +587,9 @@ f#search-form:valid #i41 {
 	align-items: center;
 }
 
-  .share-button-spinner {
+.share-button-spinner {
     --uib-size: 40px;
-    --uib-color: black;
+    --uib-color: #d5ff00;
     --uib-speed: .9s;
     --uib-stroke: 5px;
     --mask-size: calc(var(--uib-size) / 2 - var(--uib-stroke));
@@ -599,16 +599,12 @@ f#search-form:valid #i41 {
     justify-content: flex-start;
     height: var(--uib-size);
     width: var(--uib-size);
-    -webkit-mask: radial-gradient(
-      circle var(--mask-size),
-      transparent 99%,
-      #000 100%
-    );
-    mask: radial-gradient(circle var(--mask-size), transparent 99%, #000 100%);
-    background-image: conic-gradient(transparent 25%, var(--uib-color));
+    -webkit-mask: radial-gradient(circle var(--mask-size), transparent 99%, #00fdff 100%);
+    mask: radial-gradient(circle var(--mask-size), transparent 99%, #ff0093 100%);
+    background-image: conic-gradient(transparent 25%, rgb(255 219 0));
     animation: spin calc(var(--uib-speed)) linear infinite;
     border-radius: 50%;
-  }
+}
 
   @keyframes spin {
     0% {
