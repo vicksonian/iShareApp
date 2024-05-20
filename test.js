@@ -823,7 +823,7 @@ function showRenameMenu(event, fileId, filename) {
 // Function to make an API call to rename the file on the server
 function renameFile(fileId, newName) {
 	const fR_token = localStorage.getItem("token");
-	fetch("/rename", {
+	fetch("https://ishare-i8td.onrender.com/rename", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -831,7 +831,18 @@ function renameFile(fileId, newName) {
 		},
 		body: JSON.stringify({ file_id: fileId, new_filename: newName }),
 	})
-		.then((response) => response.json())
+		.then((response) => {
+			// Check if the response is JSON
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.indexOf("application/json") !== -1) {
+				return response.json();
+			} else {
+				// Handle non-JSON response
+				return response.text().then((text) => {
+					throw new Error(`Unexpected response: ${text}`);
+				});
+			}
+		})
 		.then((data) => {
 			if (data.message) {
 				alert("File renamed successfully");
@@ -844,3 +855,4 @@ function renameFile(fileId, newName) {
 			alert("Error renaming file: " + error.message);
 		});
 }
+
