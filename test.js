@@ -247,6 +247,16 @@ function fetchAndDisplayFiles() {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
 					});
+
+					fileContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+						checkbox.checked = !checkbox.checked;
+						if (checkbox.checked) {
+							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+						} else {
+							fileContainerDiv.style.backgroundColor = "";
+						}
+					});
 					imageElement.addEventListener("click", handleImageClick);
 				} else if (["mp4", "mov", "avi", "mkv"].includes(fileExtension)) {
 					const videoContainerDiv = document.createElement("div");
@@ -270,6 +280,16 @@ function fetchAndDisplayFiles() {
 					videoContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
+					});
+
+					fileContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+						checkbox.checked = !checkbox.checked;
+						if (checkbox.checked) {
+							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+						} else {
+							fileContainerDiv.style.backgroundColor = "";
+						}
 					});
 					videoElement.addEventListener("click", handleVideoClick);
 				} else if (["mp3", "wav", "ogg"].includes(fileExtension)) {
@@ -296,6 +316,16 @@ function fetchAndDisplayFiles() {
 					audioContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
+					});
+
+					fileContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+						checkbox.checked = !checkbox.checked;
+						if (checkbox.checked) {
+							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+						} else {
+							fileContainerDiv.style.backgroundColor = "";
+						}
 					});
 				} else if (["doc", "pdf", "docx"].includes(fileExtension)) {
 					const docWrapperContainer = document.createElement("div");
@@ -333,6 +363,16 @@ function fetchAndDisplayFiles() {
 					docWrapperContainer.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
+					});
+
+					fileContainerDiv.addEventListener("dblclick", () => {
+						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+						checkbox.checked = !checkbox.checked;
+						if (checkbox.checked) {
+							fileContainerDiv.style.backgroundColor = "#f0f0f0";
+						} else {
+							fileContainerDiv.style.backgroundColor = "";
+						}
 					});
 				} else {
 					const fileContainerDiv = document.createElement("div");
@@ -393,16 +433,13 @@ function fetchAndDisplayFiles() {
 						showButtons(event, file.id, file.filename);
 					});
 
-					// Inside the loop where you're creating file containers, add event listeners to toggle checkbox state and apply visual cues
-					fileContainerDiv.addEventListener("click", () => {
+					fileContainerDiv.addEventListener("dblclick", () => {
 						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
-						checkbox.checked = !checkbox.checked; // Toggle checkbox state
-
-						// Apply visual cue to indicate selection
+						checkbox.checked = !checkbox.checked;
 						if (checkbox.checked) {
-							fileContainerDiv.style.backgroundColor = "#f0f0f0"; // Change background color
+							fileContainerDiv.style.backgroundColor = "#f0f0f0";
 						} else {
-							fileContainerDiv.style.backgroundColor = ""; // Reset background color
+							fileContainerDiv.style.backgroundColor = "";
 						}
 					});
 				}
