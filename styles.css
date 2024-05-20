@@ -385,17 +385,6 @@ f#search-form:valid #i41 {
 	align-content: center;
 }
 
-/* Style for the context menu buttons */
-.context-menu-button {
-	display: flex;
-	align-items: center;
-	background: transparent;
-	padding: 5px;
-	width: 100%;
-	text-align: left;
-	cursor: pointer;
-}
-
 .context-menu-button .icon {
 	margin-right: 8px;
 }
@@ -444,11 +433,17 @@ f#search-form:valid #i41 {
 	height: 20px;
 	border: none;
 	cursor: pointer;
-	background: transparent;
+	background: RED;
 	font-size: 14px;
 	color: #ffffff;
 	transition: color 0.3s;
+	display: flex;
+	align-items: center;
+	padding: 5px;
+	width: 100%;
+	text-align: left;
 }
+
 
 .context-menu-button:hover {
 	color: #c10e0e;
