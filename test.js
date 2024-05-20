@@ -483,24 +483,8 @@ function showButtons(event, fileId, filename) {
 
 	const menuContainer = document.createElement("div");
 	menuContainer.className = "context-menu-container";
-
-	// Get section dimensions
-	const section = document.querySelector(".your-section-selector");
-	const sectionRect = section.getBoundingClientRect();
-
-	// Calculate menu position relative to the section
-	const menuWidth = 200;
-	const menuHeight = 150;
-	const clickX = event.clientX - sectionRect.left;
-	const clickY = event.clientY - sectionRect.top;
-
-	// Calculate the maximum position to keep the menu within the section
-	const maxX = sectionRect.width - menuWidth;
-	const maxY = sectionRect.height - menuHeight;
-
-	// Set menu position within the section
-	menuContainer.style.left = `${Math.min(clickX, maxX)}px`;
-	menuContainer.style.top = `${Math.min(clickY, maxY)}px`;
+	menuContainer.style.left = `${event.pageX}px`;
+	menuContainer.style.top = `${event.pageY}px`;
 
 	const downloadButton = createDownloadButton(fileId, filename);
 	const deleteButton = createDeleteButton(fileId, filename);
@@ -526,7 +510,6 @@ function showButtons(event, fileId, filename) {
 	document.addEventListener("click", hideButtonsOutside);
 	menuContainer.addEventListener("click", (event) => event.stopPropagation());
 }
-
 
 function hideButtons() {
 	const menuContainer = document.querySelector(".context-menu-container");
