@@ -585,7 +585,7 @@ f#search-form:valid #i41 {
 		word-wrap: normal;
 		flex-direction: column;
 		justify-content: center;
-		max-width: 180px;
+		max-width: 100%;
 		font-size: 12px;
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		line-height: 1;
