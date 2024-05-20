@@ -215,7 +215,7 @@ function fetchAndDisplayFiles() {
 				checkbox.className = "file-checkbox";
 				checkbox.id = `checkbox-${file.id}`;
 				checkbox.name = `checkbox-${file.id}`;
-				checkbox.style.display = "none";
+				checkbox.style.display = "block";
 				checkbox.value = file.filename;
 
 				if (["jpg", "jpeg", "svg", "png"].includes(fileExtension)) {
@@ -386,6 +386,19 @@ function fetchAndDisplayFiles() {
 					fileContainerDiv.addEventListener("contextmenu", (event) => {
 						event.preventDefault();
 						showButtons(event, file.id, file.filename);
+					});
+
+					// Inside the loop where you're creating file containers, add event listeners to toggle checkbox state and apply visual cues
+					fileContainerDiv.addEventListener("click", () => {
+						const checkbox = fileContainerDiv.querySelector(".file-checkbox");
+						checkbox.checked = !checkbox.checked; // Toggle checkbox state
+
+						// Apply visual cue to indicate selection
+						if (checkbox.checked) {
+							fileContainerDiv.style.backgroundColor = "#f0f0f0"; // Change background color
+						} else {
+							fileContainerDiv.style.backgroundColor = ""; // Reset background color
+						}
 					});
 				}
 			});
@@ -820,9 +833,7 @@ function showRenameMenu(event, fileId, filename) {
 }
 
 const fR_token = localStorage.getItem("token");
-// Function to make an API call to rename the file on the server
 function renameFile(fileId, newName) {
-	// const fR_token = localStorage.getItem("token");
 	fetch("https://ishare-i8td.onrender.com/rename", {
 		method: "POST",
 		headers: {
@@ -832,12 +843,10 @@ function renameFile(fileId, newName) {
 		body: JSON.stringify({ file_id: fileId, new_filename: newName }),
 	})
 		.then((response) => {
-			// Check if the response is JSON
 			const contentType = response.headers.get("content-type");
 			if (contentType && contentType.indexOf("application/json") !== -1) {
 				return response.json();
 			} else {
-				// Handle non-JSON response
 				return response.text().then((text) => {
 					throw new Error(`Unexpected response: ${text}`);
 				});
@@ -846,6 +855,8 @@ function renameFile(fileId, newName) {
 		.then((data) => {
 			if (data.message) {
 				alert("File renamed successfully");
+
+				fetchAndDisplayFiles();
 			} else {
 				alert("Error renaming file: " + (data.error || "Unknown error"));
 			}
