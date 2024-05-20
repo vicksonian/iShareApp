@@ -186,20 +186,20 @@ function fetchAndDisplayFiles() {
 			docFileList.innerHTML = "";
 			otherFilesContainer.innerHTML = "";
 
-			const photosSelectAllButton = createSelectAllButton("photosContainer");
-			photosContainer.appendChild(photosSelectAllButton);
+			// const photosSelectAllButton = createSelectAllButton("photosContainer");
+			// photosContainer.appendChild(photosSelectAllButton);
 
-			const videosSelectAllButton = createSelectAllButton("videoFileList");
-			videoFileList.appendChild(videosSelectAllButton);
+			// const videosSelectAllButton = createSelectAllButton("videoFileList");
+			// videoFileList.appendChild(videosSelectAllButton);
 
-			const audioSelectAllButton = createSelectAllButton("audiofileList");
-			audioFileList.appendChild(audioSelectAllButton);
+			// const audioSelectAllButton = createSelectAllButton("audiofileList");
+			// audioFileList.appendChild(audioSelectAllButton);
 
-			const docSelectAllButton = createSelectAllButton("docfileList");
-			docFileList.appendChild(docSelectAllButton);
+			// const docSelectAllButton = createSelectAllButton("docfileList");
+			// docFileList.appendChild(docSelectAllButton);
 
-			const filesSelectAllButton = createSelectAllButton("otherFilesList");
-			otherFilesContainer.appendChild(filesSelectAllButton);
+			// const filesSelectAllButton = createSelectAllButton("otherFilesList");
+			// otherFilesContainer.appendChild(filesSelectAllButton);
 
 			if (data.files.length === 0) {
 				MsgBoxContainer.textContent = "No files found...";
@@ -535,15 +535,42 @@ function createRenameButton(fileId, filename) {
 	return renamebtn;
 }
 
-function createSelectAllButton(containerId) {
-	const selectAllButton = document.createElement("button");
-	selectAllButton.className = "context-menu-button";
-	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
-	selectAllButton.addEventListener("click", () => {
-		selectAllFiles(containerId);
-	});
-	return selectAllButton;
+// Function to create a single "Select All" button
+function createSelectAllButton() {
+    const selectAllButton = document.createElement("button");
+    selectAllButton.className = "context-menu-button";
+    selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`;
+    selectAllButton.addEventListener("click", () => {
+        // Determine the active section based on user interaction
+        const activeSection = determineActiveSection();
+        if (activeSection) {
+            selectAllFiles(activeSection);
+        }
+    });
+    return selectAllButton;
 }
+
+// Function to determine the active section based on user interaction
+function determineActiveSection() {
+    // Check which section has files visible (display: block)
+    if (photosContainer.style.display === "block") {
+        return photosContainer;
+    } else if (videoFileList.style.display === "block") {
+        return videoFileList;
+    } else if (audioFileList.style.display === "block") {
+        return audioFileList;
+    } else if (docFileList.style.display === "block") {
+        return docFileList;
+    } else if (otherFilesContainer.style.display === "block") {
+        return otherFilesContainer;
+    }
+    return null; // Return null if no active section is found
+}
+
+// Attach the click event listener to the single "Select All" button
+const selectAllButton = createSelectAllButton();
+document.getElementById("selectAllButtonContainer").appendChild(selectAllButton);
+
 
 function selectAllFiles(containerId) {
 	const container = document.getElementById(containerId);
@@ -575,7 +602,10 @@ function showButtons(event, fileId, filename) {
 	const deleteButton = createDeleteButton(fileId, filename);
 	const shareButton = createShareButton(fileId, filename);
 	const renameButton = createRenameButton(fileId, filename);
-	const selectAllButton = createSelectAllButton(fileId, filename);
+
+	// const selectAllButton = createSelectAllButton(fileId, filename);
+    const selectAllButton = createSelectAllButton();
+
 	menuContainer.appendChild(downloadButton);
 	menuContainer.appendChild(deleteButton);
 	menuContainer.appendChild(shareButton);
