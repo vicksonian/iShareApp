@@ -647,12 +647,14 @@ function showShareMenu(event, fileId, filename) {
 	}, 1440000);
 	document.body.appendChild(menuContainer);
 
-	const pbar = document.createElement("progressbar");
+	const pbar = document.createElement("progress");
 	pbar.className = "pBar";
 	pbar.id = "pBar";
 	pbar.style.display = "block";
 	pbar.style.width = "100%";
 	pbar.style.backgroundColor = "aqua";
+	pbar.setAttribute("max", "100");
+	pbar.setAttribute("value", "0");
 	menuContainer.appendChild(pbar);
 
 	menuContainer.style.display = "block";
