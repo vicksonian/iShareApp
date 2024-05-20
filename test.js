@@ -465,42 +465,59 @@ function createRenameButton(fileId, filename) {
 }
 
 function createSelectAllButton(fileId, filename) {
-    const selectAllButton = document.createElement("button");
-    selectAllButton.className = "context-menu-button";
-    selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
-    selectAllButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
-    });
-    return selectAllButton;
+	const selectAllButton = document.createElement("button");
+	selectAllButton.className = "context-menu-button";
+	selectAllButton.innerHTML = `<i class="fas fa-check-square icon"></i> Select All`; // Use 'fa-check-square' for the select all icon
+	selectAllButton.addEventListener("click", (event) => {
+		event.preventDefault();
+		selectAllFiles(event, fileId, filename); // Assuming you have a function to handle selecting all files
+	});
+	return selectAllButton;
 }
 
 // Example function to handle selecting all files (you need to implement the details)
 function selectAllFiles(event, fileId, filename) {
-    console.log("Select All button clicked");
-    // Your code to select all files goes here
-    // For example, you could update the UI to indicate that all files are selected
+	console.log("Select All button clicked");
+
+
 }
 
 
-// Example rename menu function (you need to implement the details)
+// Function to show the rename menu and prompt the user for a new name
 function showRenameMenu(event, fileId, filename) {
-	// Your code to show the rename menu or prompt goes here
-	// For example, you could prompt the user to enter a new name for the file
-	const newName = prompt("Enter new name for the file:", filename);
-	if (newName) {
-		// Call a function to handle the renaming process
-		renameFile(fileId, newName);
-	}
+    const newName = prompt("Enter new name for the file:", filename);
+    if (newName && newName !== filename) {
+        renameFile(fileId, newName);
+    }
 }
 
-// Example function to handle renaming (you need to implement the details)
-function renameFile(fileId, newName) {
-	console.log(`Renaming file ${fileId} to ${newName}`);
-	// Your code to rename the file on the server goes here
-	// For example, you could make an API call to rename the file
-}
-
+// Function to make an API call to rename the file on the server
+// function renameFile(fileId, newName) {
+//     const token = localStorage.getItem('authToken'); // Assuming you store the auth token in local storage
+//     fetch('/rename', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}` // Assuming the token is required for authentication
+//         },
+//         body: JSON.stringify({ file_id: fileId, new_filename: newName })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.message) {
+//             alert('File renamed successfully');
+//             // Optionally, refresh the file list or update the UI accordingly
+//             // For example, you can call a function to reload the files list
+//             // loadFiles();
+//         } else {
+//             alert('Error renaming file: ' + (data.error || 'Unknown error'));
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error renaming file:', error);
+//         alert('Error renaming file: ' + error.message);
+//     });
+// }
 
 function showButtons(event, fileId, filename) {
 	const existingContainer = document.querySelector(".context-menu-container");
