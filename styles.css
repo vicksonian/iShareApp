@@ -514,17 +514,17 @@ f#search-form:valid #i41 {
 	margin-bottom: 20px;
 }
 
-	.confirmation-message {
-		display: flex;
-		word-wrap: normal;
-		flex-direction: column;
-		justify-content: center;
-		max-width: 100%;
-		font-size: 12px;
-		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-		line-height: 1;
-		color: #fff;
-	}
+.confirmation-message {
+	display: flex;
+	word-wrap: normal;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 100%;
+	font-size: 12px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	line-height: 1;
+	color: #fff;
+}
 
 .file-checkbox {
 	position: relative;
@@ -587,40 +587,44 @@ f#search-form:valid #i41 {
 	align-items: center;
 }
 
-#shareButtonicon{
+#shareButtonicon {
 	color: #51ff00;
 }
-#shareButtonicon:hover{
+#shareButtonicon:hover {
 	color: #d5ff00;
 }
 
 .share-button-spinner {
-    --uib-size: 40px;
-    --uib-color: #d5ff00;
-    --uib-speed: .9s;
-    --uib-stroke: 5px;
-    --mask-size: calc(var(--uib-size) / 2 - var(--uib-stroke));
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: var(--uib-size);
-    width: var(--uib-size);
-    -webkit-mask: radial-gradient(circle var(--mask-size), transparent 99%, #00fdff 100%);
-    mask: radial-gradient(circle var(--mask-size), transparent 99%, #ff0093 100%);
-    background-image: conic-gradient(transparent 25%, rgb(255 219 0));
-    animation: spin calc(var(--uib-speed)) linear infinite;
-    border-radius: 50%;
+	--uib-size: 40px;
+	--uib-color: #d5ff00;
+	--uib-speed: 0.9s;
+	--uib-stroke: 5px;
+	--mask-size: calc(var(--uib-size) / 2 - var(--uib-stroke));
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	height: var(--uib-size);
+	width: var(--uib-size);
+	-webkit-mask: radial-gradient(
+		circle var(--mask-size),
+		transparent 99%,
+		#00fdff 100%
+	);
+	mask: radial-gradient(circle var(--mask-size), transparent 99%, #ff0093 100%);
+	background-image: conic-gradient(transparent 25%, rgb(255 219 0));
+	animation: spin calc(var(--uib-speed)) linear infinite;
+	border-radius: 50%;
 }
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 
 @media screen and (max-width: 400px) {
 	.share-context-menu-container {
@@ -644,4 +648,16 @@ f#search-form:valid #i41 {
 		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 		line-height: 1;
 	}
+}
+
+
+.rmodal-container {
+	max-width: 280px;
+	position: absolute;
+	background-color: #05074c;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(147, 3, 3, 0.616);
+	padding: 15px;
+	z-index: 1000;
 }
