@@ -663,12 +663,14 @@ function showShareMenu(event, fileId, filename) {
 	}
 	const menuContainer = document.createElement("div");
 	menuContainer.className = "share-context-menu-container";
+
 	const headerContainer = document.createElement("div");
 	headerContainer.className = "header-container";
 	const header = document.createElement("h3");
 	header.className = "share-context-menu-header";
 	header.textContent = "Enter recipient's username or email";
 	headerContainer.appendChild(header);
+
 	const clbtn = document.createElement("button");
 	clbtn.className = "context-menu-closeButton";
 	clbtn.id = "context-menu-close-btn";
@@ -736,6 +738,7 @@ function showShareMenu(event, fileId, filename) {
 	menuContainer.style.left = `${(viewportWidth - menuWidth) / 2}px`;
 	menuContainer.style.top = `${(viewportHeight - menuHeight) / 2}px`;
 	document.addEventListener("click", hideMenuOnClickOutside);
+
 	input.addEventListener("input", () => {
 		const recipientIdentifier = input.value;
 		const fv_token = localStorage.getItem("token");
@@ -878,12 +881,92 @@ function hideMenuOnClickOutside(event) {
 }
 
 // Function to show the rename menu and prompt the user for a new name
+// function showRenameMenu(event, fileId, filename) {
+// 	const newName = prompt("Enter new name for the file:", filename);
+// 	if (newName && newName !== filename) {
+// 		renameFile(fileId, newName);
+// 	}
+// }
+
 function showRenameMenu(event, fileId, filename) {
-	const newName = prompt("Enter new name for the file:", filename);
-	if (newName && newName !== filename) {
-		renameFile(fileId, newName);
+	const existingContainer = document.querySelector(".rmodal-container");
+	if (existingContainer) {
+		existingContainer.remove();
+	}
+
+	const rmodal = document.createElement("div");
+	rmodal.className = "rmodal-container";
+	rmodal.id = "rmodal-container";
+
+	const modalheader = document.createElement("div");
+	modalheader.className = "rmodal-header-container";
+	const header = document.createElement("h3");
+	header.className = "modal-header";
+	header.textContent = "iSharee App";
+	modalheader.appendChild(header);
+
+	// Create and append the input field
+	const inputField = document.createElement("input");
+	inputField.type = "text";
+	inputField.className = "rename-input";
+	inputField.value = filename;
+	inputField.placeholder = "Enter new filename";
+
+	// Create the button container
+	const btnContainer = document.createElement("div");
+	btnContainer.className = "btn-container";
+
+	// Create the Cancel button
+	const cancelButton = document.createElement("button");
+	cancelButton.className = "btn-cancel";
+	cancelButton.textContent = "Cancel";
+	cancelButton.addEventListener("click", () => {
+		rmodal.remove();
+		document.removeEventListener("click", hideMenuOnClickOutside);
+	});
+
+	// Create the Okay button
+	const okayButton = document.createElement("button");
+	okayButton.className = "btn-okay";
+	okayButton.textContent = "Okay";
+	okayButton.addEventListener("click", () => {
+		const newName = inputField.value.trim();
+		if (newName && newName !== filename) {
+			renameFile(fileId, newName);
+		}
+		rmodal.remove();
+		document.removeEventListener("click", hideMenuOnClickOutside);
+	});
+
+	// Append buttons to the button container
+	btnContainer.appendChild(cancelButton);
+	btnContainer.appendChild(okayButton);
+
+	// Append elements to the modal
+	rmodal.appendChild(modalheader);
+	rmodal.appendChild(inputField);
+	rmodal.appendChild(btnContainer);
+	document.body.appendChild(rmodal);
+	rmodal.style.display = "block";
+
+	const viewportWidth = window.innerWidth;
+	const viewportHeight = window.innerHeight;
+	const menuWidth = rmodal.offsetWidth;
+	const menuHeight = rmodal.offsetHeight;
+
+	rmodal.style.left = `${(viewportWidth - menuWidth) / 2}px`;
+	rmodal.style.top = `${(viewportHeight - menuHeight) / 2}px`;
+
+	document.addEventListener("click", hideMenuOnClickOutside);
+
+	function hideMenuOnClickOutside(event) {
+		if (!rmodal.contains(event.target)) {
+			rmodal.remove();
+			document.removeEventListener("click", hideMenuOnClickOutside);
+		}
 	}
 }
+
 
 const fR_token = localStorage.getItem("token");
 function renameFile(fileId, newName) {
